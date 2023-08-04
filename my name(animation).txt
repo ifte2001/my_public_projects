@@ -2,6 +2,7 @@
 #include<windows.h>
 #include<unistd.h>
 
+
 void ifte(int a,int b)
 {
     COORD position;
@@ -14,10 +15,14 @@ int main()
 
 {
 
-    int i,xa,ya;
-    int time= 100000;
 
-    for(i=5;i<=80;i+=1)
+    int i,xa,ya;
+    int time= 200000;
+
+    while(1)
+    {
+
+    for(i=5;i<=30;i+=1)
     {
         int j = 15;
 
@@ -178,6 +183,8 @@ int main()
 
         usleep(time);
     }
+    printf("\033[2J");
+}
 
 
     getch();
