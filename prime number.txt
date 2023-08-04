@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<math.h>
+
+int main()
+{
+    int a,n=0,s,i;
+
+    scanf("%d",&a);
+
+    s = sqrt(a);
+    for(i=2;i<=s;i+=1)
+    {
+      if(a%i==0)
+        n+=1;
+    }
+    if(n==0 || a==2 || a==3)
+        printf("YES\n");
+    else
+        printf("NO\n");
+
+
+    return 0;
+}
