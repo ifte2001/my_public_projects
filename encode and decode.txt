@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char Original[100] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";  ///understandable code
+    char Key[100] = "PgEfTYaWGHjDAmxQqFLRpCJBownyUKZXkbvzIdshurMilNSVOtec#@_!=.+-*/";  ///hidden code
+    char data[100010];
+    int k;
+
+    scanf("%d",&k);  ///take input for switch case...
+    scanf("%s",&data);  /// encode or decode...
+ 
+    int n=strlen(data);  ///length of user code...
+    int n1=strlen(Key);  ///length of hidden or understandable code...
+
+    switch(k)
+    {
+    case 1:  ///decoder(we can understand this code): if we choose one... then hidden code >>> understandable code...
+        for(int i=0;i<n;i++)  
+        {
+            for(int j=0;j<n1;j++)
+            {
+                if(data[i] == Original[j]) ///it will search user code character with encode... and take the index for decode
+                    printf("%c",Key[j]);   /// we use the previous index for decode character...
+            }
+        }
+        break;
+
+    case 2:  ///encoder(hidden code): if we choose two... then hidden code <<< understandable code...
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n1;j++)
+            {
+                if(data[i] == Key[j]) ///it will search user code character with decode... and take the index for encode
+                    printf("%c",Original[j]);   /// we use the previous index for encode character...
+            }
+        }
+        break;
+    }
+    
+    return 0;
+}
