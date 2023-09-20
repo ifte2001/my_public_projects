@@ -1,0 +1,269 @@
+    #include<stdio.h>
+    #include<string.h>
+    #include<stdlib.h>
+    #include <unistd.h>
+
+    char* remove_string(char n[1000])
+    {
+        int i = 0;
+        while(n[i]!='\0')
+        {
+            n[i]='\0';
+            i++;
+        }
+        return n;
+    }
+
+    struct customer
+    {
+        int id;
+        char name[100];
+        char phone[50];
+        char password[100];
+    };
+
+    struct customer cus[1000];
+
+
+    int main()
+    {
+        int part;
+        int next_line=0;
+        int double_dot=0;
+
+        FILE *p;
+
+        part1:
+        p = fopen("customer_profile.txt","a+");
+
+        int c_id;
+        int name_index = 0;
+        int password_index = 0;
+        int phone_index = 0;
+        int struct_index = 0;
+
+        char c_name[100];
+        char c_phone[100];
+        char c_password[100];
+
+        int line = 1;
+
+        while(!feof(p))
+        {
+            char ch;
+
+            int last;
+
+            ch = fgetc(p);
+            int enter = ch;
+
+
+
+            if(ch==':')
+                double_dot++;
+            if(enter==10)
+                next_line++;
+
+
+
+            if(double_dot != next_line && line==1)
+            {
+                last = ch - '0';
+                c_id = c_id*10 + last;
+            }
+            if(double_dot != next_line && line==2)
+            {
+                c_name[name_index] = ch;
+                name_index++;
+            }
+            if(double_dot != next_line && line==3)
+            {
+                c_phone[phone_index] = ch;
+                phone_index++;
+            }
+            if(double_dot != next_line && line==4)
+            {
+                c_password[password_index] = ch;
+                password_index++;
+            }
+
+
+
+
+            if(double_dot == next_line && line==1)
+            {
+                cus[struct_index].id = c_id;
+                c_id = 0;
+                line++;
+            }
+            if(double_dot == next_line && line==2)
+            {
+                strcpy(cus[struct_index].name, c_name);
+
+                remove_string(c_name);
+                name_index=0;
+                line++;
+            }
+            if(double_dot == next_line && line==3)
+            {
+                strcpy(cus[struct_index].phone , c_phone);
+
+                remove_string(c_phone);
+                phone_index=0;
+                line++;
+            }
+            if(double_dot == next_line && line==4)
+            {
+                strcpy(cus[struct_index].password , c_password);
+
+                remove_string(c_password);
+                password_index=0;
+                line++;
+            }
+
+
+
+            if(double_dot == next_line && line%4==0)
+            {
+                struct_index++;  ///index of struct cus...
+            }
+        }
+
+        fclose(p);
+
+
+        int key;
+        int id1=1;
+        char password1[100];
+        char nickname[100];
+        char c_phone_number[50];
+        int wrong1 = 0;
+
+        part2:
+        if(wrong1==1)
+            printf("*** You choose the wrong key...\n*** please try again...\n");
+
+        printf("Who are you?\n1. I am customer...\n2. I am the owner...\nEnter the key : ");
+        scanf("%d",&key);
+
+        ///loading part...
+        printf("Loading");
+        for(int i=0;i<4;i++)
+        {
+            usleep(650000);
+            printf(" .");
+        }
+
+        ///clear screen
+        printf("\033[2J");
+        printf("\033[H");
+
+        ///choose log in...
+        if(key==1)
+        {
+            int key1;
+            wrong1 = 0;
+            printf("account\n1. log in\n2. sign up\nEnter the key : ");
+            scanf("%d",&key1);
+
+            ///clear screen
+            printf("\033[2J");
+            printf("\033[H");
+
+            if(key1==1)
+            {
+                part3:
+                printf("log in\n========\n");
+                printf("enter id : ");
+                scanf("%d",&id1);
+                printf("enter password : ");
+                getchar();
+                scanf("%s",&password1);
+                ///loading part...
+                printf("Loading");
+                for(int i=0;i<4;i++)
+                {
+                    usleep(650000);
+                    printf(" .");
+                }
+
+                ///clear screen
+                printf("\033[2J");
+                printf("\033[H");
+    		printf("welcome...");
+            }
+            else if(key1==2)
+            {
+                printf("sign in :\n=========\n");
+                printf("enter your nickname :");
+                scanf("%s",&nickname);
+                printf("enter password :");
+                scanf("%s",&password1);
+                printf("enter your phone number :");
+                scanf("%s",&c_phone_number);
+
+
+                p = fopen("customer_profile.txt","a+");
+
+                fprintf(p,"\nid:%d",id1);
+
+                fprintf(p,"\nName:");
+                fputs(nickname,p);
+
+                fprintf(p,"\nPassword:");
+                fputs(password1,p);
+
+                fprintf(p,"\nPhone number:");
+                fputs(c_phone_number,p);
+
+                fclose(p);
+
+                ///clear screen
+                printf("\033[2J");
+                printf("\033[H");
+
+
+
+
+                ///loading part...
+
+                for(int i=10;i<110;i+=10)
+                {
+
+                    printf("your id number: *** %d ***\n\n",id1);
+
+                    printf("you have to remember your id to log in your account...\n");
+
+                    printf("Creating account : (%d %%)",i);
+                    usleep(640000);
+
+                    ///clear screen
+                    printf("\033[2J");
+                    printf("\033[H");
+                }
+
+                id1++;
+
+                ///clear screen
+                printf("\033[2J");
+                printf("\033[H");
+
+                printf("Log in your account:\n\n");
+
+                goto part1;
+            }
+        }
+        else if(key==2)
+        {
+            wrong1 = 0;
+        }
+        else
+        {
+            printf("\033[2J");
+            printf("\033[H");
+            wrong1 = 1;
+            goto part2;
+        }
+
+        return 0;
+    }
