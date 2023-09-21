@@ -56,7 +56,12 @@
         int part=-1;
         int key;
         int key2=0;
-        int id1=1;
+        int key3=-1;
+        int key4=0;
+        int id1;
+        int del=0;
+        int id2;
+        int id3;
         char dob[100];
         char dob1[100];
         char phone2[100];
@@ -156,6 +161,7 @@
             }
             if(start==0 && line==4)
             {
+                remove_string(cus[struct_index].date_of_birth);
                 strncat(cus[struct_index].date_of_birth , c_date_of_birth,10);
                 remove_string(c_date_of_birth);
                 date_of_birth_index=0;
@@ -174,6 +180,7 @@
 
         fclose(p);
 
+
         if(part==8)
         {
             part = 0;
@@ -186,9 +193,12 @@
 
         for(int i=1;i<=user;i++)
         {
-
-            if(i!=1)
-                fputs("\n",p);
+            if(del==1 && id3==i)
+            {
+                del=0;
+                id3=0;
+                continue;
+            }
 
             fputs(cus[i].name,p);
 
@@ -202,8 +212,7 @@
             fputs("\n",p);
             fputs(cus[i].date_of_birth,p);
 
-            if(i==user)
-                fputs("\n",p);
+            fputs("\n",p);
         }
 
         fclose(p);
@@ -218,6 +227,11 @@
         {
             part=0;
             goto part6;
+        }
+        if(part==9)
+        {
+            part=0;
+            goto part1;
         }
 
 ///part:3     choose customer and owner
@@ -327,6 +341,7 @@
                 }
                 if((strcmp(cus[id1].password , password1) == 0)  && ((n1+n2)==result) && flag==1)
                 {
+                    id2=id1;
                     wrong4= 0;
                     goto part9;
                 }
@@ -376,7 +391,7 @@
                     flag4=0;
                     for(int i=1;i<=user;i++)
                     {
-                        if(strcmp(cus[i].phone , phone2)==0 && strcmp(cus[i].date_of_birth , dob)==0 && n1+n2==result && (length==9 || length==10) && lenth1==11)
+                        if(strcmp(cus[i].phone , phone2)==0 && strcmp(cus[i].date_of_birth , dob)==0 && n1+n2==result && (length==9 || length==10) && length1==11)
                         {
                             id1=i;
                             flag4=1;
@@ -479,8 +494,71 @@
         }
 
 ///part9   menu
+
         part9:
-            printf("%s\n",cus[id1].name);
+        printf("As-salamu alaykum %s\n",cus[id1].name);
+
+        printf("Menu:\n=========\n");
+        printf("1. My profile\n");
+        printf("2. Order food\n");
+        printf("3. My order history\n");
+        printf("4. Log out\n");
+        printf("5. Delete account\n");
+        printf("==================\n");
+        printf("Enter the key: ");
+        scanf("%d",&key3);
+
+
+        ///loading part...
+        printf("Loading");
+        for(int i=0;i<4;i++)
+        {
+            usleep(time1);
+            printf(" .");
+        }
+
+        ///clean screen
+        clear(8);
+        if(key3==1)
+        {
+///part10:
+            part10:
+            printf("Profile:\n==========\n");
+            printf("Nickname      : %s\n",cus[id2].name);
+            printf("Phone number  : %s\n",cus[id2].phone);
+            printf("password      : %s\n",cus[id2].password);
+            printf("Date of birth : %s\n",cus[id2].date_of_birth);
+
+            printf("\n1. Back\n");
+            printf("Enter key : ");
+            scanf("%d",&key4);
+
+            ///clean screen
+            clear(8);
+
+            if(key4==1)
+                goto part9;
+            else
+                goto part10;
+        }
+      //  if(key3==2)
+       // if(key3==3)
+        if(key3==4)
+        {
+            goto part1;
+        }
+        if(key3==5)
+        {
+            part = 9;
+            id3=id2;
+            del=1;
+            goto part2;
+        }
+        else
+        {
+            goto part9;
+        }
+
 
         return 0;
 }
