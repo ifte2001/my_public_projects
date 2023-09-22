@@ -55,9 +55,12 @@
         int time1 = 610;
         int part=-1;
         int key;
+        int key1;
         int key2=0;
         int key3=-1;
         int key4=0;
+        int key5=0;
+        int key6;
         int id1;
         int del=0;
         int id2;
@@ -69,15 +72,21 @@
         int flag1=0;
         int length;
         int length1;
+        int length3;
+        int length2;
         int flag4;
         char password1[100];
         char phone1[100];
         char check_phone[100];
+        char check_date_of_birth[100];
         char nickname[100];
         char c_phone_number[50];
         int wrong1 = 0;
         int wrong3 = -1;
         int wrong4 = -1;
+        char cus_history[100];
+        char phone3[100];
+        char ch1;
 
 
 
@@ -153,7 +162,8 @@
             }
             if(start==0 && line==3)
             {
-                strcpy(cus[struct_index].phone , c_phone);
+                remove_string(cus[struct_index].phone);
+                strncat(cus[struct_index].phone , c_phone , 11);
                 remove_string(c_phone);
                 phone_index = 0;
                 line++;
@@ -260,7 +270,7 @@
         if(key==1)
         {
 ///part:4    choose sign up or log in
-            int key1;
+
             printf("account:\n========\n1. log in\n2. sign up\nEnter the key : ");
             scanf("%d",&key1);
 
@@ -432,11 +442,11 @@
                 printf("sign in :\n=========\n");
                 printf("enter your phone number :");
                 scanf("%s",&check_phone);
+                length2 = strlen(check_phone);
                 for(int i=1;i<=user;i++)
                 {
-                    if(strcmp(cus[i].phone , check_phone)==0)
+                    if(strcmp(cus[i].phone , check_phone)==0 || length2!=11)
                     {
-                        printf("%s\n",cus[i].phone);
                         ///clear screen
                         clear(7);
 
@@ -444,18 +454,28 @@
                         goto part8;
                     }
                 }
+
+                printf("Enter your date of birth (DD/MM/YYYY) :");
+                scanf("%s",&check_date_of_birth);
+                length3 = strlen(check_date_of_birth);
+
+
+                if(length3!=10)
+                {
+                    ///clear screen
+                    clear(7);
+                    printf("Please enter correct information\n\n");
+                    goto part8;
+                }
                 user++;
 
                 strcpy(cus[user].phone , check_phone);
-
+                strcpy(cus[user].date_of_birth , check_date_of_birth);
                 printf("enter your nickname :");
                 scanf("%s",&cus[user].name);
 
                 printf("enter password :");
                 scanf("%s",&cus[user].password);
-
-                printf("enter your date of birth (DD/MM/YYYY):");
-                scanf("%s",&cus[user].date_of_birth);
 
                 ///clear screen
                 clear(7);
@@ -480,10 +500,14 @@
                     goto part2;
                 }
         }
-        else if(key==2)
+        if(key==2)
         {
             ///owner part
             wrong1 = 0;
+
+            printf("go");
+
+
         }
         else
         {
@@ -496,6 +520,8 @@
 ///part9   menu
 
         part9:
+        ///clean screen
+        clear(25);
         printf("As-salamu alaykum %s\n",cus[id1].name);
 
         printf("Menu:\n=========\n");
@@ -523,6 +549,8 @@
         {
 ///part10:
             part10:
+            ///clear screen
+            clear(7);
             printf("Profile:\n==========\n");
             printf("Nickname      : %s\n",cus[id2].name);
             printf("Phone number  : %s\n",cus[id2].phone);
@@ -541,14 +569,96 @@
             else
                 goto part10;
         }
-      //  if(key3==2)
-       // if(key3==3)
+        if(key3==2)
+        {
+///part10a  5 times of meal part
+            part10a:
+            ///clean screen
+            clear(30);
+            printf("Order Food :\n================\n");
+
+            printf("1. Breakfast\n");
+            printf("2. Snack\n");
+            printf("3. Lunch\n");
+            printf("4. Supper\n");
+            printf("5. Dinner\n===============");
+            printf("\n-1. back\nEnter key : ");
+            scanf("%d",&key6);
+
+            if(key6==1)
+            {
+///part10b   breakfast order part
+                part10b:
+                ///clean screen
+                clear(20);
+
+                printf("Breakfast :\n=============");
+                printf(". \n");
+                printf(". \n");
+                printf(". \n");
+                printf(". \n");
+                printf(". \n");
+                printf(". \n");
+                printf(". \n");
+                printf(". \n");
+                printf(". \n=================\n");
+
+                printf("-1 . Back");
+
+                printf("\n\nEnter key to order food : ");
+
+                scanf("%d",&key6);
+
+                if(key6==-1)
+                    goto part10a;
+                else
+                {
+                    goto part10b;
+                }
+              }
+            }
+
+        if(key3==3)
+        {
+///part11
+            part12:
+            strcpy(phone3 , cus[id1].phone);
+            strcat(phone3 , ".txt");
+            strcpy(cus_history , phone3);
+            FILE *p1;
+
+            p1 = fopen(cus_history , "a+");
+
+            printf("My order history :\n===================\n");
+            while(!feof(p1))
+            {
+                ch1 = fgetc(p1);
+                printf("%c",ch1);
+            }
+
+            fclose(p1);
+
+            printf("\n\n1. Back\nEnter key : ");
+            scanf("%d",&key5);
+
+            if(key5==1)
+            {
+                goto part9;
+            }
+            else
+                goto part12;
+        }
         if(key3==4)
         {
+            remove_string(phone3);
+            id2=id3=id1=0;
+            remove_string(cus_history);
             goto part1;
         }
         if(key3==5)
         {
+            remove_string(phone3);
+            remove(cus_history);
             part = 9;
             id3=id2;
             del=1;
