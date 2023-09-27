@@ -20,9 +20,32 @@
         char password[100];
         char phone[50];
         char date_of_birth[20];
+        char best_friend[50];
     };
 
     struct customer cus[10000];
+
+
+    struct owner
+    {
+        int yes;
+        char nickname[50];
+        char password[50];
+        char phone[50];
+        char date_of_birth[50];
+        char best_friend[50];
+    };
+
+    struct owner own;
+
+
+    void gotoxy(int x, int y)
+    {
+        COORD c;
+        c.X = x;
+        c.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE) , c);
+    }
 
 
     void space(int a,int b)
@@ -38,13 +61,32 @@
         for(int i=0;i<n*2;i++)
         {
             space(0,i);
-            printf("                                                                                        \n                                                                                       \n");
+            printf("                                                                                                                                              \n                                                                                                                                             \n");
         }
         space(0,0);
     }
 
     int main()
     {
+
+
+///opening fodx
+        int x_axix=42;
+        int y_axix=12;
+        gotoxy(x_axix , y_axix);
+        printf("00000     00000     000000     00     00\n");
+        gotoxy(x_axix , y_axix+1);
+        printf("00       00   00    00   00      00 00\n");
+        gotoxy(x_axix , y_axix+2);
+        printf("00000    00   00    00    00      000\n");
+        gotoxy(x_axix , y_axix+3);
+        printf("00       00   00    00   00      00 00\n");
+        gotoxy(x_axix , y_axix+4);
+        printf("00        00000     000000     00     00\n");
+
+        usleep(2000000);
+        ///clear screen
+        clear(15);
 
         int user;
 
@@ -53,6 +95,7 @@
 
         user = 0;
         int time1 = 610;
+        int yes;
         int part=-1;
         int key;
         int key1;
@@ -60,7 +103,7 @@
         int key3=-1;
         int key4=0;
         int key5=0;
-        int key6;
+        int key6,key7,key8,key9,key10,key11,key12,key13,key14,key15;
         int id1;
         int del=0;
         int id2;
@@ -70,15 +113,19 @@
         char phone2[100];
         int flag=0;
         int flag1=0;
+        int flag5;
         int length;
         int length1;
         int length3;
         int length2;
         int flag4;
         char password1[100];
+        char password2[100];
+        char password5[100];
         char phone1[100];
         char check_phone[100];
         char check_date_of_birth[100];
+        char best_friend1[100];
         char nickname[100];
         char c_phone_number[50];
         int wrong1 = 0;
@@ -86,7 +133,15 @@
         int wrong4 = -1;
         char cus_history[100];
         char phone3[100];
+        char phone5[100];
+        char phone6[100];
         char ch1;
+        char dob2[50];
+        char phone4[50];
+        char best_friend2[50];
+        char date_of_birth[50];
+        char date_of_birth2[50];
+
 
 
 
@@ -96,94 +151,31 @@
         int result;
         int n1,n2;
 
-        int name_index = 0;
-        int password_index = 0;
-        int phone_index = 0;
-        int date_of_birth_index = 0;
         int struct_index = 1;
-        int start;
 
-        char c_name[100];
-        char c_phone[100];
-        char c_password[100];
-        char c_date_of_birth[20];
+        p = fopen("customer_profile.txt","a+");
 
-        p = fopen("customer_profile.txt","r");
+        int line = 0;
 
-        int line = 1;
-
-        start = 1;
-        remove_string(c_date_of_birth);
         while(!feof(p))
         {
-            char ch;
+            if(line==0)
+                fscanf(p, "%s" ,&cus[struct_index].name);
+            if(line==1)
+                fscanf(p, "%s" ,&cus[struct_index].password);
+            if(line==2)
+                fscanf(p, "%s" ,&cus[struct_index].phone);
+            if(line==3)
+                fscanf(p, "%s" ,&cus[struct_index].date_of_birth);
+            if(line==4)
+                fscanf(p, "%s" ,&cus[struct_index].best_friend);
 
-            ch = fgetc(p);
-            int enter = ch;
-
-            if(enter==10)
-                start=0;
-
-            if(start==1 && line==1)
-            {
-                c_name[name_index] = ch;
-                name_index++;
-            }
-            if(start==1 && line==2)
-            {
-                c_password[password_index] = ch;
-                password_index++;
-            }
-            if(start==1 && line==3)
-            {
-                c_phone[phone_index] = ch;
-                phone_index++;
-            }
-            if(start==1 && line==4)
-            {
-                c_date_of_birth[date_of_birth_index] = ch;
-                date_of_birth_index++;
-            }
-            if(start==0 && line==1)
-            {
-                strcpy(cus[struct_index].name, c_name);
-                remove_string(c_name);
-                name_index = 0;
-                line++;
-                start=1;
-            }
-            if(start==0 && line==2)
-            {
-                strcpy(cus[struct_index].password , c_password);
-                remove_string(c_password);
-                password_index=0;
-                line++;
-                start=1;
-            }
-            if(start==0 && line==3)
-            {
-                remove_string(cus[struct_index].phone);
-                strncat(cus[struct_index].phone , c_phone , 11);
-                remove_string(c_phone);
-                phone_index = 0;
-                line++;
-                start=1;
-            }
-            if(start==0 && line==4)
-            {
-                remove_string(cus[struct_index].date_of_birth);
-                strncat(cus[struct_index].date_of_birth , c_date_of_birth,10);
-                remove_string(c_date_of_birth);
-                date_of_birth_index=0;
-                line++;
-                start=1;
-            }
-
+            line++;
 
             if(line==5)
             {
-                struct_index++; ///index of struct cus...
-                line=1;
+                line=0;
+                struct_index++;
                 user++;
             }
         }
@@ -218,9 +210,11 @@
             fputs("\n",p);
             fputs(cus[i].phone,p);
 
-            strncat(dob1,cus[i].date_of_birth,10);
             fputs("\n",p);
             fputs(cus[i].date_of_birth,p);
+
+            fputs("\n",p);
+            fputs(cus[i].best_friend,p);
 
             fputs("\n",p);
         }
@@ -236,6 +230,7 @@
         if(part==8)
         {
             part=0;
+            user++;  ///because for signing up a new account had been added...
             goto part6;
         }
         if(part==9)
@@ -252,7 +247,10 @@
             printf("***  You have choosen the wrong key  ***\n    ***  please try again  ***\n\n");
         }
 
-        printf("Who are you?\n1. I am customer...\n2. I am the owner...\nEnter the key : ");
+        printf("Who are you?\n");
+        printf("1. I am customer...\n");
+        printf("2. I am the owner...\n");
+        printf("Enter the key : ");
         scanf("%d",&key);
 
         ///loading part...
@@ -270,15 +268,27 @@
         if(key==1)
         {
 ///part:4    choose sign up or log in
-
-            printf("account:\n========\n1. log in\n2. sign up\nEnter the key : ");
+            while(1)
+            {
+            part4:
+            printf("account:\n========\n");
+            printf("1. log in\n");
+            printf("2. sign up\n");
+            printf("3. Back\n");
+            printf("Enter the key : ");
             scanf("%d",&key1);
 
             ///clear screen
             clear(7);
+
+            if(key1==3)
+            {
+                goto part3;
+            }
 ///part:5    enter wrong password
             key2=0;
             wrong4=0;
+
             if(key1==1)
             {
                 part5:
@@ -315,9 +325,52 @@
                 printf("log in\n========\n");
                 printf("enter phone number : ");
                 scanf("%s",&phone1);
-                printf("enter password : ");
+
+                flag5=0;
+                for(int i=1;i<=user;i++)
+                {
+                    if(strcmp(cus[i].phone , phone1)==0)
+                    {
+                        flag5=1;
+                        goto part6b;
+                    }
+                }
+                if(flag5==0)
+                {
+                    while(1)
+                    {
+///part6a
+                    part6a:
+                    ///clear screen
+                    clear(7);
+                    printf("There is no account for this number \n");
+                    printf("1. Try again\n");
+                    printf("2. Back\n");
+                    printf("\nEnter the key : ");
+
+                    scanf("%d",&key10);
+                    if(key10==1)
+                    {
+                        ///clear screen
+                        clear(8);
+                        goto part6;
+                    }
+                    if(key10==2)
+                    {
+                        ///clear screen
+                        clear(8);
+                        goto part4;
+                    }
+                    ///clear screen
+                    clear(8);
+                    }
+                  }
+
+///part6b
+                part6b:
+                printf("Enter password : ");
                 scanf("%s",&password1);
-                printf("answer the question : \n");
+                printf("Answer the question : \n");
 
                 srand(time(0));
 
@@ -349,7 +402,7 @@
                         break;
                     }
                 }
-                if((strcmp(cus[id1].password , password1) == 0)  && ((n1+n2)==result) && flag==1)
+                if(strcmp(cus[id1].password , password1) == 0  && (n1+n2)==result && flag==1)
                 {
                     id2=id1;
                     wrong4= 0;
@@ -365,14 +418,18 @@
 
 ///part7   change password
                 part7:
+                ///clear screen
+                clear(8);
                 if(wrong3==1)
                 {
                     wrong3=0;
                     printf("Answer the question\n");
+                    printf("Enter your phone number : ");
+                    scanf("%s",&phone2);
                     printf("What is your date of birth (DD/MM/YYYY): ");
                     scanf("%s",&dob);
-                    printf("What is your phone number: ");
-                    scanf("%s",&phone2);
+                    printf("What is your Best friend nickname : ");
+                    scanf("%s",&best_friend1);
 
                     length = strlen(dob);
                     length1 = strlen(phone2);
@@ -401,7 +458,7 @@
                     flag4=0;
                     for(int i=1;i<=user;i++)
                     {
-                        if(strcmp(cus[i].phone , phone2)==0 && strcmp(cus[i].date_of_birth , dob)==0 && n1+n2==result && (length==9 || length==10) && length1==11)
+                        if(strcmp(cus[i].phone , phone2)==0 && strcmp(cus[i].best_friend , best_friend1)==0  &&  strcmp(cus[i].date_of_birth , dob)==0 && n1+n2==result && (length==9 || length==10) && length1==11)
                         {
                             id1=i;
                             flag4=1;
@@ -416,7 +473,7 @@
                         goto part5;
                     }
 
-                    printf("charge password : ");
+                    printf("Charge password : ");
                     scanf("%s",cus[id1].password);
                     part=7;
                     wrong4=0;
@@ -439,7 +496,7 @@
 
                 part8:
 
-                printf("sign in :\n=========\n");
+                printf("sign in :\n==========\n");
                 printf("enter your phone number :");
                 scanf("%s",&check_phone);
                 length2 = strlen(check_phone);
@@ -447,11 +504,35 @@
                 {
                     if(strcmp(cus[i].phone , check_phone)==0 || length2!=11)
                     {
+///part8a
+                        part8a:
                         ///clear screen
                         clear(7);
 
                         printf("You can't use this number\n");
-                        goto part8;
+                        printf("1. Try again\n");
+                        printf("2. Back\n");
+                        printf("=================\n");
+                        printf("Enter the key : ");
+                        scanf("%d",&key9);
+                        if(key9==1)
+                        {
+                            ///clear screen
+                            clear(7);
+                            goto part8;
+                        }
+                        if(key9==2)
+                        {
+                            ///clear screen
+                            clear(7);
+                            goto part3;
+                        }
+                        else
+                        {
+                            ///clear screen
+                            clear(7);
+                            goto part8a;
+                        }
                     }
                 }
 
@@ -477,6 +558,9 @@
                 printf("enter password :");
                 scanf("%s",&cus[user].password);
 
+                printf("Enter your best friend name : ");
+                scanf("%s",&cus[user].best_friend);
+
                 ///clear screen
                 clear(7);
 
@@ -499,15 +583,208 @@
                     part=8;
                     goto part2;
                 }
+                if(key1==3)
+                {
+                   ///clear screen
+                    clear(7);
+                    wrong1=0;
+                    goto part3;
+                }
+            }
         }
         if(key==2)
         {
-            ///owner part
-            wrong1 = 0;
+///======================================================================================
+///owner part
+        wrong1 = 0;
+        part=0;
+///part8b1
+///struct will update  from file:
+        part8b1:
 
-            printf("go");
+        p=fopen("owner.txt","a+");
+
+        while(!feof(p))
+        {
+            fscanf(p,"%d",&own.yes);
+            fscanf(p,"%s",&own.nickname);
+            fscanf(p,"%s",&own.phone);
+            fscanf(p,"%s",&own.password);
+            fscanf(p,"%s",&own.date_of_birth);
+            fscanf(p,"%s",&own.best_friend);
+        }
+
+        fclose(p);
+
+///check is there any owner account in file...
 
 
+            if(own.yes==1)
+            {
+                ///clear screen
+                clear(7);
+                goto part8d;
+            }
+            else
+            {
+                ///clear screen
+                clear(7);
+                goto part8b;
+            }
+
+
+
+///if there is no account for the owner then the sign up part will work and if there is an account for the owner then the log in part will work
+
+///part8b:
+///owner sign up part
+        part8b:
+        while(1)
+        {
+            printf("Sign up : \n===============\n");
+            printf("Enter your phone number: ");
+            scanf("%s",&phone4);
+            if(strlen(phone4)==11)
+            {
+                break;
+            }
+            else
+            {
+                ///clear screen
+                clear(7);
+                printf("Enter correct information\n\n");
+            }
+        }
+            printf("Enter your Date of birth (DD/MM/YYYY) : ");
+            scanf("%s",&dob2);
+            if(strlen(dob2)!=10)
+            {
+                ///clear screen
+                clear(7);
+                printf("Enter correct information\n\n");
+                goto part8b;
+            }
+
+            strcpy(own.phone , phone4);
+            strcpy(own.date_of_birth , dob2);
+
+            own.yes = 1;
+
+            printf("Your nickname : ");
+            scanf("%s",&own.nickname);
+
+            printf("Your best friend nickname : ");
+            scanf("%s",&own.best_friend);
+
+            printf("Enter password : ");
+            scanf("%s",&own.password);
+
+            ///clear screen
+            clear(7);
+            goto part8c;
+
+///owner file update from struct
+///part8c
+        part8c:
+
+        p= fopen("owner.txt","w");
+
+        fprintf(p,"1\n");
+        fprintf(p,"%s\n",own.nickname);
+        fprintf(p,"%s\n",own.phone);
+        fprintf(p,"%s\n",own.password);
+        fprintf(p,"%s\n",own.date_of_birth);
+        fprintf(p,"%s\n",own.best_friend);
+
+        fclose(p);
+
+///owner log in part:
+///part8d:
+        part8d:
+        printf("Log in :\n===========\n");
+        printf("Enter your phone number : ");
+        scanf("%s",&phone5);
+        printf("Enter password : ");
+        scanf("%s",&password5);
+
+        if(strcmp(phone5 , own.phone)==0 && strcmp(password5,own.password)==0)
+            goto part12;
+        else
+        {
+            while(1)
+            {
+            ///clear screen
+            clear(7);
+            printf("Wrong information...\n");
+            printf("1. Try again\n");
+            printf("2. Forget password\n");
+            printf("3. Back\n=======================\n");
+            printf("Enter the key : ");
+            scanf("%d",&key12);
+
+            if(key12==1)
+            {
+                ///clear screen
+                clear(7);
+                goto part8d;
+            }
+            else if(key12==2)
+            {
+                ///clear screen
+                clear(7);
+                goto part8e;
+            }
+            else if(key12==3)
+            {
+                ///clear screen
+                clear(7);
+                goto part3;
+            }
+            }
+        }
+///change password for owner
+///part8e
+        part8e:
+        printf("Enter your best friend name : ");
+        scanf("%s",&best_friend2);
+        printf("Enter your date of birth (DD/MM/YYYY): ");
+        scanf("%s",&date_of_birth2);
+
+        if(strcmp(date_of_birth2 , own.date_of_birth)==0  &&  strcmp(best_friend2 , own.best_friend)==0)
+        {
+            printf("Enter new password : ");
+            scanf("%s",&own.password);
+
+            ///clear screen
+            clear(7);
+
+            goto part8c;
+        }
+        else
+        {
+        while(1)
+           {
+            ///clear screen
+            clear(7);
+            printf("Wrong information\n");
+            printf("1. Try again\n");
+            printf("2. Back\n");
+            scanf("%d",&key13);
+
+            if(key13==1)
+            {
+                ///clear screen
+                clear(7);
+                goto part8e;
+            }
+            if(key13==2)
+            {
+                ///clear screen
+                clear(7);
+                goto part3;
+            }
+           }
+          }
         }
         else
         {
@@ -516,8 +793,9 @@
             wrong1 = 1;
             goto part3;
         }
-
-///part9   menu
+///==================================================================================================
+///owner and customer menu part...
+///part9   customer menu
 
         part9:
         ///clean screen
@@ -530,6 +808,7 @@
         printf("3. My order history\n");
         printf("4. Log out\n");
         printf("5. Delete account\n");
+        printf("6. Account setting\n");
         printf("==================\n");
         printf("Enter the key: ");
         scanf("%d",&key3);
@@ -552,10 +831,11 @@
             ///clear screen
             clear(7);
             printf("Profile:\n==========\n");
-            printf("Nickname      : %s\n",cus[id2].name);
-            printf("Phone number  : %s\n",cus[id2].phone);
-            printf("password      : %s\n",cus[id2].password);
-            printf("Date of birth : %s\n",cus[id2].date_of_birth);
+            printf("Nickname         : %s\n",cus[id2].name);
+            printf("Phone number     : %s\n",cus[id2].phone);
+            printf("password         : %s\n",cus[id2].password);
+            printf("Date of birth    : %s\n",cus[id2].date_of_birth);
+            printf("Best friend name : %s\n",cus[id2].best_friend);
 
             printf("\n1. Back\n");
             printf("Enter key : ");
@@ -621,22 +901,21 @@
         if(key3==3)
         {
 ///part11
-            part12:
+            part11:
             strcpy(phone3 , cus[id1].phone);
             strcat(phone3 , ".txt");
             strcpy(cus_history , phone3);
-            FILE *p1;
 
-            p1 = fopen(cus_history , "a+");
+            p = fopen(cus_history , "a+");
 
             printf("My order history :\n===================\n");
-            while(!feof(p1))
+            while(!feof(p))
             {
-                ch1 = fgetc(p1);
+                ch1 = fgetc(p);
                 printf("%c",ch1);
             }
 
-            fclose(p1);
+            fclose(p);
 
             printf("\n\n1. Back\nEnter key : ");
             scanf("%d",&key5);
@@ -646,7 +925,7 @@
                 goto part9;
             }
             else
-                goto part12;
+                goto part11;
         }
         if(key3==4)
         {
@@ -664,9 +943,150 @@
             del=1;
             goto part2;
         }
+        if(key3==6)
+        {
+///part11a   reset account part
+            part11a:
+            ///clear screen
+            clear(8);
+            printf("For security:\n===============\n");
+            printf("Enter the password : ");
+            scanf("%s",&password2);
+
+            if(strcmp(cus[id1].password , password2)==0)
+            {
+///part11b
+                part11b:
+                while(1)
+                {
+                ///clear screen
+                clear(8);
+                printf("Account setting :\n===================\n");
+                printf("1. Change nickname\n");
+                printf("2. Change Date of birth\n");
+                printf("3. Change password\n");
+                printf("4. Back\n==================\n");
+                printf("Enter the key : ");
+                scanf("%d",&key8);
+
+                if(key8==1)
+                {
+                    printf("Previous nickname : %s\n",cus[id1].name);
+                    printf("New nickname : ");
+                    scanf("%s",&cus[id1].name);
+                }
+                if(key8==2)
+                {
+                    printf("Previous Date of birth : %s\n",cus[id1].date_of_birth);
+                    printf("New Date of birth : ");
+                    scanf("%s",&cus[id1].date_of_birth);
+                }
+                if(key8==3)
+                {
+                    printf("Previous password : %s\n",cus[id1].password);
+                    printf("New password : ");
+                    scanf("%s",&cus[id1].password);
+                }
+                if(key8==4)
+                {
+                    goto part9;
+                }
+                else
+                {
+                    goto part11b;
+                }
+                }
+            }
+            else
+            {
+                ///clear screen
+                clear(8);
+///part11c
+                part11c:
+                ///clear screen
+                clear(8);
+                printf("1. (wrong password) Try again\n");
+                printf("2. Back to the Menu\n=======================\n");
+                printf("Enter the key : ");
+                scanf("%d",&key7);
+
+                if(key7==1)
+                {
+                    goto part11a;
+                }
+                if(key7==2)
+                {
+                    goto part9;
+                }
+                else
+                {
+                    goto part11c;
+                }
+            }
+        }
         else
         {
             goto part9;
+        }
+///=========================================================================================printtf=========
+///owner menu:
+        part12:
+        while(1)
+        {
+        ///clear screen
+        clear(8);
+        printf("As-salamu alaykum %s\n\n",own.nickname);
+        printf("Menu\n==========\n");
+        printf("1. My profile\n");
+        printf("2. customer order\n");
+        printf("3. Add food\n");
+        printf("4. remaining food\n");
+        printf("5. Log out\n========================\n");
+        printf("6. Enter the key : ");
+
+        scanf("%d",&key14);
+
+        if(key14==1)
+        {
+            while(1)
+            {
+            ///clear screen
+            clear(8);
+            printf("Profile : \n==============\n");
+            printf("Nickname         : %s\n",own.nickname);
+            printf("Phone number     : %s\n",own.phone);
+            printf("Password         : %s\n",own.password);
+            printf("Date of birth    : %s\n",own.date_of_birth);
+            printf("Best friend name : %s\n\n",own.best_friend);
+            printf("1. Back\n");
+            printf("Enter the key : ");
+            scanf("%d",&key15);
+            if(key15==1)
+            {
+                ///clear screen
+                clear(8);
+                goto part12;
+            }
+            }
+        }
+        if(key14==2)
+        {
+
+        }
+        if(key14==3)
+        {
+
+        }
+        if(key14==4)
+        {
+
+        }
+        if(key14==5)
+        {
+            ///clear screen
+            clear(8);
+            goto part3;
+        }
         }
 
 
