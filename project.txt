@@ -274,11 +274,12 @@
         int key3=-1;
         int key4=0;
         int key5=0;
-        int key6,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16;
+        int key6,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16,key17,key18,key19;
         int id1;
         int del=0;
         int id2;
         int id3;
+        char ch2;
         char search[1000];
         char dob[100];
         char dob1[100];
@@ -292,6 +293,7 @@
         int length2;
         int amount;
         int flag4;
+        char address[1000];
         char password1[100];
         char password2[100];
         char password5[100];
@@ -300,10 +302,12 @@
         char check_date_of_birth[100];
         char best_friend1[100];
         char nickname[100];
+        int food_index[1000]={0};
         char c_phone_number[50];
         int wrong1 = 0;
         int wrong3 = -1;
         int wrong4 = -1;
+        char transection[100];
         char cus_history[100];
         char phone3[100];
         char phone5[100];
@@ -973,7 +977,7 @@
 
         part9:
         ///clean screen
-        clear(25);
+        clear(40);
         printf("As-salamu alaykum %s\n",cus[id1].name);
 
         printf("Menu:\n=========\n");
@@ -1030,6 +1034,7 @@
            part10a:
            item = 0;
            amount = 0;
+           remove_array(food_index,900);
            while(1)
             {
 ///part10b
@@ -1063,6 +1068,7 @@
                 part10c:
                 if(key16>=1 && key16<=50)
                 {
+                    food_index[item] = key16;
                     amount = amount + cus_food[key16].food_price;
                     item++;
                 }
@@ -1160,21 +1166,140 @@
                 }
                 if(key16==51)
                 {
+                    remove_array(food_index,item);
                     amount = 0;
                     item = 0;
                     goto part9;
                 }
-                if(key16==52)
+                if(key16==54)
                 {
-                    ///confirm order...
+///part10c1
+                    part10c1:
+                    ///clear screen
+                    clear(30);
+                    printf("Address : \n===========\n");
+                    printf("Address (use \" _ \" at the place of space) : ");
+                    scanf("%s",&address);
+                    ///clear screen
+                    clear(30);
+
+                    printf("Payment process : \n==================\n");
+                    printf("1. Cash on delivery\n");
+                    printf("2. Bkash\n");
+
+                    printf("Enter the key : ");
+                    scanf("%d",&key17);
+
+                    if(key17==1)
+                    {
+                        while(1)
+                        {
+                        ///clear screen
+                        clear(30);
+                        printf("Order confirmed...\n\n");
+
+                        printf("1. Back to menu\n");
+
+                        printf("Enter the key : ");
+                        scanf("%d",&key18);
+                        if(key18==1)
+                            goto part10d;
+                        }
+                    }
+                    if(key17==2)
+                    {
+                        ///clear screen
+                        clear(30);
+                        printf("Transfer the certain amount of money at this number : 01818477521\n");
+
+                        printf("After transfer money enter the transection id : ");
+                        scanf("%s",&transection);
+
+                        while(1)
+                        {
+                            ///clear screen
+                            clear(30);
+                            printf("Order confirmed...\n\n");
+
+                            printf("1. Back to menu\n");
+
+                            printf("Enter the key : ");
+                            scanf("%d",&key18);
+                            if(key18==1)
+                                goto part10d;
+                        }
+                    }
+                    else
+                        goto part10c1;
+///part10d
+                    part10d:
+///for customer history
+                    strcpy(phone3 , cus[id1].phone);
+                    strcat(phone3 , ".txt");
+                    strcpy(cus_history , phone3);
+
+                    p = fopen(cus_history , "a");
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"order date : %s\n",__DATE__);
+                    fprintf(p,"order time : %s\n-=-=-=-=-=-=-=-=-=-=-=-=-=-\n",__TIME__);
+                    for(int j=0;j<item;j++)
+                    {
+                        int index2 = food_index[j];
+
+                        fprintf(p,"%d . %s (%d TAKA)\n",j+1,cus_food[index2].food_name,cus_food[index2].food_price);
+                    }
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"Total item : %d\n",item);
+                    fprintf(p,"Total amount : %d\n",amount);
+
+                    if(key17==1)
+                        fprintf(p,"Payment process : Cash on delivery\n");
+                    if(key17==2)
+                        fprintf(p,"Payment process : Bkash\n");
+
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n\n");
+                    fclose(p);
+
+///for owner about customer history
+
+                    p = fopen("owner_history.txt","a");
+
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"order date : %s\n",__DATE__);
+                    fprintf(p,"order time : %s\n",__TIME__);
+                    fprintf(p,"Customer phone number : %s\n-=-=-=-=-=-=-=-=-=-=-=-=-=-\n",cus[id2].phone);
+                    for(int j=0;j<item;j++)
+                    {
+                        int index2 = food_index[j];
+
+                        fprintf(p,"%d . %s (%d TAKA)\n",j+1,cus_food[index2].food_name,cus_food[index2].food_price);
+                    }
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"Total item : %d\n",item);
+                    fprintf(p,"Total amount : %d\n",amount);
+
+                    if(key17==1)
+                        fprintf(p,"Payment process : Cash on delivery\n");
+                    if(key17==2)
+                    {
+                        fprintf(p,"Payment process : Bkash\n");
+                        fprintf(p,"Transection id : %s\n",transection);
+                    }
+                    fprintf(p,"Address : %s\n",address);
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n\n");
+
+                    fclose(p);
+                    system("cls");
+                    goto part9;
+                    }
                 }
-            }
-          }
+             }
 
         if(key3==3)
         {
 ///part11
             part11:
+            system("cls");
             strcpy(phone3 , cus[id1].phone);
             strcat(phone3 , ".txt");
             strcpy(cus_history , phone3);
@@ -1200,11 +1325,9 @@
                 p=fopen(cus_history,"w");
 
                 fclose(p);
-                ///clear screen
-                clear(8);
                 goto part11;
             }
-            if(key5==2)
+            else if(key5==2)
             {
                 goto part9;
             }
@@ -1314,19 +1437,19 @@
         }
 ///=========================================================================================printtf=========
 ///owner menu:
+///part12
         part12:
         while(1)
         {
-        ///clear screen
-        clear(8);
+        system("cls");
         printf("As-salamu alaykum %s\n\n",own.nickname);
         printf("Menu\n==========\n");
         printf("1. My profile\n");
         printf("2. customer order\n");
-        printf("3. Add food\n");
-        printf("4. remaining food\n");
-        printf("5. Log out\n========================\n");
-        printf("6. Enter the key : ");
+        printf("3. Log out\n\n");
+        printf("Total user of FODX: %d\n\n",user);
+        printf("=======================\n");
+        printf("Enter the key : ");
 
         scanf("%d",&key14);
 
@@ -1335,7 +1458,7 @@
             while(1)
             {
             ///clear screen
-            clear(8);
+            clear(100);
             printf("Profile : \n==============\n");
             printf("Nickname         : %s\n",own.nickname);
             printf("Phone number     : %s\n",own.phone);
@@ -1355,17 +1478,37 @@
         }
         if(key14==2)
         {
+            while(1)
+            {
+            system("cls");
+            p = fopen("owner_history.txt","a+");
 
+            printf("Order list : \n-=-=-=-=-=-=-=-=-=-\n");
+            while(!feof(p))
+            {
+                ch2=fgetc(p);
+                printf("%c",ch2);
+            }
+            fclose(p);
+
+            printf("\n\n1. Back\n");
+            printf("2. Clear order list\n");
+
+
+            printf("Enter the key : ");
+            scanf("%d",&key19);
+
+            if(key19==1)
+                goto part12;
+            if(key19==2)
+            {
+                p = fopen("owner_history.txt","w");
+
+                fclose(p);
+            }
+            }
         }
         if(key14==3)
-        {
-
-        }
-        if(key14==4)
-        {
-
-        }
-        if(key14==5)
         {
             ///clear screen
             clear(8);
