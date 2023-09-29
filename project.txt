@@ -14,6 +14,16 @@
         }
     }
 
+    void remove_array(int m[1000],int len)
+    {
+        for(int i=1;i<=len;i++)
+        {
+            m[i]=0;
+        }
+    }
+
+
+
     struct customer
     {
         char name[100];
@@ -38,6 +48,13 @@
 
     struct owner own;
 
+    struct order_food
+    {
+        char food_name[100];
+        int food_price;
+    };
+
+    struct order_food cus_food[100];
 
     void gotoxy(int x, int y)
     {
@@ -68,6 +85,156 @@
 
     int main()
     {
+    strcpy(cus_food[1].food_name, "pancakes");
+    cus_food[1].food_price = 250;
+
+    strcpy(cus_food[2].food_name, "pitha");
+    cus_food[2].food_price = 45;
+
+    strcpy(cus_food[3].food_name, "tea");
+    cus_food[3].food_price = 20;
+
+    strcpy(cus_food[4].food_name, "coffee");
+    cus_food[4].food_price = 50;
+
+    strcpy(cus_food[5].food_name, "biscuits");
+    cus_food[5].food_price = 100;
+
+    strcpy(cus_food[6].food_name, "paratha");
+    cus_food[6].food_price = 25;
+
+    strcpy(cus_food[7].food_name, "naan");
+    cus_food[7].food_price = 25;
+
+    strcpy(cus_food[8].food_name, "butter");
+    cus_food[8].food_price = 55;
+
+    strcpy(cus_food[9].food_name, "noodles");
+    cus_food[9].food_price = 230;
+
+    strcpy(cus_food[10].food_name, "omelete");
+    cus_food[10].food_price = 20;
+
+    strcpy(cus_food[11].food_name, "singara");
+    cus_food[11].food_price = 10;
+
+    strcpy(cus_food[12].food_name, "fuchka");
+    cus_food[12].food_price = 50;
+
+    strcpy(cus_food[13].food_name, "chotpoti");
+    cus_food[13].food_price = 20;
+
+    strcpy(cus_food[14].food_name, "french_fry");
+    cus_food[14].food_price = 115;
+
+    strcpy(cus_food[15].food_name, "egg_roll");
+    cus_food[15].food_price = 30;
+
+    strcpy(cus_food[16].food_name, "vegetable_samosa");
+    cus_food[16].food_price = 10;
+
+    strcpy(cus_food[17].food_name, "chicken_momos");
+    cus_food[17].food_price = 20;
+
+    strcpy(cus_food[18].food_name, "popcorn");
+    cus_food[18].food_price = 90;
+
+    strcpy(cus_food[19].food_name, "chicken_roll");
+    cus_food[19].food_price = 115;
+
+    strcpy(cus_food[20].food_name, "lemon_cake");
+    cus_food[20].food_price = 599;
+
+    strcpy(cus_food[21].food_name, "beef_khichuri");
+    cus_food[21].food_price = 299;
+
+    strcpy(cus_food[22].food_name, "chicken_khichuri");
+    cus_food[22].food_price = 299;
+
+    strcpy(cus_food[23].food_name, "biriyani");
+    cus_food[23].food_price = 169;
+
+    strcpy(cus_food[24].food_name, "rice_bhaja");
+    cus_food[24].food_price = 100;
+
+    strcpy(cus_food[25].food_name, "kacchi");
+    cus_food[25].food_price = 320;
+
+    strcpy(cus_food[26].food_name, "tehari");
+    cus_food[26].food_price = 162;
+
+    strcpy(cus_food[27].food_name, "polao");
+    cus_food[27].food_price = 285;
+
+    strcpy(cus_food[28].food_name, "ilish");
+    cus_food[28].food_price = 536;
+
+    strcpy(cus_food[29].food_name, "fish_curry");
+    cus_food[29].food_price = 298;
+
+    strcpy(cus_food[30].food_name, "plain_rice");
+    cus_food[30].food_price = 60;
+
+    strcpy(cus_food[31].food_name, "pizza");
+    cus_food[31].food_price = 115;
+
+    strcpy(cus_food[32].food_name, "burger");
+    cus_food[32].food_price = 123;
+
+    strcpy(cus_food[33].food_name, "sandwich");
+    cus_food[33].food_price = 155;
+
+    strcpy(cus_food[34].food_name, "caesar_salad");
+    cus_food[34].food_price = 495;
+
+    strcpy(cus_food[35].food_name, "mushroom_soup");
+    cus_food[35].food_price = 224;
+
+    strcpy(cus_food[36].food_name, "alfredo_pasta");
+    cus_food[36].food_price = 686;
+
+    strcpy(cus_food[37].food_name, "milkshake");
+    cus_food[37].food_price = 310;
+
+    strcpy(cus_food[38].food_name, "lemonade");
+    cus_food[38].food_price = 281;
+
+    strcpy(cus_food[39].food_name, "icecream");
+    cus_food[39].food_price = 110;
+
+    strcpy(cus_food[40].food_name, "misthi");
+    cus_food[40].food_price = 399;
+
+    strcpy(cus_food[41].food_name, "mutton_rezala");
+    cus_food[41].food_price = 300;
+
+    strcpy(cus_food[42].food_name, "fish_curry");
+    cus_food[42].food_price = 200;
+
+    strcpy(cus_food[43].food_name, "shorshe_ilish");
+    cus_food[43].food_price = 400;
+
+    strcpy(cus_food[44].food_name, "chapli_kebab");
+    cus_food[44].food_price = 200;
+
+    strcpy(cus_food[45].food_name, "mixed_vegetable_curry");
+    cus_food[45].food_price = 150;
+
+    strcpy(cus_food[46].food_name, "pitha");
+    cus_food[46].food_price = 20;
+
+    strcpy(cus_food[47].food_name, "chicken_chaap");
+    cus_food[47].food_price = 250;
+
+    strcpy(cus_food[48].food_name, "panta_ilish");
+    cus_food[48].food_price = 500;
+
+    strcpy(cus_food[49].food_name, "bhuna_khichuri");
+    cus_food[49].food_price = 200;
+
+    strcpy(cus_food[50].food_name, "roti_with_curry");
+    cus_food[50].food_price = 100;
+
 
 
 ///opening fodx
@@ -95,6 +262,7 @@
 
         user = 0;
         int time1 = 610;
+        int item = 0;
         int yes;
         int part=-1;
         int key;
@@ -103,7 +271,7 @@
         int key3=-1;
         int key4=0;
         int key5=0;
-        int key6,key7,key8,key9,key10,key11,key12,key13,key14,key15;
+        int key6,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16;
         int id1;
         int del=0;
         int id2;
@@ -118,6 +286,7 @@
         int length1;
         int length3;
         int length2;
+        int amount;
         int flag4;
         char password1[100];
         char password2[100];
@@ -141,6 +310,7 @@
         char best_friend2[50];
         char date_of_birth[50];
         char date_of_birth2[50];
+
 
 
 
@@ -844,6 +1014,7 @@
             ///clean screen
             clear(8);
 
+
             if(key4==1)
                 goto part9;
             else
@@ -851,6 +1022,9 @@
         }
         if(key3==2)
         {
+            while(1)
+            {
+
 ///part10a  5 times of meal part
             part10a:
             ///clean screen
@@ -872,31 +1046,57 @@
                 ///clean screen
                 clear(20);
 
-                printf("Breakfast :\n=============");
-                printf(". \n");
-                printf(". \n");
-                printf(". \n");
-                printf(". \n");
-                printf(". \n");
-                printf(". \n");
-                printf(". \n");
-                printf(". \n");
-                printf(". \n=================\n");
+                item = 0;
+                amount = 0;
+                while(1)
+                {
+                system("cls");
+                printf("Breakfast :\n");
+                printf("=====================================\n");
+                printf("Total ordered item  :  %d\n",item);
+                printf("Total amount        :  %d TAKA\n",amount);
+                printf("=====================================\n");
+                for(int i=1;i<=10;i++)
+                {
+                    printf("%d. %s\n",i,cus_food[i].food_name);
+                    printf("PRICE : %d  TAKA\n",cus_food[i].food_price);
+                    printf("-------------------------------------\n");
+                }
 
-                printf("-1 . Back");
+
+
+                printf("-1 . Back (your order will cancel)\n");
+                printf("-2 . Confirm order");
 
                 printf("\n\nEnter key to order food : ");
+                scanf("%d",&key16);
 
-                scanf("%d",&key6);
-
-                if(key6==-1)
-                    goto part10a;
-                else
+                if(key16>=1 && key16<=10)
                 {
-                    goto part10b;
+                    amount = amount + cus_food[key16].food_price;
+                    item++;
+                }
+
+
+                if(key16==-1)
+                {
+                    amount = 0;
+                    item = 0;
+                    goto part10a;
+                }
+                if(key16==-2)
+                {
+                    ///confirm order...
+                }
+
+
+                ///clear screen
+                clear(15);
+
                 }
               }
             }
+          }
 
         if(key3==3)
         {
@@ -917,10 +1117,21 @@
 
             fclose(p);
 
-            printf("\n\n1. Back\nEnter key : ");
+            printf("\n\n1. Clear history\n");
+            printf("2. Back\n");
+            printf("Enter key : ");
             scanf("%d",&key5);
 
             if(key5==1)
+            {
+                p=fopen(cus_history,"w");
+
+                fclose(p);
+                ///clear screen
+                clear(8);
+                goto part11;
+            }
+            if(key5==2)
             {
                 goto part9;
             }
