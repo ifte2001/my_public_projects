@@ -237,6 +237,8 @@
 
 
 
+
+
 ///opening fodx
         int x_axix=42;
         int y_axix=12;
@@ -264,6 +266,7 @@
         int time1 = 610;
         int item = 0;
         int yes;
+        int filter1,filter2;
         int part=-1;
         int key;
         int key1;
@@ -276,6 +279,7 @@
         int del=0;
         int id2;
         int id3;
+        char search[1000];
         char dob[100];
         char dob1[100];
         char phone2[100];
@@ -999,7 +1003,7 @@
 ///part10:
             part10:
             ///clear screen
-            clear(7);
+            clear(10);
             printf("Profile:\n==========\n");
             printf("Nickname         : %s\n",cus[id2].name);
             printf("Phone number     : %s\n",cus[id2].phone);
@@ -1022,79 +1026,148 @@
         }
         if(key3==2)
         {
-            while(1)
+///part10a  order part
+           part10a:
+           item = 0;
+           amount = 0;
+           while(1)
             {
-
-///part10a  5 times of meal part
-            part10a:
-            ///clean screen
-            clear(30);
-            printf("Order Food :\n================\n");
-
-            printf("1. Breakfast\n");
-            printf("2. Snack\n");
-            printf("3. Lunch\n");
-            printf("4. Supper\n");
-            printf("5. Dinner\n===============");
-            printf("\n-1. back\nEnter key : ");
-            scanf("%d",&key6);
-
-            if(key6==1)
-            {
-///part10b   breakfast order part
+///part10b
                 part10b:
-                ///clean screen
-                clear(20);
-
-                item = 0;
-                amount = 0;
-                while(1)
-                {
                 system("cls");
-                printf("Breakfast :\n");
                 printf("=====================================\n");
+                printf("||||||||||||||  FODX  |||||||||||||||\n");
+                printf("=====================================\n");
+                printf("Order : \n");
+                printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                for(int i=1;i<=50;i++)
+                {
+                    printf(" (%d) %s\n",i,cus_food[i].food_name);
+                    printf(" PRICE : %d TAKA\n",cus_food[i].food_price);
+                    printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                }
+                printf("=================================\n");
                 printf("Total ordered item  :  %d\n",item);
                 printf("Total amount        :  %d TAKA\n",amount);
-                printf("=====================================\n");
-                for(int i=1;i<=10;i++)
-                {
-                    printf("%d. %s\n",i,cus_food[i].food_name);
-                    printf("PRICE : %d  TAKA\n",cus_food[i].food_price);
-                    printf("-------------------------------------\n");
-                }
+                printf("=================================\n");
 
+                printf("51. Back (your order will cancel)\n");
+                printf("52. Search food\n");
+                printf("53. Filter price\n");
+                printf("54. Confirm order\n");
 
-
-                printf("-1 . Back (your order will cancel)\n");
-                printf("-2 . Confirm order");
-
-                printf("\n\nEnter key to order food : ");
+                printf("\n\nEnter the key : ");
                 scanf("%d",&key16);
 
-                if(key16>=1 && key16<=10)
+///part10c...
+                part10c:
+                if(key16>=1 && key16<=50)
                 {
                     amount = amount + cus_food[key16].food_price;
                     item++;
                 }
+                if(key16==52)
+                {
+                    system("cls");
+                    printf("Search food : \n");
+                    printf("Use \" _ \" at the place of space\n");
+                    printf("Enter food name : ");
+                    scanf("%s",&search);
 
+                    strlwr(search);
 
-                if(key16==-1)
+                    printf("Result: \n");
+                    n1=0;
+                    for(int j=1;j<=50;j++)
+                    {
+                        if(strstr(cus_food[j].food_name , search))
+                        {
+                            printf(" (%d) %s\n",j,cus_food[j].food_name);
+                            printf(" PRICE : %d TAKA\n",cus_food[j].food_price);
+                            printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                            n1++;
+                        }
+                    }
+                    if(n1==0)
+                        printf("(Not found)\n\n");
+
+                    printf("51. Back\n");
+                    printf("52. Search food\n");
+                    printf("53. Filter price\n");
+                    printf("54. Confirm order\n");
+
+                    printf("\n\nEnter the key : ");
+                    scanf("%d",&key16);
+
+                    if(key16==51)
+                    {
+                        system("cls");
+                        goto part10b;
+                    }
+                    else
+                    {
+                        system("cls");
+                        goto part10c;
+                    }
+
+                }
+                if(key16==53)
+                {
+                    system("cls");
+                    printf("Filter : \n===============\n");
+                    printf("Price greater than : ");
+                    scanf("%d",&filter1);
+                    printf("Price less than : ");
+                    scanf("%d",&filter2);
+
+                    system("cls");
+
+                    printf("result : \n");
+                    printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    n1=0;
+                    for(int j=1;j<=50;j++)
+                    {
+                        if(cus_food[j].food_price>=filter1 && cus_food[j].food_price<=filter2)
+                        {
+                            printf(" (%d) %s\n",j,cus_food[j].food_name);
+                            printf(" PRICE : %d TAKA\n",cus_food[j].food_price);
+                            printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                            n1++;
+                        }
+                    }
+                    if(n1==0)
+                        printf("Not found\n");
+
+                    printf("51. Back\n");
+                    printf("52. Search food\n");
+                    printf("53. Filter price\n");
+                    printf("54. Confirm order\n");
+
+                    printf("\n\nEnter the key : ");
+                    scanf("%d",&key16);
+
+                    if(key16==51)
+                    {
+                        system("cls");
+                        goto part10b;
+                    }
+                    else
+                    {
+                        system("cls");
+                        goto part10c;
+                    }
+
+                }
+                if(key16==51)
                 {
                     amount = 0;
                     item = 0;
-                    goto part10a;
+                    goto part9;
                 }
-                if(key16==-2)
+                if(key16==52)
                 {
                     ///confirm order...
                 }
-
-
-                ///clear screen
-                clear(15);
-
-                }
-              }
             }
           }
 
