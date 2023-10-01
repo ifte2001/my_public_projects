@@ -1,8 +1,9 @@
-    #include<stdio.h>
+#include<stdio.h>
     #include<string.h>
     #include<stdlib.h>
     #include<windows.h>
     #include<conio.h>
+    #include<time.h>
 
     void remove_string(char n[1000])
     {
@@ -274,11 +275,13 @@
         int key3=-1;
         int key4=0;
         int key5=0;
-        int key6,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16,key17,key18,key19;
+        int key6,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16,key17,key18,key19,key20;
         int id1;
         int del=0;
         int id2;
         int id3;
+        time_t t;
+        time(&t);
         char ch2;
         char search[1000];
         char dob[100];
@@ -987,6 +990,7 @@
         printf("4. Log out\n");
         printf("5. Delete account\n");
         printf("6. Account setting\n");
+        printf("7. Contact us\n");
         printf("==================\n");
         printf("Enter the key: ");
         scanf("%d",&key3);
@@ -1240,8 +1244,8 @@
 
                     p = fopen(cus_history , "a");
                     fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-                    fprintf(p,"order date : %s\n",__DATE__);
-                    fprintf(p,"order time : %s\n-=-=-=-=-=-=-=-=-=-=-=-=-=-\n",__TIME__);
+                    fprintf(p,"Order date and time : \n%s\n",ctime(&t));
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
                     for(int j=0;j<item;j++)
                     {
                         int index2 = food_index[j];
@@ -1265,9 +1269,9 @@
                     p = fopen("owner_history.txt","a");
 
                     fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-                    fprintf(p,"order date : %s\n",__DATE__);
-                    fprintf(p,"order time : %s\n",__TIME__);
-                    fprintf(p,"Customer phone number : %s\n-=-=-=-=-=-=-=-=-=-=-=-=-=-\n",cus[id2].phone);
+                    fprintf(p,"Order date and time : \n%s",ctime(&t));
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"Customer phone number :\n%s\n-=-=-=-=-=-=-=-=-=-=-=-=-=-\n",cus[id2].phone);
                     for(int j=0;j<item;j++)
                     {
                         int index2 = food_index[j];
@@ -1285,6 +1289,7 @@
                         fprintf(p,"Payment process : Bkash\n");
                         fprintf(p,"Transection id : %s\n",transection);
                     }
+
                     fprintf(p,"Address : %s\n",address);
                     fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n\n");
 
@@ -1306,7 +1311,8 @@
 
             p = fopen(cus_history , "a+");
 
-            printf("My order history :\n===================\n");
+            printf("My order history :\n");
+            fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
             while(!feof(p))
             {
                 ch1 = fgetc(p);
@@ -1431,6 +1437,28 @@
                 }
             }
         }
+        if(key3==7)
+        {
+            while(1)
+            {
+            ///clear screen
+            clear(8);
+            printf("Contact us: \n===============\n");
+            printf("Mobile number : 01818477521\n");
+            printf("Email : iftekharalam5623@gmail.com\n\n");
+
+            printf("1. Back\n");
+            printf("Enter the key : ");
+            scanf("%d",&key20);
+
+            if(key20==1)
+            {
+                ///clear screen
+                clear(8);
+                goto part9;
+            }
+            }
+        }
         else
         {
             goto part9;
@@ -1483,7 +1511,8 @@
             system("cls");
             p = fopen("owner_history.txt","a+");
 
-            printf("Order list : \n-=-=-=-=-=-=-=-=-=-\n");
+            printf("Order list : \n");
+            fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
             while(!feof(p))
             {
                 ch2=fgetc(p);
