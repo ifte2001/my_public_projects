@@ -241,20 +241,31 @@
 
 
 ///opening fodx
-        int x_axix=42;
+int x_axix=42;
         int y_axix=12;
+	int num_box = 219;
+	char ch_box = num_box;
         gotoxy(x_axix , y_axix);
-        printf("00000     00000     000000     00     00\n");
+        printf("%c%c%c%c%c    %c%c%c%c%c%c%c    %c%c%c%c%c%c     %c%c      %c%c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
         gotoxy(x_axix , y_axix+1);
-        printf("00       00   00    00   00      00 00\n");
+        printf("%c%c       %c%c   %c%c    %c%c   %c%c      %c%c  %c%c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
         gotoxy(x_axix , y_axix+2);
-        printf("00000    00   00    00    00      000\n");
+        printf("%c%c%c%c%c    %c%c   %c%c    %c%c    %c%c       %c%c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
         gotoxy(x_axix , y_axix+3);
-        printf("00       00   00    00   00      00 00\n");
+        printf("%c%c       %c%c   %c%c    %c%c   %c%c      %c%c  %c%c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
         gotoxy(x_axix , y_axix+4);
-        printf("00        00000     000000     00     00\n");
+        printf("%c%c       %c%c%c%c%c%c%c    %c%c%c%c%c%c     %c%c      %c%c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix , y_axix+6);
+        usleep(1000000);
+        printf("             %c   ORDER   %c",ch_box,ch_box);
+        usleep(1000000);
+        gotoxy(x_axix , y_axix+8);
+        printf("             %c    PAY    %c",ch_box,ch_box);
+        usleep(1000000);
+        gotoxy(x_axix , y_axix+10);
+        printf("             %c   ENJOY   %c",ch_box,ch_box);
 
-        usleep(2000000);
+        usleep(5000000);
         ///clear screen
         clear(15);
 
@@ -1132,6 +1143,7 @@
 
                     system("cls");
 
+
                     printf("result : \n");
                     printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
                     n1=0;
@@ -1312,10 +1324,10 @@
             p = fopen(cus_history , "a+");
 
             printf("My order history :\n");
-            fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+            printf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
             while(!feof(p))
             {
-                ch1 = fgetc(p);
+                ch1=fgetc(p);
                 printf("%c",ch1);
             }
 
@@ -1445,7 +1457,7 @@
             clear(8);
             printf("Contact us: \n===============\n");
             printf("Mobile number : 01818477521\n");
-            printf("Email : iftekharalam5623@gmail.com\n\n");
+            printf("Email address : iftekharalam5623@gmail.com\n\n");
 
             printf("1. Back\n");
             printf("Enter the key : ");
@@ -1512,7 +1524,7 @@
             p = fopen("owner_history.txt","a+");
 
             printf("Order list : \n");
-            fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+            printf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
             while(!feof(p))
             {
                 ch2=fgetc(p);
