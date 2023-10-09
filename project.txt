@@ -287,7 +287,7 @@ int x_axix=42;
             printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
             gotoxy(x_axix+44 , y_axix+14);
             printf("%d%% ",i);
-            usleep(1000000);
+            usleep(1100000);
 
             gotoxy(x_axix, y_axix+8);
             printf("             %c    PAY    %c",ch_box,ch_box);
@@ -298,7 +298,7 @@ int x_axix=42;
             printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
             gotoxy(x_axix+44 , y_axix+14);
             printf("%d%% ",i);
-            usleep(1000000);
+            usleep(1100000);
             gotoxy(x_axix , y_axix+10);
             printf("             %c   ENJOY   %c",ch_box,ch_box);
             }
@@ -368,7 +368,7 @@ int x_axix=42;
         }
 
 
-        usleep(1100000);
+        usleep(2200000);
         ///clear screen
         clear(15);
 
