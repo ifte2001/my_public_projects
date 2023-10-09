@@ -245,27 +245,130 @@ int x_axix=42;
         int y_axix=12;
 	int num_box = 219;
 	char ch_box = num_box;
-        gotoxy(x_axix , y_axix);
-        printf("%c%c%c%c%c    %c%c%c%c%c%c%c    %c%c%c%c%c%c     %c%c      %c%c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
-        gotoxy(x_axix , y_axix+1);
-        printf("%c%c       %c%c   %c%c    %c%c   %c%c      %c%c  %c%c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
-        gotoxy(x_axix , y_axix+2);
-        printf("%c%c%c%c%c    %c%c   %c%c    %c%c    %c%c       %c%c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
-        gotoxy(x_axix , y_axix+3);
-        printf("%c%c       %c%c   %c%c    %c%c   %c%c      %c%c  %c%c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
-        gotoxy(x_axix , y_axix+4);
-        printf("%c%c       %c%c%c%c%c%c%c    %c%c%c%c%c%c     %c%c      %c%c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
-        gotoxy(x_axix , y_axix+6);
-        usleep(1000000);
-        printf("             %c   ORDER   %c",ch_box,ch_box);
-        usleep(1000000);
-        gotoxy(x_axix , y_axix+8);
-        printf("             %c    PAY    %c",ch_box,ch_box);
-        usleep(1000000);
-        gotoxy(x_axix , y_axix+10);
-        printf("             %c   ENJOY   %c",ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix-3);
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix-2);
+        printf("%c",ch_box);
+        gotoxy(x_axix+46 , y_axix-2);
+        printf("%c",ch_box);
+        gotoxy(x_axix-5 , y_axix-1);
+        printf("%c",ch_box);
+        gotoxy(x_axix+46 , y_axix-1);
+        printf("%c",ch_box);
+        gotoxy(x_axix-5 , y_axix);
+        printf("%c     %c%c%c%c%c    %c%c%c%c%c%c%c    %c%c%c%c%c%c     %c%c      %c%c    %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+1);
+        printf("%c     %c%c       %c%c   %c%c    %c%c   %c%c      %c%c  %c%c      %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+2);
+        printf("%c     %c%c%c%c%c    %c%c   %c%c    %c%c    %c%c       %c%c        %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+3);
+        printf("%c     %c%c       %c%c   %c%c    %c%c   %c%c      %c%c  %c%c      %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+4);
+        printf("%c     %c%c       %c%c%c%c%c%c%c    %c%c%c%c%c%c     %c%c      %c%c    %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+5);
+        printf("%c",ch_box);
+        gotoxy(x_axix+46 , y_axix+5);
+        printf("%c",ch_box);
+        gotoxy(x_axix-5 , y_axix+6);
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c               %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+13);
+        printf("LOADING...");
 
-        usleep(5000000);
+        usleep(1000000);
+        gotoxy(x_axix +13 , y_axix+6);
+        printf("%c   ORDER   %c",ch_box,ch_box);
+        for(int i=10;i<=100;i+=10)
+        {
+
+
+            if(i==10)
+            {
+            gotoxy(x_axix-5 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(1000000);
+
+            gotoxy(x_axix, y_axix+8);
+            printf("             %c    PAY    %c",ch_box,ch_box);
+            }
+            if(i==20)
+            {
+            gotoxy(x_axix , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(1000000);
+            gotoxy(x_axix , y_axix+10);
+            printf("             %c   ENJOY   %c",ch_box,ch_box);
+            }
+            if(i==30)
+            {
+            gotoxy(x_axix+5 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(200000);
+            }
+            if(i==40)
+            {
+            gotoxy(x_axix+10 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(300000);
+            }
+            if(i==50)
+            {
+            gotoxy(x_axix+15 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(200000);
+            }
+            if(i==60)
+            {
+            gotoxy(x_axix+20 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(100000);
+            }
+            if(i==70)
+            {
+            gotoxy(x_axix+25 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(200000);
+            }
+            if(i==80)
+            {
+            gotoxy(x_axix+30 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(1000000);
+            }
+            if(i==90)
+            {
+            gotoxy(x_axix+35 , y_axix+14);
+            printf("%c%c%c",ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(1200000);
+            }
+            if(i==100)
+            {
+            gotoxy(x_axix+38 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            }
+        }
+
+
+        usleep(1100000);
         ///clear screen
         clear(15);
 
@@ -514,7 +617,7 @@ int x_axix=42;
 
 ///part6  log in
                 part6:
-                printf("log in\n========\n");
+                printf("Log in\n========\n");
                 printf("enter phone number : ");
                 scanf("%s",&phone1);
 
@@ -1256,7 +1359,7 @@ int x_axix=42;
 
                     p = fopen(cus_history , "a");
                     fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-                    fprintf(p,"Order date and time : \n%s\n",ctime(&t));
+                    fprintf(p,"Order date and time : \n%s",ctime(&t));
                     fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
                     for(int j=0;j<item;j++)
                     {
