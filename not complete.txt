@@ -1,0 +1,2132 @@
+#include<stdio.h>
+    #include<string.h>
+    #include<stdlib.h>
+    #include<windows.h>
+    #include<conio.h>
+    #include<time.h>
+    #include<math.h>
+
+    void remove_string(char n[1000])
+    {
+        int i = 0;
+        while(n[i]!='\0')
+        {
+            n[i]='\0';
+            i++;
+        }
+    }
+
+    void remove_array(int m[1000],int len)
+    {
+        for(int i=1;i<=len;i++)
+        {
+            m[i]=0;
+        }
+    }
+
+
+    struct hotal
+    {
+        char address[1000];
+        double lat1;
+        double lon1;
+    };
+
+    struct hotal h_address[10000];
+
+    struct user_add
+    {
+        char address[1000];
+        double lat2;
+        double lon2;
+    };
+
+    struct user_add u_address[10000];
+
+    struct customer
+    {
+        char name[100];
+        char password[100];
+        char phone[50];
+        char date_of_birth[20];
+        char best_friend[50];
+        char address1[1000];
+    };
+
+    struct customer cus[10000];
+
+
+    struct owner
+    {
+        int yes;
+        char nickname[50];
+        char password[50];
+        char phone[50];
+        char date_of_birth[50];
+        char best_friend[50];
+    };
+
+    struct owner own;
+
+    struct order_food
+    {
+        char food_name[100];
+        int food_price;
+    };
+
+    struct order_food cus_food[100];
+
+    void gotoxy(int x, int y)
+    {
+        COORD c;
+        c.X = x;
+        c.Y = y;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE) , c);
+    }
+
+
+    void space(int a,int b)
+    {
+        COORD position;
+        position.X = a;
+        position.Y = b;
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),position);
+    }
+
+    void clear(int n)
+    {
+        for(int i=0;i<n*2;i++)
+        {
+            space(0,i);
+            printf("                                                                                                                                              \n                                                                                                                                             \n");
+        }
+        space(0,0);
+    }
+
+    int main()
+    {
+
+strcpy(u_address[1].address, "a.k._khan");
+u_address[1].lat2 = 22.3457;
+u_address[1].lon2 = 91.8342;
+
+strcpy(u_address[2].address, "agrabad");
+u_address[2].lat2 = 22.3452;
+u_address[2].lon2 = 91.8041;
+
+strcpy(u_address[3].address, "anderkilla");
+u_address[3].lat2 = 22.3376;
+u_address[3].lon2 = 91.8202;
+
+strcpy(u_address[4].address, "bahaddarhat");
+u_address[4].lat2 = 22.37028;
+u_address[4].lon2 = 91.84342;
+
+strcpy(u_address[5].address, "chittagong_port");
+u_address[5].lat2 = 22.3384;
+u_address[5].lon2 = 91.8123;
+
+strcpy(u_address[6].address, "chittagong_university");
+u_address[6].lat2 = 22.4977;
+u_address[6].lon2 = 92.2351;
+
+strcpy(u_address[7].address, "dampara_thana");
+u_address[7].lat2 = 22.3552;
+u_address[7].lon2 = 91.8394;
+
+strcpy(u_address[8].address, "dewanhat");
+u_address[8].lat2 = 22.33856;
+u_address[8].lon2 = 91.81363;
+
+strcpy(u_address[9].address, "fatikchhari");
+u_address[9].lat2 = 22.5947;
+u_address[9].lon2 = 91.5553;
+
+strcpy(u_address[10].address, "foy's_lake");
+u_address[10].lat2 = 22.3333;
+u_address[10].lon2 = 91.8333;
+
+strcpy(u_address[11].address, "gec_circle");
+u_address[11].lat2 = 22.3593;
+u_address[11].lon2 = 91.8287;
+
+strcpy(u_address[12].address, "halishahar");
+u_address[12].lat2 = 22.3096;
+u_address[12].lon2 = 91.7658;
+
+strcpy(u_address[13].address, "hathazari");
+u_address[13].lat2 = 22.5517;
+u_address[13].lon2 = 91.1025;
+
+strcpy(u_address[14].address, "kumira");
+u_address[14].lat2 = 22.2425;
+u_address[14].lon2 = 91.7217;
+
+strcpy(u_address[15].address, "m._a._aziz_stadium");
+u_address[15].lat2 = 22.3630;
+u_address[15].lon2 = 91.8060;
+
+strcpy(u_address[16].address, "moradpor");
+u_address[16].lat2 = 22.36597;
+u_address[16].lon2 = 91.82879;
+
+strcpy(u_address[17].address, "sitakunda");
+u_address[17].lat2 = 22.5264;
+u_address[17].lon2 = 91.7499;
+
+strcpy(u_address[18].address, "iiuc");
+u_address[18].lat2 = 22.4966;
+u_address[18].lon2 = 91.7214;
+
+
+
+    strcpy(cus_food[1].food_name, "pancakes");
+    cus_food[1].food_price = 250;
+
+    strcpy(cus_food[2].food_name, "pitha");
+    cus_food[2].food_price = 45;
+
+    strcpy(cus_food[3].food_name, "tea");
+    cus_food[3].food_price = 20;
+
+    strcpy(cus_food[4].food_name, "coffee");
+    cus_food[4].food_price = 50;
+
+    strcpy(cus_food[5].food_name, "biscuits");
+    cus_food[5].food_price = 100;
+
+    strcpy(cus_food[6].food_name, "paratha");
+    cus_food[6].food_price = 25;
+
+    strcpy(cus_food[7].food_name, "naan");
+    cus_food[7].food_price = 25;
+
+    strcpy(cus_food[8].food_name, "butter");
+    cus_food[8].food_price = 55;
+
+    strcpy(cus_food[9].food_name, "noodles");
+    cus_food[9].food_price = 230;
+
+    strcpy(cus_food[10].food_name, "omelete");
+    cus_food[10].food_price = 20;
+
+    strcpy(cus_food[11].food_name, "singara");
+    cus_food[11].food_price = 10;
+
+    strcpy(cus_food[12].food_name, "fuchka");
+    cus_food[12].food_price = 50;
+
+    strcpy(cus_food[13].food_name, "chotpoti");
+    cus_food[13].food_price = 20;
+
+    strcpy(cus_food[14].food_name, "french_fry");
+    cus_food[14].food_price = 115;
+
+    strcpy(cus_food[15].food_name, "egg_roll");
+    cus_food[15].food_price = 30;
+
+    strcpy(cus_food[16].food_name, "vegetable_samosa");
+    cus_food[16].food_price = 10;
+
+    strcpy(cus_food[17].food_name, "chicken_momos");
+    cus_food[17].food_price = 20;
+
+    strcpy(cus_food[18].food_name, "popcorn");
+    cus_food[18].food_price = 90;
+
+    strcpy(cus_food[19].food_name, "chicken_roll");
+    cus_food[19].food_price = 115;
+
+    strcpy(cus_food[20].food_name, "lemon_cake");
+    cus_food[20].food_price = 599;
+
+    strcpy(cus_food[21].food_name, "beef_khichuri");
+    cus_food[21].food_price = 299;
+
+    strcpy(cus_food[22].food_name, "chicken_khichuri");
+    cus_food[22].food_price = 299;
+
+    strcpy(cus_food[23].food_name, "biriyani");
+    cus_food[23].food_price = 169;
+
+    strcpy(cus_food[24].food_name, "rice_bhaja");
+    cus_food[24].food_price = 100;
+
+    strcpy(cus_food[25].food_name, "kacchi");
+    cus_food[25].food_price = 320;
+
+    strcpy(cus_food[26].food_name, "tehari");
+    cus_food[26].food_price = 162;
+
+    strcpy(cus_food[27].food_name, "polao");
+    cus_food[27].food_price = 285;
+
+    strcpy(cus_food[28].food_name, "ilish");
+    cus_food[28].food_price = 536;
+
+    strcpy(cus_food[29].food_name, "fish_curry");
+    cus_food[29].food_price = 298;
+
+    strcpy(cus_food[30].food_name, "plain_rice");
+    cus_food[30].food_price = 60;
+
+    strcpy(cus_food[31].food_name, "pizza");
+    cus_food[31].food_price = 115;
+
+    strcpy(cus_food[32].food_name, "burger");
+    cus_food[32].food_price = 123;
+
+    strcpy(cus_food[33].food_name, "sandwich");
+    cus_food[33].food_price = 155;
+
+    strcpy(cus_food[34].food_name, "caesar_salad");
+    cus_food[34].food_price = 495;
+
+    strcpy(cus_food[35].food_name, "mushroom_soup");
+    cus_food[35].food_price = 224;
+
+    strcpy(cus_food[36].food_name, "alfredo_pasta");
+    cus_food[36].food_price = 686;
+
+    strcpy(cus_food[37].food_name, "milkshake");
+    cus_food[37].food_price = 310;
+
+    strcpy(cus_food[38].food_name, "lemonade");
+    cus_food[38].food_price = 281;
+
+    strcpy(cus_food[39].food_name, "icecream");
+    cus_food[39].food_price = 110;
+
+    strcpy(cus_food[40].food_name, "misthi");
+    cus_food[40].food_price = 399;
+
+    strcpy(cus_food[41].food_name, "mutton_rezala");
+    cus_food[41].food_price = 300;
+
+    strcpy(cus_food[42].food_name, "fish_curry");
+    cus_food[42].food_price = 200;
+
+    strcpy(cus_food[43].food_name, "shorshe_ilish");
+    cus_food[43].food_price = 400;
+
+    strcpy(cus_food[44].food_name, "chapli_kebab");
+    cus_food[44].food_price = 200;
+
+    strcpy(cus_food[45].food_name, "mixed_vegetable_curry");
+    cus_food[45].food_price = 150;
+
+    strcpy(cus_food[46].food_name, "pitha");
+    cus_food[46].food_price = 20;
+
+    strcpy(cus_food[47].food_name, "chicken_chaap");
+    cus_food[47].food_price = 250;
+
+    strcpy(cus_food[48].food_name, "panta_ilish");
+    cus_food[48].food_price = 500;
+
+    strcpy(cus_food[49].food_name, "bhuna_khichuri");
+    cus_food[49].food_price = 200;
+
+    strcpy(cus_food[50].food_name, "roti_with_curry");
+    cus_food[50].food_price = 100;
+
+
+
+strcpy(h_address[1].address, "al_arapat_food_corner");
+h_address[1].lat1 = 22.34088;
+h_address[1].lon1 = 91.79876;
+
+strcpy(h_address[2].address, "alif_restaurant");
+h_address[2].lat1 = 22.35839;
+h_address[2].lon1 = 91.7818;
+
+strcpy(h_address[3].address, "allhur_dan_hotal");
+h_address[3].lat1 = 22.49564;
+h_address[3].lon1 = 91.7218;
+
+strcpy(h_address[4].address, "ambrosia_restaurant_ltd");
+h_address[4].lat1 = 22.3232;
+h_address[4].lon1 = 91.81242;
+
+strcpy(h_address[5].address, "ayojon_restora");
+h_address[5].lat1 = 22.35067;
+h_address[5].lon1 = 91.81762;
+
+strcpy(h_address[6].address, "bagdad_hotal");
+h_address[6].lat1 = 22.38212;
+h_address[6].lon1 = 91.82916;
+
+strcpy(h_address[7].address, "barcode_cafe");
+h_address[7].lat1 = 22.36524;
+h_address[7].lon1 = 91.82442;
+
+strcpy(h_address[8].address, "bay_leaf_restaurant");
+h_address[8].lat1 = 22.34326;
+h_address[8].lon1 = 91.77952;
+
+strcpy(h_address[9].address, "bismillah_mejjan");
+h_address[9].lat1 = 22.38053;
+h_address[9].lon1 = 91.83021;
+
+strcpy(h_address[10].address, "bonanza_port_restaurant");
+h_address[10].lat1 = 22.31384;
+h_address[10].lon1 = 91.7991;
+
+strcpy(h_address[11].address, "bonfire_restaurant");
+h_address[11].lat1 = 22.33366;
+h_address[11].lon1 = 91.79123;
+
+strcpy(h_address[12].address, "broast_cafe");
+h_address[12].lat1 = 22.37521;
+h_address[12].lon1 = 91.83486;
+
+strcpy(h_address[13].address, "burgzza");
+h_address[13].lat1 = 22.34231;
+h_address[13].lon1 = 91.80076;
+
+strcpy(h_address[14].address, "cafe_araf");
+h_address[14].lat1 = 22.31997;
+h_address[14].lon1 = 91.79771;
+
+strcpy(h_address[15].address, "cafe_food_station");
+h_address[15].lat1 = 22.36104;
+h_address[15].lon1 = 91.8123;
+
+strcpy(h_address[16].address, "captain_dine");
+h_address[16].lat1 = 22.33255;
+h_address[16].lon1 = 91.78928;
+
+strcpy(h_address[17].address, "cheesy_pizzy");
+h_address[17].lat1 = 22.34199;
+h_address[17].lon1 = 91.8358;
+
+strcpy(h_address[18].address, "daba");
+h_address[18].lat1 = 22.35608;
+h_address[18].lon1 = 91.83742;
+
+strcpy(h_address[19].address, "dhaba_e_sirikut_fast_food_and_biriane_house");
+h_address[19].lat1 = 22.37529;
+h_address[19].lon1 = 91.8352;
+
+strcpy(h_address[20].address, "doibari");
+h_address[20].lat1 = 22.36556;
+h_address[20].lon1 = 91.7813;
+
+strcpy(h_address[21].address, "gold_hill_hotel_&_restaurant");
+h_address[21].lat1 = 22.36382;
+h_address[21].lon1 = 91.79734;
+
+strcpy(h_address[22].address, "grand_mugal");
+h_address[22].lat1 = 22.35279;
+h_address[22].lon1 = 91.82168;
+
+strcpy(h_address[23].address, "green_chilli_restaurant");
+h_address[23].lat1 = 22.33813;
+h_address[23].lon1 = 91.83044;
+
+strcpy(h_address[24].address, "gravy_dine");
+h_address[24].lat1 = 22.36138;
+h_address[24].lon1 = 91.81242;
+
+strcpy(h_address[25].address, "handi_restaurant");
+h_address[25].lat1 = 22.35091;
+h_address[25].lon1 = 91.82078;
+
+strcpy(h_address[26].address, "hunger_killers");
+h_address[26].lat1 = 22.35677;
+h_address[26].lon1 = 91.83744;
+
+strcpy(h_address[27].address, "ice_berg");
+h_address[27].lat1 = 22.36127;
+h_address[27].lon1 = 91.81256;
+
+strcpy(h_address[28].address, "impala_chinese_and_south_indian_restaurant");
+h_address[28].lat1 = 22.36135;
+h_address[28].lon1 = 91.82891;
+
+strcpy(h_address[29].address, "istison");
+h_address[29].lat1 = 22.4966;
+h_address[29].lon1 = 91.72108;
+
+strcpy(h_address[30].address, "kasbon_restaurant");
+h_address[30].lat1 = 22.49317;
+h_address[30].lon1 = 91.72008;
+
+strcpy(h_address[31].address, "kashmir_restaurant");
+h_address[31].lat1 = 22.37037;
+h_address[31].lon1 = 91.8453;
+
+strcpy(h_address[32].address, "kitchen_restaurant");
+h_address[32].lat1 = 22.34775;
+h_address[32].lon1 = 91.82623;
+
+strcpy(h_address[33].address, "kutumbari");
+h_address[33].lat1 = 22.35153;
+h_address[33].lon1 = 91.82179;
+
+strcpy(h_address[34].address, "kutumbari_restaurant_and_biriyani_house");
+h_address[34].lat1 = 22.37521;
+h_address[34].lon1 = 91.83486;
+
+strcpy(h_address[35].address, "kutumbari_restaurant_and_biriyani_house");
+h_address[35].lat1 = 22.37521;
+h_address[35].lon1 = 91.83486;
+
+strcpy(h_address[36].address, "laila_hotal");
+h_address[36].lat1 = 22.37151;
+h_address[36].lon1 = 91.83364;
+
+strcpy(h_address[37].address, "laham_kabab_ghor");
+h_address[37].lat1 = 22.34871;
+h_address[37].lon1 = 91.82038;
+
+strcpy(h_address[38].address, "lamingrass");
+h_address[38].lat1 = 22.32757;
+h_address[38].lon1 = 91.81544;
+
+strcpy(h_address[39].address, "mannan_canteen");
+h_address[39].lat1 = 22.49398;
+h_address[39].lon1 = 91.721;
+
+strcpy(h_address[40].address, "masala_twist_restaurant");
+h_address[40].lat1 = 22.35614;
+h_address[40].lon1 = 91.83789;
+
+strcpy(h_address[41].address, "mejjainna_bari");
+h_address[41].lat1 = 22.36421;
+h_address[41].lon1 = 91.82615;
+
+strcpy(h_address[42].address, "mezetto");
+h_address[42].lat1 = 22.34878;
+h_address[42].lon1 = 91.8231;
+
+strcpy(h_address[43].address, "muslim_baker");
+h_address[43].lat1 = 22.3202;
+h_address[43].lon1 = 91.80352;
+
+strcpy(h_address[44].address, "nabab_bari_restaurant");
+h_address[44].lat1 = 22.36595;
+h_address[44].lon1 = 91.78177;
+
+strcpy(h_address[45].address, "nabab_bari_restaurant");
+h_address[45].lat1 = 22.37037;
+h_address[45].lon1 = 91.8453;
+
+strcpy(h_address[46].address, "patil");
+h_address[46].lat1 = 22.34778;
+h_address[46].lon1 = 91.81934;
+
+strcpy(h_address[47].address, "rio_coffee");
+h_address[47].lat1 = 22.36138;
+h_address[47].lon1 = 91.81383;
+
+strcpy(h_address[48].address, "royal");
+h_address[48].lat1 = 22.34797;
+h_address[48].lon1 = 91.79728;
+
+strcpy(h_address[49].address, "royal_hut");
+h_address[49].lat1 = 22.34676;
+h_address[49].lon1 = 91.82372;
+
+strcpy(h_address[50].address, "shawal_restaurant_and_biriyani_house");
+h_address[50].lat1 = 22.49567;
+h_address[50].lon1 = 91.72179;
+
+strcpy(h_address[51].address, "shangri-la_restaurant");
+h_address[51].lat1 = 22.32445;
+h_address[51].lon1 = 91.81172;
+
+strcpy(h_address[52].address, "sizzle");
+h_address[52].lat1 = 22.33086;
+h_address[52].lon1 = 91.83149;
+
+strcpy(h_address[53].address, "sultan_dine");
+h_address[53].lat1 = 22.3659;
+h_address[53].lon1 = 91.82343;
+
+strcpy(h_address[54].address, "tayef_restora");
+h_address[54].lat1 = 22.3479;
+h_address[54].lon1 = 91.79734;
+
+strcpy(h_address[55].address, "tabuk_resturent");
+h_address[55].lat1 = 22.36193;
+h_address[55].lon1 = 91.80157;
+
+strcpy(h_address[56].address, "tava_restaurant_&_lounge");
+h_address[56].lat1 = 22.36155;
+h_address[56].lon1 = 91.81238;
+
+strcpy(h_address[57].address, "the_copper_chimney_restaurant_gec");
+h_address[57].lat1 = 22.35488;
+h_address[57].lon1 = 91.82206;
+
+strcpy(h_address[58].address, "the_copper_chimney_restaurant_gec");
+h_address[58].lat1 = 22.35488;
+h_address[58].lon1 = 91.82206;
+
+strcpy(h_address[59].address, "the_green_shadow_restaurant");
+h_address[59].lat1 = 22.32673;
+h_address[59].lon1 = 91.81511;
+
+strcpy(h_address[60].address, "the_pavilion");
+h_address[60].lat1 = 22.35753;
+h_address[60].lon1 = 91.82174;
+
+strcpy(h_address[61].address, "the_saddle_peak");
+h_address[61].lat1 = 22.33186;
+h_address[61].lon1 = 91.83227;
+
+strcpy(h_address[62].address, "the_village_restaurant");
+h_address[62].lat1 = 22.32675;
+h_address[62].lon1 = 91.81131;
+
+strcpy(h_address[63].address, "ventura_bistro_&_restaurant");
+h_address[63].lat1 = 22.36166;
+h_address[63].lon1 = 91.81254;
+
+strcpy(h_address[64].address, "vegan");
+h_address[64].lat1 = 22.34159;
+h_address[64].lon1 = 91.83543;
+
+strcpy(h_address[65].address, "zouk");
+h_address[65].lat1 = 22.35199;
+h_address[65].lon1 = 91.82179;
+
+strcpy(h_address[66].address, "ziku_restora");
+h_address[66].lat1 = 22.49464;
+h_address[66].lon1 = 91.72135;
+
+
+
+
+///opening fodx
+int x_axix=42;
+        int y_axix=12;
+	int num_box = 219;
+	char ch_box = num_box;
+        gotoxy(x_axix-5 , y_axix-3);
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix-2);
+        printf("%c",ch_box);
+        gotoxy(x_axix+46 , y_axix-2);
+        printf("%c",ch_box);
+        gotoxy(x_axix-5 , y_axix-1);
+        printf("%c",ch_box);
+        gotoxy(x_axix+46 , y_axix-1);
+        printf("%c",ch_box);
+        gotoxy(x_axix-5 , y_axix);
+        printf("%c     %c%c%c%c%c    %c%c%c%c%c%c%c    %c%c%c%c%c%c     %c%c      %c%c    %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+1);
+        printf("%c     %c%c       %c%c   %c%c    %c%c   %c%c      %c%c  %c%c      %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+2);
+        printf("%c     %c%c%c%c%c    %c%c   %c%c    %c%c    %c%c       %c%c        %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+3);
+        printf("%c     %c%c       %c%c   %c%c    %c%c   %c%c      %c%c  %c%c      %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+4);
+        printf("%c     %c%c       %c%c%c%c%c%c%c    %c%c%c%c%c%c     %c%c      %c%c    %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+5);
+        printf("%c",ch_box);
+        gotoxy(x_axix+46 , y_axix+5);
+        printf("%c",ch_box);
+        gotoxy(x_axix-5 , y_axix+6);
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c               %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        gotoxy(x_axix-5 , y_axix+13);
+        printf("LOADING...");
+
+        usleep(1000000);
+        gotoxy(x_axix +13 , y_axix+6);
+        printf("%c   ORDER   %c",ch_box,ch_box);
+        for(int i=10;i<=100;i+=10)
+        {
+
+
+            if(i==10)
+            {
+            gotoxy(x_axix-5 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(1100000);
+
+            gotoxy(x_axix, y_axix+8);
+            printf("             %c    PAY    %c",ch_box,ch_box);
+            }
+            if(i==20)
+            {
+            gotoxy(x_axix , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(1100000);
+            gotoxy(x_axix , y_axix+10);
+            printf("             %c   ENJOY   %c",ch_box,ch_box);
+            }
+            if(i==30)
+            {
+            gotoxy(x_axix+5 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(200000);
+            }
+            if(i==40)
+            {
+            gotoxy(x_axix+10 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(300000);
+            }
+            if(i==50)
+            {
+            gotoxy(x_axix+15 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(200000);
+            }
+            if(i==60)
+            {
+            gotoxy(x_axix+20 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(100000);
+            }
+            if(i==70)
+            {
+            gotoxy(x_axix+25 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(1000000);
+            }
+            if(i==80)
+            {
+            gotoxy(x_axix+30 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(1000000);
+            }
+            if(i==90)
+            {
+            gotoxy(x_axix+35 , y_axix+14);
+            printf("%c%c%c",ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            usleep(1200000);
+            }
+            if(i==100)
+            {
+            gotoxy(x_axix+38 , y_axix+14);
+            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
+            gotoxy(x_axix+44 , y_axix+14);
+            printf("%d%% ",i);
+            }
+        }
+
+
+        usleep(2200000);
+        ///clear screen
+        clear(15);
+
+        int user;
+
+///part:1  struct update from file
+        part1:
+
+        user = 0;
+        double distance;
+        double l1,l2,g1,g2;
+        int time1 = 610;
+        int item = 0;
+        int yes;
+        int filter1,filter2;
+        int part=-1;
+        int key;
+        int key1;
+        int key2=0;
+        int key3=-1;
+        int key4=0;
+        int key5=0;
+        int key6,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16,key17,key18,key19,key20,key21;
+        int id1;
+        int del=0;
+        int id2;
+        int id3;
+        time_t t;
+        time(&t);
+        char ch2;
+        char search[1000];
+        char dob[100];
+        char dob1[100];
+        char phone2[100];
+        int flag=0;
+        int flag1=0;
+        int flag5;
+        int length;
+        int length1;
+        int length3;
+        int length2;
+        int amount;
+        int flag4;
+        char address[1000];
+        char password1[100];
+        char password2[100];
+        char password5[100];
+        char phone1[100];
+        double range;
+        char check_phone[100];
+        char check_date_of_birth[100];
+        char best_friend1[100];
+        char nickname[100];
+        int food_index[1000]={0};
+        char c_phone_number[50];
+        int wrong1 = 0;
+        int wrong3 = -1;
+        int wrong4 = -1;
+        char transection[100];
+        char cus_history[100];
+        char phone3[100];
+        char phone5[100];
+        char phone6[100];
+        char ch1;
+        char dob2[50];
+        char phone4[50];
+        char best_friend2[50];
+        char date_of_birth[50];
+        char date_of_birth2[50];
+
+
+
+
+
+        FILE *p;
+
+
+        int result;
+        int n1,n2;
+
+        int struct_index = 1;
+
+        p = fopen("customer_profile.txt","a+");
+
+        int line = 0;
+
+        while(!feof(p))
+        {
+            if(line==0)
+                fscanf(p, "%s" ,&cus[struct_index].name);
+            if(line==1)
+                fscanf(p, "%s" ,&cus[struct_index].password);
+            if(line==2)
+                fscanf(p, "%s" ,&cus[struct_index].phone);
+            if(line==3)
+                fscanf(p, "%s" ,&cus[struct_index].date_of_birth);
+            if(line==4)
+                fscanf(p, "%s" ,&cus[struct_index].best_friend);
+            if(line==5)
+                fscanf(p, "%s" ,&cus[struct_index].address1);
+
+            line++;
+
+            if(line==6)
+            {
+                line=0;
+                struct_index++;
+                user++;
+            }
+        }
+
+        fclose(p);
+
+
+        if(part==8)
+        {
+            part = 0;
+            wrong4=0;
+            goto part5;
+        }
+///part:2   file update from struct
+        part2:
+        p = fopen("customer_profile.txt","w");
+
+        for(int i=1;i<=user;i++)
+        {
+            if(del==1 && id3==i)
+            {
+                del=0;
+                id3=0;
+                continue;
+            }
+
+            fputs(cus[i].name,p);
+
+            fputs("\n",p);
+            fputs(cus[i].password,p);
+
+            fputs("\n",p);
+            fputs(cus[i].phone,p);
+
+            fputs("\n",p);
+            fputs(cus[i].date_of_birth,p);
+
+            fputs("\n",p);
+            fputs(cus[i].best_friend,p);
+
+            fputs("\n",p);
+            fputs(cus[i].address1,p);
+
+            fputs("\n",p);
+        }
+
+        fclose(p);
+
+        if(part==7)
+        {
+            part=0;
+            goto part6;
+        }
+
+        if(part==8)
+        {
+            part=0;
+            user++;  ///because for signing up a new account had been added...
+            goto part6;
+        }
+        if(part==9)
+        {
+            part=0;
+            goto part1;
+        }
+
+///part:3     choose customer and owner
+        part3:
+        if(wrong1==1)
+        {
+            wrong1=0;
+            printf("***  You have choosen the wrong key  ***\n    ***  please try again  ***\n\n");
+        }
+
+        printf("Who are you?\n");
+        printf("1. I am customer...\n");
+        printf("2. I am the owner...\n");
+        printf("Enter the key : ");
+        scanf("%d",&key);
+
+        ///loading part...
+        printf("Loading");
+        for(int i=0;i<4;i++)
+        {
+            usleep(time1);
+            printf(" .");
+        }
+
+        ///clear screen
+        clear(7);
+
+        ///choose log in...
+        if(key==1)
+        {
+///part:4    choose sign up or log in
+            while(1)
+            {
+            part4:
+            printf("account:\n========\n");
+            printf("1. log in\n");
+            printf("2. sign up\n");
+            printf("3. Back\n");
+            printf("Enter the key : ");
+            scanf("%d",&key1);
+
+            ///clear screen
+            clear(7);
+
+            if(key1==3)
+            {
+                goto part3;
+            }
+///part:5    enter wrong password
+            key2=0;
+            wrong4=0;
+
+            if(key1==1)
+            {
+                part5:
+                if(wrong4 == 1)
+                {
+                    printf("*** Wrong information ***\n1. forget password\n2. try again\n-1. back\n");
+                    scanf("%d",&key2);
+                }
+
+                ///clear screen
+                clear(7);
+
+                if(wrong4==0)
+                    goto part6;
+
+                if(key2==1)
+                {
+                    wrong3=1;
+                    goto part7;
+                }
+                else if(key2==-1)
+                    goto part3;
+                else if(key2==2)  ///try again
+                    goto part6;
+                else
+                {
+                    printf("enter right key\n");
+                    wrong4=1;
+                    goto part5;
+                }
+
+///part6  log in
+                part6:
+                printf("Log in\n========\n");
+                printf("enter phone number : ");
+                scanf("%s",&phone1);
+
+                flag5=0;
+                for(int i=1;i<=user;i++)
+                {
+                    if(strcmp(cus[i].phone , phone1)==0)
+                    {
+                        flag5=1;
+                        goto part6b;
+                    }
+                }
+                if(flag5==0)
+                {
+                    while(1)
+                    {
+///part6a
+                    part6a:
+                    ///clear screen
+                    clear(7);
+                    printf("There is no account for this number \n");
+                    printf("1. Try again\n");
+                    printf("2. Back\n");
+                    printf("\nEnter the key : ");
+
+                    scanf("%d",&key10);
+                    if(key10==1)
+                    {
+                        ///clear screen
+                        clear(8);
+                        goto part6;
+                    }
+                    if(key10==2)
+                    {
+                        ///clear screen
+                        clear(8);
+                        goto part4;
+                    }
+                    ///clear screen
+                    clear(8);
+                    }
+                  }
+
+///part6b
+                part6b:
+                printf("Enter password : ");
+                scanf("%s",&password1);
+                printf("Answer the question : \n");
+
+                srand(time(0));
+
+                n1 = rand()%5;
+                n2 = rand()%5;
+                printf("%d + %d = ",n1,n2);
+                scanf("%d",&result);
+
+
+                ///loading part...
+                printf("Loading");
+                for(int i=0;i<4;i++)
+                {
+                    usleep(time1);
+                    printf(" .");
+                }
+
+                ///clear screen
+                clear(7);
+
+
+                flag=0;
+                for(int i=1;i<=user;i++)
+                {
+                    if(strcmp(cus[i].phone , phone1)==0)
+                    {
+                        id1=i;
+                        flag=1;
+                        break;
+                    }
+                }
+                if(strcmp(cus[id1].password , password1) == 0  && (n1+n2)==result && flag==1)
+                {
+                    id2=id1;
+                    wrong4= 0;
+                    goto part9;
+                }
+                else
+                {
+                    wrong4 = 1;
+                    goto part5;
+                }
+
+
+
+///part7   change password
+                part7:
+                ///clear screen
+                clear(8);
+                if(wrong3==1)
+                {
+                    wrong3=0;
+                    printf("Answer the question\n");
+                    printf("Enter your phone number : ");
+                    scanf("%s",&phone2);
+                    printf("What is your date of birth (DD/MM/YYYY): ");
+                    scanf("%s",&dob);
+                    printf("What is your Best friend nickname : ");
+                    scanf("%s",&best_friend1);
+
+                    length = strlen(dob);
+                    length1 = strlen(phone2);
+
+
+                    srand(time(0));
+
+                    n1 = rand()%5;
+                    n2 = rand()%5;
+                    printf("Answer the question:\n");
+                    printf("%d + %d = ",n1,n2);
+                    scanf("%d",&result);
+
+
+
+                    ///loading part...
+                    printf("Loading");
+                    for(int i=0;i<4;i++)
+                    {
+                        usleep(time1);
+                        printf(" .");
+                    }
+                    ///clear screen
+                    clear(7);
+
+                    flag4=0;
+                    for(int i=1;i<=user;i++)
+                    {
+                        if(strcmp(cus[i].phone , phone2)==0 && strcmp(cus[i].best_friend , best_friend1)==0  &&  strcmp(cus[i].date_of_birth , dob)==0 && n1+n2==result && (length==9 || length==10) && length1==11)
+                        {
+                            id1=i;
+                            flag4=1;
+                            break;
+                        }
+                    }
+
+                    if(flag4==0)
+                    {
+                        ///clear screen
+                        clear(7);
+                        goto part5;
+                    }
+
+                    printf("Charge password : ");
+                    scanf("%s",cus[id1].password);
+                    part=7;
+                    wrong4=0;
+                    ///clear screen
+                    clear(7);
+                    goto part2;
+
+                    }
+                    else
+                    {
+                    ///clear screen
+                    clear(7);
+                    goto part5;
+                    }
+            }
+
+            if(key1==2)
+            {
+///part:8   sign up
+
+                part8:
+
+                printf("sign in :\n==========\n");
+                printf("enter your phone number :");
+                scanf("%s",&check_phone);
+                length2 = strlen(check_phone);
+                for(int i=1;i<=user;i++)
+                {
+                    if(strcmp(cus[i].phone , check_phone)==0 || length2!=11)
+                    {
+///part8a
+                        part8a:
+                        ///clear screen
+                        clear(7);
+
+                        printf("You can't use this number\n");
+                        printf("1. Try again\n");
+                        printf("2. Back\n");
+                        printf("=================\n");
+                        printf("Enter the key : ");
+                        scanf("%d",&key9);
+                        if(key9==1)
+                        {
+                            ///clear screen
+                            clear(7);
+                            goto part8;
+                        }
+                        if(key9==2)
+                        {
+                            ///clear screen
+                            clear(7);
+                            goto part3;
+                        }
+                        else
+                        {
+                            ///clear screen
+                            clear(7);
+                            goto part8a;
+                        }
+                    }
+                }
+
+                printf("Enter your date of birth (DD/MM/YYYY) :");
+                scanf("%s",&check_date_of_birth);
+                length3 = strlen(check_date_of_birth);
+
+
+                if(length3!=10)
+                {
+                    ///clear screen
+                    clear(7);
+                    printf("Please enter correct information\n\n");
+                    goto part8;
+                }
+                user++;
+
+                strcpy(cus[user].phone , check_phone);
+                strcpy(cus[user].date_of_birth , check_date_of_birth);
+                printf("enter your nickname :");
+                scanf("%s",&cus[user].name);
+
+                printf("enter password :");
+                scanf("%s",&cus[user].password);
+
+                printf("Enter your best friend name : ");
+                scanf("%s",&cus[user].best_friend);
+
+                system("cls");
+
+                printf("Select your address : \n");
+                printf("=-=-=-=-=-=-=-=-=-=-=\n");
+
+                while(1)
+                {
+                    for(int i=1;i<=18;i++)
+                    {
+                        printf("%d . %s\n",i,u_address[i].address);
+                    }
+                    printf("Enter the key : ");
+                    scanf("%d",&key21);
+
+                    if(key21>=1 && key21<=18)
+                    {
+                        strcpy(cus[user].address1,u_address[key21].address);
+                        break;
+                    }
+
+                    system("cls");
+                }
+
+
+                ///clear screen
+                clear(20);
+
+
+                    ///loading part...
+                    for(int i=10;i<110;i+=10)
+                    {
+                    printf("Creating account : (%d %%)",i);
+                    usleep(time1);
+
+                    ///clear screen
+                    clear(7);
+                    }
+
+                    ///clear screen
+                    clear(7);
+
+                    printf("Log in your account:\n\n");
+
+                    part=8;
+                    goto part2;
+                }
+                if(key1==3)
+                {
+                   ///clear screen
+                    clear(7);
+                    wrong1=0;
+                    goto part3;
+                }
+            }
+        }
+        if(key==2)
+        {
+///======================================================================================
+///owner part
+        wrong1 = 0;
+        part=0;
+///part8b1
+///struct will update  from file:
+        part8b1:
+
+        p=fopen("owner.txt","a+");
+
+        while(!feof(p))
+        {
+            fscanf(p,"%d",&own.yes);
+            fscanf(p,"%s",&own.nickname);
+            fscanf(p,"%s",&own.phone);
+            fscanf(p,"%s",&own.password);
+            fscanf(p,"%s",&own.date_of_birth);
+            fscanf(p,"%s",&own.best_friend);
+        }
+
+        fclose(p);
+
+///check is there any owner account in file...
+
+
+            if(own.yes==1)
+            {
+                ///clear screen
+                clear(7);
+                goto part8d;
+            }
+            else
+            {
+                ///clear screen
+                clear(7);
+                goto part8b;
+            }
+
+
+
+///if there is no account for the owner then the sign up part will work and if there is an account for the owner then the log in part will work
+
+///part8b:
+///owner sign up part
+        part8b:
+        while(1)
+        {
+            printf("Sign up : \n===============\n");
+            printf("Enter your phone number: ");
+            scanf("%s",&phone4);
+            if(strlen(phone4)==11)
+            {
+                break;
+            }
+            else
+            {
+                ///clear screen
+                clear(7);
+                printf("Enter correct information\n\n");
+            }
+        }
+            printf("Enter your Date of birth (DD/MM/YYYY) : ");
+            scanf("%s",&dob2);
+            if(strlen(dob2)!=10)
+            {
+                ///clear screen
+                clear(7);
+                printf("Enter correct information\n\n");
+                goto part8b;
+            }
+
+            strcpy(own.phone , phone4);
+            strcpy(own.date_of_birth , dob2);
+
+            own.yes = 1;
+
+            printf("Your nickname : ");
+            scanf("%s",&own.nickname);
+
+            printf("Your best friend nickname : ");
+            scanf("%s",&own.best_friend);
+
+            printf("Enter password : ");
+            scanf("%s",&own.password);
+
+            ///clear screen
+            clear(7);
+            goto part8c;
+
+///owner file update from struct
+///part8c
+        part8c:
+
+        p= fopen("owner.txt","w");
+
+        fprintf(p,"1\n");
+        fprintf(p,"%s\n",own.nickname);
+        fprintf(p,"%s\n",own.phone);
+        fprintf(p,"%s\n",own.password);
+        fprintf(p,"%s\n",own.date_of_birth);
+        fprintf(p,"%s\n",own.best_friend);
+
+        fclose(p);
+
+///owner log in part:
+///part8d:
+        part8d:
+        printf("Log in :\n===========\n");
+        printf("Enter your phone number : ");
+        scanf("%s",&phone5);
+        printf("Enter password : ");
+        scanf("%s",&password5);
+
+        if(strcmp(phone5 , own.phone)==0 && strcmp(password5,own.password)==0)
+            goto part12;
+        else
+        {
+            while(1)
+            {
+            ///clear screen
+            clear(7);
+            printf("Wrong information...\n");
+            printf("1. Try again\n");
+            printf("2. Forget password\n");
+            printf("3. Back\n=======================\n");
+            printf("Enter the key : ");
+            scanf("%d",&key12);
+
+            if(key12==1)
+            {
+                ///clear screen
+                clear(7);
+                goto part8d;
+            }
+            else if(key12==2)
+            {
+                ///clear screen
+                clear(7);
+                goto part8e;
+            }
+            else if(key12==3)
+            {
+                ///clear screen
+                clear(7);
+                goto part3;
+            }
+            }
+        }
+///change password for owner
+///part8e
+        part8e:
+        printf("Enter your best friend name : ");
+        scanf("%s",&best_friend2);
+        printf("Enter your date of birth (DD/MM/YYYY): ");
+        scanf("%s",&date_of_birth2);
+
+        if(strcmp(date_of_birth2 , own.date_of_birth)==0  &&  strcmp(best_friend2 , own.best_friend)==0)
+        {
+            printf("Enter new password : ");
+            scanf("%s",&own.password);
+
+            ///clear screen
+            clear(7);
+
+            goto part8c;
+        }
+        else
+        {
+        while(1)
+           {
+            ///clear screen
+            clear(7);
+            printf("Wrong information\n");
+            printf("1. Try again\n");
+            printf("2. Back\n");
+            scanf("%d",&key13);
+
+            if(key13==1)
+            {
+                ///clear screen
+                clear(7);
+                goto part8e;
+            }
+            if(key13==2)
+            {
+                ///clear screen
+                clear(7);
+                goto part3;
+            }
+           }
+          }
+        }
+        else
+        {
+            ///clear screen
+            clear(7);
+            wrong1 = 1;
+            goto part3;
+        }
+///==================================================================================================
+///owner and customer menu part...
+///part9   customer menu
+
+        part9:
+        ///clean screen
+        clear(40);
+        printf("As-salamu alaykum %s\n",cus[id1].name);
+
+        printf("Menu:\n=========\n");
+        printf("1. My profile\n");
+        printf("2. Order food\n");
+        printf("3. My order history\n");
+        printf("4. Log out\n");
+        printf("5. Delete account\n");
+        printf("6. Account setting\n");
+        printf("7. Contact us\n");
+        printf("8. Nearest restaurant\n");
+        printf("==================\n");
+        printf("Enter the key: ");
+        scanf("%d",&key3);
+
+
+        ///loading part...
+        printf("Loading");
+        for(int i=0;i<4;i++)
+        {
+            usleep(time1);
+            printf(" .");
+        }
+
+        ///clean screen
+        clear(8);
+        if(key3==1)
+        {
+///part10:
+            part10:
+            ///clear screen
+            clear(10);
+            printf("Profile:\n==========\n");
+            printf("Nickname         : %s\n",cus[id2].name);
+            printf("Phone number     : %s\n",cus[id2].phone);
+            printf("password         : %s\n",cus[id2].password);
+            printf("Date of birth    : %s\n",cus[id2].date_of_birth);
+            printf("Best friend name : %s\n",cus[id2].best_friend);
+            printf("Address          : %s\n",cus[id2].address1);
+
+            printf("\n1. Back\n");
+            printf("Enter key : ");
+            scanf("%d",&key4);
+
+            ///clean screen
+            clear(8);
+
+
+            if(key4==1)
+                goto part9;
+            else
+                goto part10;
+        }
+        if(key3==2)
+        {
+///part10a  order part
+           part10a:
+           item = 0;
+           amount = 0;
+           remove_array(food_index,900);
+           while(1)
+            {
+///part10b
+                part10b:
+                system("cls");
+                printf("=====================================\n");
+                printf("||||||||||||||  FODX  |||||||||||||||\n");
+                printf("=====================================\n");
+                printf("Order : \n");
+                printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                for(int i=1;i<=50;i++)
+                {
+                    printf(" (%d) %s\n",i,cus_food[i].food_name);
+                    printf(" PRICE : %d TAKA\n",cus_food[i].food_price);
+                    printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                }
+                printf("=================================\n");
+                printf("Total ordered item  :  %d\n",item);
+                printf("Total amount        :  %d TAKA\n",amount);
+                printf("=================================\n");
+
+                printf("51. Back (your order will cancel)\n");
+                printf("52. Search food\n");
+                printf("53. Filter price\n");
+                printf("54. Confirm order\n");
+
+                printf("\n\nEnter the key : ");
+                scanf("%d",&key16);
+
+///part10c...
+                part10c:
+                if(key16>=1 && key16<=50)
+                {
+                    food_index[item] = key16;
+                    amount = amount + cus_food[key16].food_price;
+                    item++;
+                }
+                if(key16==52)
+                {
+                    system("cls");
+                    printf("Search food : \n");
+                    printf("Use \" _ \" at the place of space\n");
+                    printf("Enter food name : ");
+                    scanf("%s",&search);
+
+                    strlwr(search);
+
+                    printf("Result: \n");
+                    n1=0;
+                    for(int j=1;j<=50;j++)
+                    {
+                        if(strstr(cus_food[j].food_name , search))
+                        {
+                            printf(" (%d) %s\n",j,cus_food[j].food_name);
+                            printf(" PRICE : %d TAKA\n",cus_food[j].food_price);
+                            printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                            n1++;
+                        }
+                    }
+                    if(n1==0)
+                        printf("(Not found)\n\n");
+
+                    printf("51. Back\n");
+                    printf("52. Search food\n");
+                    printf("53. Filter price\n");
+                    printf("54. Confirm order\n");
+
+                    printf("\n\nEnter the key : ");
+                    scanf("%d",&key16);
+
+                    if(key16==51)
+                    {
+                        system("cls");
+                        goto part10b;
+                    }
+                    else
+                    {
+                        system("cls");
+                        goto part10c;
+                    }
+
+                }
+                if(key16==53)
+                {
+                    system("cls");
+                    printf("Filter : \n===============\n");
+                    printf("Price greater than : ");
+                    scanf("%d",&filter1);
+                    printf("Price less than : ");
+                    scanf("%d",&filter2);
+
+                    system("cls");
+
+
+                    printf("result : \n");
+                    printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    n1=0;
+                    for(int j=1;j<=50;j++)
+                    {
+                        if(cus_food[j].food_price>=filter1 && cus_food[j].food_price<=filter2)
+                        {
+                            printf(" (%d) %s\n",j,cus_food[j].food_name);
+                            printf(" PRICE : %d TAKA\n",cus_food[j].food_price);
+                            printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                            n1++;
+                        }
+                    }
+                    if(n1==0)
+                        printf("Not found\n");
+
+                    printf("51. Back\n");
+                    printf("52. Search food\n");
+                    printf("53. Filter price\n");
+                    printf("54. Confirm order\n");
+
+                    printf("\n\nEnter the key : ");
+                    scanf("%d",&key16);
+
+                    if(key16==51)
+                    {
+                        system("cls");
+                        goto part10b;
+                    }
+                    else
+                    {
+                        system("cls");
+                        goto part10c;
+                    }
+
+                }
+                if(key16==51)
+                {
+                    remove_array(food_index,item);
+                    amount = 0;
+                    item = 0;
+                    goto part9;
+                }
+                if(key16==54)
+                {
+///part10c1
+                    part10c1:
+                    ///clear screen
+                    clear(30);
+                    printf("Address : \n===========\n");
+                    printf("Address (use \" _ \" at the place of space) : ");
+                    scanf("%s",&address);
+                    ///clear screen
+                    clear(30);
+
+                    printf("Payment process : \n==================\n");
+                    printf("1. Cash on delivery\n");
+                    printf("2. Bkash\n");
+
+                    printf("Enter the key : ");
+                    scanf("%d",&key17);
+
+                    if(key17==1)
+                    {
+                        while(1)
+                        {
+                        ///clear screen
+                        clear(30);
+                        printf("Order confirmed...\n\n");
+
+                        printf("1. Back to menu\n");
+
+                        printf("Enter the key : ");
+                        scanf("%d",&key18);
+                        if(key18==1)
+                            goto part10d;
+                        }
+                    }
+                    if(key17==2)
+                    {
+                        ///clear screen
+                        clear(30);
+                        printf("Transfer the certain amount of money at this number : 01818477521\n");
+
+                        printf("After transfer money enter the transection id : ");
+                        scanf("%s",&transection);
+
+                        while(1)
+                        {
+                            ///clear screen
+                            clear(30);
+                            printf("Order confirmed...\n\n");
+
+                            printf("1. Back to menu\n");
+
+                            printf("Enter the key : ");
+                            scanf("%d",&key18);
+                            if(key18==1)
+                                goto part10d;
+                        }
+                    }
+                    else
+                        goto part10c1;
+///part10d
+                    part10d:
+///for customer history
+                    strcpy(phone3 , cus[id1].phone);
+                    strcat(phone3 , ".txt");
+                    strcpy(cus_history , phone3);
+
+                    p = fopen(cus_history , "a");
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"Order date and time : \n%s",ctime(&t));
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    for(int j=0;j<item;j++)
+                    {
+                        int index2 = food_index[j];
+
+                        fprintf(p,"%d . %s (%d TAKA)\n",j+1,cus_food[index2].food_name,cus_food[index2].food_price);
+                    }
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"Total item : %d\n",item);
+                    fprintf(p,"Total amount : %d\n",amount);
+
+                    if(key17==1)
+                        fprintf(p,"Payment process : Cash on delivery\n");
+                    if(key17==2)
+                        fprintf(p,"Payment process : Bkash\n");
+
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n\n");
+                    fclose(p);
+
+///for owner about customer history
+
+                    p = fopen("owner_history.txt","a");
+
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"Order date and time : \n%s",ctime(&t));
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"Customer phone number :\n%s\n-=-=-=-=-=-=-=-=-=-=-=-=-=-\n",cus[id2].phone);
+                    for(int j=0;j<item;j++)
+                    {
+                        int index2 = food_index[j];
+
+                        fprintf(p,"%d . %s (%d TAKA)\n",j+1,cus_food[index2].food_name,cus_food[index2].food_price);
+                    }
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"Total item : %d\n",item);
+                    fprintf(p,"Total amount : %d\n",amount);
+
+                    if(key17==1)
+                        fprintf(p,"Payment process : Cash on delivery\n");
+                    if(key17==2)
+                    {
+                        fprintf(p,"Payment process : Bkash\n");
+                        fprintf(p,"Transection id : %s\n",transection);
+                    }
+
+                    fprintf(p,"Address : %s\n",address);
+                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n\n");
+
+                    fclose(p);
+                    system("cls");
+                    goto part9;
+                    }
+                }
+             }
+
+        if(key3==3)
+        {
+///part11
+            part11:
+            system("cls");
+            strcpy(phone3 , cus[id1].phone);
+            strcat(phone3 , ".txt");
+            strcpy(cus_history , phone3);
+
+            p = fopen(cus_history , "a+");
+
+            printf("My order history :\n");
+            printf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+            while(!feof(p))
+            {
+                ch1=fgetc(p);
+                printf("%c",ch1);
+            }
+
+            fclose(p);
+
+            printf("\n\n1. Clear history\n");
+            printf("2. Back\n");
+            printf("Enter key : ");
+            scanf("%d",&key5);
+
+            if(key5==1)
+            {
+                p=fopen(cus_history,"w");
+
+                fclose(p);
+                goto part11;
+            }
+            else if(key5==2)
+            {
+                goto part9;
+            }
+            else
+                goto part11;
+        }
+        if(key3==4)
+        {
+            remove_string(phone3);
+            id2=id3=id1=0;
+            remove_string(cus_history);
+            goto part1;
+        }
+        if(key3==5)
+        {
+            remove_string(phone3);
+            remove(cus_history);
+            part = 9;
+            id3=id2;
+            del=1;
+            goto part2;
+        }
+        if(key3==6)
+        {
+///part11a   reset account part
+            part11a:
+            ///clear screen
+            clear(8);
+            printf("For security:\n===============\n");
+            printf("Enter the password : ");
+            scanf("%s",&password2);
+
+            if(strcmp(cus[id1].password , password2)==0)
+            {
+///part11b
+                part11b:
+                while(1)
+                {
+                ///clear screen
+                clear(8);
+                printf("Account setting :\n===================\n");
+                printf("1. Change nickname\n");
+                printf("2. Change Date of birth\n");
+                printf("3. Change password\n");
+                printf("4. Back\n==================\n");
+                printf("Enter the key : ");
+                scanf("%d",&key8);
+
+                if(key8==1)
+                {
+                    printf("Previous nickname : %s\n",cus[id1].name);
+                    printf("New nickname : ");
+                    scanf("%s",&cus[id1].name);
+                }
+                if(key8==2)
+                {
+                    printf("Previous Date of birth : %s\n",cus[id1].date_of_birth);
+                    printf("New Date of birth : ");
+                    scanf("%s",&cus[id1].date_of_birth);
+                }
+                if(key8==3)
+                {
+                    printf("Previous password : %s\n",cus[id1].password);
+                    printf("New password : ");
+                    scanf("%s",&cus[id1].password);
+                }
+                if(key8==4)
+                {
+                    goto part9;
+                }
+                else
+                {
+                    goto part11b;
+                }
+                }
+            }
+            else
+            {
+                ///clear screen
+                clear(8);
+///part11c
+                part11c:
+                ///clear screen
+                clear(8);
+                printf("1. (wrong password) Try again\n");
+                printf("2. Back to the Menu\n=======================\n");
+                printf("Enter the key : ");
+                scanf("%d",&key7);
+
+                if(key7==1)
+                {
+                    goto part11a;
+                }
+                if(key7==2)
+                {
+                    goto part9;
+                }
+                else
+                {
+                    goto part11c;
+                }
+            }
+        }
+        if(key3==7)
+        {
+            while(1)
+            {
+            ///clear screen
+            clear(8);
+            printf("Contact us: \n===============\n");
+            printf("Mobile number : 01818477521\n");
+            printf("Email address : iftekharalam5623@gmail.com\n\n");
+
+            printf("1. Back\n");
+            printf("Enter the key : ");
+            scanf("%d",&key20);
+
+            if(key20==1)
+            {
+                ///clear screen
+                clear(8);
+                goto part9;
+            }
+            }
+        }
+        if(key3==8)
+        {
+///part11d...
+            part11d:
+            system("cls");
+            for(int i=1;i<=18;i++)
+            {
+                l2=g2=0;
+                if(strcmp(cus[id1].address1 , u_address[i].address)==0)
+                {
+                    l2 = u_address[i].lat2;
+                    g2 = u_address[i].lon2;
+                    break;
+                }
+            }
+            while(1)
+            {
+            printf("Enter the range (kilometer): ");
+            scanf("%lf",&range);
+
+
+
+            for(int i=1;i<=66;i++)
+            {
+                distance = l1 = g1 = 0;
+                l1 = h_address[i].lat1;
+                g1 = h_address[i].lon1;
+
+                l1 = l1 * (  3.1416 / 180.0 );
+                l2 = l2 * (  3.1416 / 180.0 );
+                g1 = g1 * (  3.1416 / 180.0 );
+                g2 = g2 * (  3.1416 / 180.0 );
+
+                double dlong = g2 - g1;
+
+                double dlat = l2 - l1;
+
+
+                distance = pow((sin(dlat / 2)), 2) + cos(l1) * cos(l2) * pow((sin(dlong / 2)), 2);
+
+
+                distance = 2 * atan2(sqrt(distance),sqrt(1-distance));
+
+                double R = 6371;
+
+                distance = distance * R;
+
+                distance = distance * 1.852;
+
+                if(range >= distance)
+                {
+                    printf("%s (%.2lf km)\n",h_address[i].address,distance);
+                }
+            }
+
+            printf("\n1. Back\n");
+            printf("2. Try again\n");
+            printf("Enter the key : ");
+            scanf("%d",&key21);
+
+            if(key21==1)
+            {
+                system("cls");
+                goto part9;
+            }
+            if(key21==2)
+            {
+                system("cls");
+                goto part11d;
+            }
+            system("cls");
+
+            }
+        }
+        else
+        {
+            goto part9;
+        }
+///=========================================================================================printtf=========
+///owner menu:
+///part12
+        part12:
+        while(1)
+        {
+        system("cls");
+        printf("As-salamu alaykum %s\n\n",own.nickname);
+        printf("Menu\n==========\n");
+        printf("1. My profile\n");
+        printf("2. customer order\n");
+        printf("3. Log out\n\n");
+        printf("Total user of FODX: %d\n\n",user);
+        printf("=======================\n");
+        printf("Enter the key : ");
+
+        scanf("%d",&key14);
+
+        if(key14==1)
+        {
+            while(1)
+            {
+            ///clear screen
+            clear(100);
+            printf("Profile : \n==============\n");
+            printf("Nickname         : %s\n",own.nickname);
+            printf("Phone number     : %s\n",own.phone);
+            printf("Password         : %s\n",own.password);
+            printf("Date of birth    : %s\n",own.date_of_birth);
+            printf("Best friend name : %s\n\n",own.best_friend);
+            printf("1. Back\n");
+            printf("Enter the key : ");
+            scanf("%d",&key15);
+            if(key15==1)
+            {
+                ///clear screen
+                clear(8);
+                goto part12;
+            }
+            }
+        }
+        if(key14==2)
+        {
+            while(1)
+            {
+            system("cls");
+            p = fopen("owner_history.txt","a+");
+
+            printf("Order list : \n");
+            printf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+            while(!feof(p))
+            {
+                ch2=fgetc(p);
+                printf("%c",ch2);
+            }
+            fclose(p);
+
+            printf("\n\n1. Back\n");
+            printf("2. Clear order list\n");
+
+
+            printf("Enter the key : ");
+            scanf("%d",&key19);
+
+            if(key19==1)
+                goto part12;
+            if(key19==2)
+            {
+                p = fopen("owner_history.txt","w");
+
+                fclose(p);
+            }
+            }
+        }
+        if(key14==3)
+        {
+            ///clear screen
+            clear(8);
+            goto part3;
+        }
+        }
+
+
+        return 0;
+}
