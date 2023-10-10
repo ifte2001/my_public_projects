@@ -4,6 +4,7 @@
     #include<windows.h>
     #include<conio.h>
     #include<time.h>
+    #include<math.h>
 
     void remove_string(char n[1000])
     {
@@ -24,6 +25,23 @@
     }
 
 
+    struct hotal
+    {
+        char address[1000];
+        double lat1;
+        double lon1;
+    };
+
+    struct hotal h_address[10000];
+
+    struct user_add
+    {
+        char address[1000];
+        double lat2;
+        double lon2;
+    };
+
+    struct user_add u_address[10000];
 
     struct customer
     {
@@ -32,6 +50,7 @@
         char phone[50];
         char date_of_birth[20];
         char best_friend[50];
+        char address1[1000];
     };
 
     struct customer cus[10000];
@@ -86,6 +105,81 @@
 
     int main()
     {
+
+strcpy(u_address[1].address, "a.k._khan");
+u_address[1].lat2 = 22.371;
+u_address[1].lon2 = 91.792;
+
+strcpy(u_address[2].address, "agrabad");
+u_address[2].lat2 = 22.32456;
+u_address[2].lon2 = 91.81126;
+
+strcpy(u_address[3].address, "anderkilla");
+u_address[3].lat2 = 22.34138674007712;
+u_address[3].lon2 =  91.83609020032691;
+
+strcpy(u_address[4].address, "bahaddarhat");
+u_address[4].lat2 = 22.369356718080567;
+u_address[4].lon2 = 91.84307355062124;
+
+strcpy(u_address[5].address, "chittagong_port");
+u_address[5].lat2 = 22.30941457549699;
+u_address[5].lon2 =  91.80328965826868;
+
+strcpy(u_address[6].address, "chittagong_university");
+u_address[6].lat2 = 22.4721846557924;
+u_address[6].lon2 = 91.78779115129821;
+
+strcpy(u_address[7].address, "dampara_thana");
+u_address[7].lat2 = 22.353798956159874;
+u_address[7].lon2 = 91.82635294075662;
+
+strcpy(u_address[8].address, "dewanhat");
+u_address[8].lat2 = 22.33788602694516;
+u_address[8].lon2 =  91.81502328987516;
+
+strcpy(u_address[9].address, "fatikchhari");
+u_address[9].lat2 = 22.75905666590868;
+u_address[9].lon2 =  91.74046084278609;
+
+strcpy(u_address[10].address, "foy's_lake");
+u_address[10].lat2 = 22.369534406046974;
+u_address[10].lon2 = 91.79615553012225;
+
+strcpy(u_address[11].address, "gec_circle");
+u_address[11].lat2 = 22.359514254315762;
+u_address[11].lon2 = 91.82154642220131;
+
+strcpy(u_address[12].address, "halishahar");
+u_address[12].lat2 = 22.318373858728698;
+u_address[12].lon2 = 91.77709970315824;
+
+strcpy(u_address[13].address, "hathazari");
+u_address[13].lat2 = 22.508146078113747;
+u_address[13].lon2 = 91.80804719383205;
+
+strcpy(u_address[14].address, "kumira");
+u_address[14].lat2 = 22.52016402720528;
+u_address[14].lon2 =  91.7301915448004;
+
+strcpy(u_address[15].address, "m._a._aziz_stadium");
+u_address[15].lat2 = 22.34600932653095;
+u_address[15].lon2 = 91.82451550939989;
+
+strcpy(u_address[16].address, "moradpor");
+u_address[16].lat2 = 22.366232879498973;
+u_address[16].lon2 = 91.8285778845688;
+
+strcpy(u_address[17].address, "sitakunda");
+u_address[17].lat2 = 22.618708800639922;
+u_address[17].lon2 = 91.67919798487989;
+
+strcpy(u_address[18].address, "iiuc");
+u_address[18].lat2 = 22.498073165799276;
+u_address[18].lon2 = 91.72142322080077;
+
+
+
     strcpy(cus_food[1].food_name, "pancakes");
     cus_food[1].food_price = 250;
 
@@ -238,6 +332,271 @@
 
 
 
+strcpy(h_address[1].address, "TakeoutHalishahar");
+h_address[1].lat1 = 22.331971117498178;
+h_address[1].lon1 = 91.78921468896024;
+
+strcpy(h_address[2].address, "alif_restaurant");
+h_address[2].lat1 = 22.358519921943294;
+h_address[2].lon1 = 91.78192560001011;
+
+strcpy(h_address[3].address, "allhur_dan_hotal");
+h_address[3].lat1 = 22.49562812765347;
+h_address[3].lon1 = 91.72180936219422;
+
+strcpy(h_address[4].address, "ambrosia_restaurant_ltd");
+h_address[4].lat1 = 22.323197479678907;
+h_address[4].lon1 = 91.81241569547238;
+
+strcpy(h_address[5].address, "ayojon_restora");
+h_address[5].lat1 = 22.35919587965305;
+h_address[5].lon1 = 91.78228633780125;
+
+strcpy(h_address[6].address, "IIUC_Cafeteria");
+h_address[6].lat1 = 22.497105070733912;
+h_address[6].lon1 = 91.72145620203787;
+
+strcpy(h_address[7].address, "barcode_cafe");
+h_address[7].lat1 = 22.365209148957454;
+h_address[7].lon1 = 91.82435821213323;
+
+strcpy(h_address[8].address, "bay_leaf_restaurant");
+h_address[8].lat1 = 22.333956931655234;
+h_address[8].lon1 = 91.78921471081686;
+
+strcpy(h_address[9].address, "Barcode_Food_Junction");
+h_address[9].lat1 = 22.368348452422712;
+h_address[9].lon1 = 91.83649891209726;
+
+strcpy(h_address[10].address, "bonanza_port_restaurant");
+h_address[10].lat1 = 22.313836179685644;
+h_address[10].lon1 = 91.79910339547213;
+
+strcpy(h_address[11].address, "Highway_Sweets_&_Confectionery");
+h_address[11].lat1 = 22.329061875287632;
+h_address[11].lon1 = 91.79067787299658;
+
+strcpy(h_address[12].address, "broast_cafe");
+h_address[12].lat1 = 22.347121679661765;
+h_address[12].lon1 = 91.81882849547301;
+
+strcpy(h_address[13].address, "Red_chilli");
+h_address[13].lat1 = 22.346622125148528;
+h_address[13].lon1 = 91.82336479342668;
+
+strcpy(h_address[14].address, "cafe_Mr_Bean");
+h_address[14].lat1 = 22.319958804685957;
+h_address[14].lon1 = 91.7977358531444;
+
+strcpy(h_address[15].address, "Tasty_Treat");
+h_address[15].lat1 = 22.32353176061126;
+h_address[15].lon1 = 91.79297224993401;
+
+strcpy(h_address[16].address, "captain_dine");
+h_address[16].lat1 = 22.332510679672104;
+h_address[16].lon1 = 91.78931752430864;
+
+strcpy(h_address[17].address, "Busaba");
+h_address[17].lat1 = 22.331498416618903;
+h_address[17].lon1 = 91.78889909970226;
+
+strcpy(h_address[18].address, "Kacchi_Dine");
+h_address[18].lat1 = 22.358481055224424;
+h_address[18].lon1 = 91.83790256425995;
+
+strcpy(h_address[19].address, "Cha_Guys");
+h_address[19].lat1 = 22.35659246386332;
+h_address[19].lon1 = 91.83614177369908;
+
+strcpy(h_address[20].address, "PizzaBurg");
+h_address[20].lat1 = 22.34339468837947;
+h_address[20].lon1 = 91.83503448279569;
+
+strcpy(h_address[21].address, "gold_hill_hotel_&_restaurant");
+h_address[21].lat1 = 22.36549723612423;
+h_address[21].lon1 = 91.79657902430958;
+
+strcpy(h_address[22].address, "grand_mugal");
+h_address[22].lat1 = 22.35273610232987;
+h_address[22].lon1 = 91.82169572430925;
+
+strcpy(h_address[23].address, "green_chilli_restaurant");
+h_address[23].lat1 = 22.338164400828095;
+h_address[23].lon1 = 91.8304212531449;
+
+strcpy(h_address[24].address, "gravy_dine");
+h_address[24].lat1 = 22.361367757594735;
+h_address[24].lon1 = 91.81242119547346;
+
+strcpy(h_address[25].address, "handi_restaurant");
+h_address[25].lat1 = 22.354910564153442;
+h_address[25].lon1 = 91.82161727616177;
+
+strcpy(h_address[26].address, "hunger_killers");
+h_address[26].lat1 = 22.356735457267952;
+h_address[26].lon1 = 91.83745395314543;
+
+strcpy(h_address[27].address, "Da_Signature");
+h_address[27].lat1 = 22.3466437838044;
+h_address[27].lon1 = 91.83440693243945;
+
+strcpy(h_address[28].address, "impala_chinese_and_south_indian_restaurant");
+h_address[28].lat1 = 22.3612642796515;
+h_address[28].lon1 = 91.82894533780131;
+
+strcpy(h_address[29].address, "istison");
+h_address[29].lat1 = 22.49873206812485;
+h_address[29].lon1 = 91.71915589999999;
+
+strcpy(h_address[30].address, "kasbon_restaurant");
+h_address[30].lat1 = 22.495327450718143;
+h_address[30].lon1 = 91.72154366718091;
+
+strcpy(h_address[31].address, "kashmir_restaurant");
+h_address[31].lat1 = 22.367958548754455;
+h_address[31].lon1 = 91.843467198642;
+
+strcpy(h_address[32].address, "Faha's_Kitchen");
+h_address[32].lat1 = 22.32638345090648;
+h_address[32].lon1 = 91.81645001534676;
+
+strcpy(h_address[33].address, "kutumbari");
+h_address[33].lat1 = 22.36257707881414;
+h_address[33].lon1 = 91.78253929266302;
+
+strcpy(h_address[34].address, "kutumbari_restaurant_and_biriyani_house");
+h_address[34].lat1 = 22.358820231965385;
+h_address[34].lon1 = 91.78261073373247;
+
+strcpy(h_address[35].address, "Ziku_Restora");
+h_address[35].lat1 = 22.49872696863564;
+h_address[35].lon1 = 91.71916807070387;
+
+strcpy(h_address[36].address, "Panthashala_Restora");
+h_address[36].lat1 = 22.49566467986563;
+h_address[36].lon1 = 91.72153041245677;
+
+strcpy(h_address[37].address, "WAFFLE_&_DOUGH");
+h_address[37].lat1 = 22.349232279177894;
+h_address[37].lon1 = 91.82514302752021;
+
+strcpy(h_address[38].address, "lamingrass");
+h_address[38].lat1 = 22.327524279675732;
+h_address[38].lon1 = 91.81541026663642;
+
+strcpy(h_address[39].address, "mannan_canteen");
+h_address[39].lat1 = 22.49397117841309;
+h_address[39].lon1 = 91.7210136167397;
+
+strcpy(h_address[40].address, "masala_twist_restaurant");
+h_address[40].lat1 = 22.356656634547342;
+h_address[40].lon1 =  91.83774004134354;
+
+strcpy(h_address[41].address, "mejjainna_bari");
+h_address[41].lat1 = 22.366181805779362;
+h_address[41].lon1 = 91.82635294075662;
+
+strcpy(h_address[42].address, "mezetto");
+h_address[42].lat1 = 22.34868262608573;
+h_address[42].lon1 = 91.82326303597;
+
+strcpy(h_address[43].address, "Sabrin_Restaurant_&_Biriani_House");
+h_address[43].lat1 = 22.49054306248109;
+h_address[43].lon1 = 91.71866722691622;
+
+strcpy(h_address[44].address, "Bangaliana_Restora_&_Yummy_Foods");
+h_address[44].lat1 = 22.335622409280646;
+h_address[44].lon1 = 91.82796300482654;
+
+strcpy(h_address[45].address, "nabab_bari_restaurant");
+h_address[45].lat1 = 22.36535917964861;
+h_address[45].lon1 = 91.78117313780139;
+
+strcpy(h_address[46].address, "patil");
+h_address[46].lat1 = 22.347749081166004;
+h_address[46].lon1 = 91.8193547986378;
+
+strcpy(h_address[47].address, "rio_coffee");
+h_address[47].lat1 = 22.36133147965149;
+h_address[47].lon1 = 91.8138273954734;
+
+strcpy(h_address[48].address, "Bonjur");
+h_address[48].lat1 = 22.360735047483228;
+h_address[48].lon1 = 91.82136212085149;
+
+strcpy(h_address[49].address, "royal_hut");
+h_address[49].lat1 = 22.346679656559314;
+h_address[49].lon1 = 91.8237563243091;
+
+strcpy(h_address[50].address, "shawal_restaurant_and_biriyani_house");
+h_address[50].lat1 = 22.495656267092638;
+h_address[50].lon1 = 91.72179712431327;
+
+strcpy(h_address[51].address, "shangri-la_restaurant");
+h_address[51].lat1 = 22.32759585521486;
+h_address[51].lon1 = 91.81400085314462;
+
+strcpy(h_address[52].address, "FOOD_AVENUE_ROOFTOP");
+h_address[52].lat1 = 22.361238607375444;
+h_address[52].lon1 = 91.8420036453355;
+
+strcpy(h_address[53].address, "sultan_dine");
+h_address[53].lat1 = 22.365814757908456;
+h_address[53].lon1 = 91.82342635314569;
+
+strcpy(h_address[54].address, "tayef_restora");
+h_address[54].lat1 = 22.34327323297459;
+h_address[54].lon1 = 91.78744751081712;
+
+strcpy(h_address[55].address, "Cafe_Fusion");
+h_address[55].lat1 = 22.373798560549506;
+h_address[55].lon1 = 91.78049312833794;
+
+strcpy(h_address[56].address, "tava_restaurant_&_lounge");
+h_address[56].lat1 = 22.361524013516764;
+h_address[56].lon1 = 91.81238339547349;
+
+strcpy(h_address[57].address, "Foodmarket");
+h_address[57].lat1 = 22.367565504177936;
+h_address[57].lon1 = 91.82430948463697;
+
+strcpy(h_address[58].address, "the_copper_chimney_restaurant_gec");
+h_address[58].lat1 = 22.362924035759363;
+h_address[58].lon1 = 91.82135605314558;
+
+strcpy(h_address[59].address, "the_green_shadow_restaurant");
+h_address[59].lat1 = 22.326700106104642;
+h_address[59].lon1 = 91.81512695314457;
+
+strcpy(h_address[60].address, "the_pavilion");
+h_address[60].lat1 = 22.35737444262635;
+h_address[60].lon1 = 91.8210523545123;
+
+strcpy(h_address[61].address, "La_Gondola");
+h_address[61].lat1 = 22.329350369314326;
+h_address[61].lon1 = 91.83637583968398;
+
+strcpy(h_address[62].address, "la_ARISTOCRACY");
+h_address[62].lat1 = 22.325802022400772;
+h_address[62].lon1 = 91.81566230291327;
+
+strcpy(h_address[63].address, "ventura_bistro_&_restaurant");
+h_address[63].lat1 = 22.361381713486466;
+h_address[63].lon1 = 91.81245872430948;
+
+strcpy(h_address[64].address, "Food_Factory");
+h_address[64].lat1 = 22.364828439094854;
+h_address[64].lon1 = 91.80820917116458;
+
+strcpy(h_address[65].address, "zouk");
+h_address[65].lat1 = 22.351686879658395;
+h_address[65].lon1 = 91.8216913666371;
+
+strcpy(h_address[66].address, "Alif_Restaurant");
+h_address[66].lat1 = 22.338348061643682;
+h_address[66].lon1 = 91.81313111111525;
+
+
 
 
 ///opening fodx
@@ -340,7 +699,7 @@ int x_axix=42;
             printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
             gotoxy(x_axix+44 , y_axix+14);
             printf("%d%% ",i);
-            usleep(200000);
+            usleep(1000000);
             }
             if(i==80)
             {
@@ -378,6 +737,8 @@ int x_axix=42;
         part1:
 
         user = 0;
+        double distance;
+        double l1,l2,g1,g2;
         int time1 = 610;
         int item = 0;
         int yes;
@@ -387,9 +748,10 @@ int x_axix=42;
         int key1;
         int key2=0;
         int key3=-1;
+        int number;
         int key4=0;
         int key5=0;
-        int key6,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16,key17,key18,key19,key20;
+        int key6,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16,key17,key18,key19,key20,key21;
         int id1;
         int del=0;
         int id2;
@@ -415,6 +777,7 @@ int x_axix=42;
         char password2[100];
         char password5[100];
         char phone1[100];
+        double range;
         char check_phone[100];
         char check_date_of_birth[100];
         char best_friend1[100];
@@ -464,10 +827,12 @@ int x_axix=42;
                 fscanf(p, "%s" ,&cus[struct_index].date_of_birth);
             if(line==4)
                 fscanf(p, "%s" ,&cus[struct_index].best_friend);
+            if(line==5)
+                fscanf(p, "%s" ,&cus[struct_index].address1);
 
             line++;
 
-            if(line==5)
+            if(line==6)
             {
                 line=0;
                 struct_index++;
@@ -510,6 +875,9 @@ int x_axix=42;
 
             fputs("\n",p);
             fputs(cus[i].best_friend,p);
+
+            fputs("\n",p);
+            fputs(cus[i].address1,p);
 
             fputs("\n",p);
         }
@@ -856,8 +1224,32 @@ int x_axix=42;
                 printf("Enter your best friend name : ");
                 scanf("%s",&cus[user].best_friend);
 
+                system("cls");
+
+                printf("Select your address : \n");
+                printf("=-=-=-=-=-=-=-=-=-=-=\n");
+
+                while(1)
+                {
+                    for(int i=1;i<=18;i++)
+                    {
+                        printf("%d . %s\n",i,u_address[i].address);
+                    }
+                    printf("Enter the key : ");
+                    scanf("%d",&key21);
+
+                    if(key21>=1 && key21<=18)
+                    {
+                        strcpy(cus[user].address1,u_address[key21].address);
+                        break;
+                    }
+
+                    system("cls");
+                }
+
+
                 ///clear screen
-                clear(7);
+                clear(20);
 
 
                     ///loading part...
@@ -1105,6 +1497,7 @@ int x_axix=42;
         printf("5. Delete account\n");
         printf("6. Account setting\n");
         printf("7. Contact us\n");
+        printf("8. Nearest restaurant\n");
         printf("==================\n");
         printf("Enter the key: ");
         scanf("%d",&key3);
@@ -1132,6 +1525,7 @@ int x_axix=42;
             printf("password         : %s\n",cus[id2].password);
             printf("Date of birth    : %s\n",cus[id2].date_of_birth);
             printf("Best friend name : %s\n",cus[id2].best_friend);
+            printf("Address          : %s\n",cus[id2].address1);
 
             printf("\n1. Back\n");
             printf("Enter key : ");
@@ -1572,6 +1966,89 @@ int x_axix=42;
                 clear(8);
                 goto part9;
             }
+            }
+        }
+        if(key3==8)
+        {
+///part11d...
+            part11d:
+            system("cls");
+
+            while(1)
+            {
+            printf("Enter the range (kilometer): ");
+            scanf("%lf",&range);
+
+
+
+            number = 0;
+            printf("\nNearest restaurant in %.2lf km range\n",range);
+            printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+            for(int i=1;i<=66;i++)
+            {
+                for(int i=1;i<=18;i++)
+                {
+                l2=g2=0;
+                if(strcmp(cus[id1].address1 , u_address[i].address)==0)
+                {
+                    l2 = u_address[i].lat2;
+                    g2 = u_address[i].lon2;
+                    break;
+                }
+                }
+                distance = l1 = g1 = 0;
+                l1 = h_address[i].lat1;
+                g1 = h_address[i].lon1;
+
+                l1 = l1 * (  3.1415 / 180 );
+                l2 = l2 * (  3.1415 / 180 );
+                g1 = g1 * (  3.1415 / 180 );
+                g2 = g2 * (  3.1415 / 180 );
+
+                double dlong = g2 - g1;
+
+                double dlat = l2 - l1;
+
+
+                distance = pow((sin(dlat / 2)), 2) + cos(l1) * cos(l2) * pow((sin(dlong / 2)), 2);
+
+
+                distance = 2 * atan2(sqrt(distance),sqrt(1-distance));
+
+                double R = 6371;
+
+                distance = distance * R;
+
+                //distance = distance * 1.852;
+
+
+                if(range >= distance)
+                {
+                    number++;
+                    printf("%d . %s\nDistance : %.2lf km\n",number,h_address[i].address,distance);
+                    printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                }
+            }
+            if(number == 0)
+                printf("(Not found)\n\n");
+
+            printf("\n\n1. Back\n");
+            printf("2. Try again\n");
+            printf("Enter the key : ");
+            scanf("%d",&key21);
+
+            if(key21==1)
+            {
+                system("cls");
+                goto part9;
+            }
+            if(key21==2)
+            {
+                system("cls");
+                goto part11d;
+            }
+            system("cls");
+
             }
         }
         else
