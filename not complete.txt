@@ -1645,12 +1645,12 @@ int x_axix=42;
                 ///online_shop struct update
                 p = fopen("shop_list.txt","a+");
                 index3 = 0;
-                line=0;
+                line=1;
                 struct_index = 1;
 
                 while(!feof(p))
                 {
-                line++;
+
                 if(line==1)
                     fscanf(p,"%s",online_shop[struct_index].shop_name);
                 if(line==2)
@@ -1658,8 +1658,8 @@ int x_axix=42;
                 if(line==3)
                     fscanf(p,"%d",&online_shop[struct_index].border);
 
-
-                if(line==3)
+                line++;
+                if(line==4)
                 {
                     line=0;
                     index3++;
@@ -1712,6 +1712,7 @@ int x_axix=42;
                 while(1)
                 {
                 system("cls");
+                printf("index = %d",index3);
                 printf("=====================================\n");
                 printf("||||||||||||||  FODX  |||||||||||||||\n");
                 printf("=====================================\n");
@@ -1724,31 +1725,14 @@ int x_axix=42;
                 for(int i=1;i<=index3;i++)
                 {
                     printf("(%d) . %s\n",i,online_shop[i].shop_name);
+                    if(online_shop[i].gorder >= online_shop[i].border)
+                        printf("(They provide good service\n)");
+                    else
+                        printf("\n");
+                    printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                }
+                }
 
-                  /*  if(own[i].norder<=5){
-                    printf("         --- --- --- --- ---\n");
-                    printf("Status : |*| |*| |*| |*| |*| (5 STAR)\n");
-                    printf("         --- --- --- --- ---\n");}
-                    else if(own[i].norder>=6 && own[i].norder<=10){
-                    printf("         --- --- --- ---\n");
-                    printf("Status : |*| |*| |*| |*| (4 STAR)\n");
-                    printf("         --- --- --- ---\n");}
-                    else if(own[i].norder>=11 && own[i].norder<=15){
-                    printf("         --- --- ---\n");
-                    printf("Status : |*| |*| |*| (3 STAR)\n");
-                    printf("         --- --- ---\n");}
-                    else if(own[i].norder>=16 && own[i].norder<=20){
-                    printf("         --- ---\n");
-                    printf("Status : |*| |*| (2 STAR)\n");
-                    printf("         --- ---\n");}
-                    else if(own[i].norder>=21){
-                    printf("         ---\n");
-                    printf("Status : |*| (1 STAR)\n");
-                    printf("         ---\n");}
-                    printf("=====================================\n");*/
-                }
-                }
-                printf("\n");
 
                 printf("(-1) . Back\n");
                 printf("Enter the key : ");
@@ -1780,6 +1764,7 @@ int x_axix=42;
                item = 0;
               amount = 0;
               int f[110000]={0};
+              int food[110000]={0};
               remove_array(food_index,1000);
                strcpy(phone7  ,  own[oid].phone);
                strcat(phone7, "f.txt");
@@ -1792,11 +1777,11 @@ int x_axix=42;
         while(!feof(p))
         {
             if(line==0)
-                fscanf(p,"%s",cus_food[index2].food_name);
+                fscanf(p,"%s",cus_food[struct_index].food_name);
             if(line==1)
-                fscanf(p,"%d",&cus_food[index2].food_price);
+                fscanf(p,"%d",&cus_food[struct_index].food_price);
             if(line==2)
-                fscanf(p,"%d",&cus_food[index2].food_remain);
+                fscanf(p,"%d",&cus_food[struct_index].food_remain);
 
             line++;
 
@@ -1812,10 +1797,14 @@ int x_axix=42;
 
 
 
-
+            for(int i=1;i<=index2;i++)
+            {
+                food[i]=cus_food[i].food_remain;
+            }
 
             while(1)
             {
+
 
                 printf("=====================================\n");
                 printf("||||||||||||||  FODX  |||||||||||||||\n");
@@ -1850,10 +1839,11 @@ int x_axix=42;
 
 ///part10c...
                 part10c:
-                if(key16>=1 && key16<=index2 && (cus_food[key16].food_remain>0))
+                if(key16>=1 && key16<=index2 && (food[key16]>0))
                 {
                     food_index[item] = key16;
                     amount = amount + cus_food[key16].food_price;
+                    food[key16]-=1;
                     f[key16]++; ///for delete remain food...
                     item++;
                 }
@@ -2985,7 +2975,7 @@ part12a1:
             printf("Account status\n=================\n");
             double per = (own[oid].gorder*100)/(own[oid].gorder+own[oid].border);
 
-            if(per<=50)
+            if(per>=50)
                 printf("Your account status is GOOD\n\n");
             else
             {
@@ -3027,8 +3017,8 @@ part12a1:
                     printf("|");}
                 for(int i=0;i<9;i++){
                     Sleep(40);
-                    gotoxy(7+i,9);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),9);
+                    printf("%c%c",ascii5,ascii5);}
 
                 gotoxy(10,7);
                 printf("(%.1lf%%)",per);
@@ -3040,12 +3030,12 @@ part12a1:
             {
                 for(int i=0;i<1;i++){
                     Sleep(40);
-                    gotoxy(7+i+1,7);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),7);
+                    printf("%c%c",ascii5,ascii5);}
                 for(int i=0;i<9;i++){
                     Sleep(40);
-                    gotoxy(7+i+1,9);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),9);
+                    printf("%c%c",ascii5,ascii5);}
 
                 gotoxy(11,7);
                 printf("(%.1lf%%)",per);
@@ -3057,12 +3047,12 @@ part12a1:
             {
                 for(int i=0;i<2;i++){
                     Sleep(40);
-                    gotoxy(7+i,7);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),7);
+                    printf("%c%c",ascii5,ascii5);}
                 for(int i=0;i<8;i++){
                     Sleep(40);
-                    gotoxy(7+i,9);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),9);
+                    printf("%c%c",ascii5,ascii5);}
 
                 gotoxy(12,7);
                 printf("(%.1lf%%)",per);
@@ -3074,12 +3064,12 @@ part12a1:
             {
                 for(int i=0;i<3;i++){
                     Sleep(40);
-                    gotoxy(7+i,7);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),7);
+                    printf("%c%c",ascii5,ascii5);}
                 for(int i=0;i<7;i++){
                     Sleep(40);
-                    gotoxy(7+i,9);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),9);
+                    printf("%c%c",ascii5,ascii5);}
 
                 gotoxy(13,7);
                 printf("(%.1lf%%)",per);
@@ -3091,12 +3081,12 @@ part12a1:
             {
                 for(int i=0;i<4;i++){
                     Sleep(40);
-                    gotoxy(7+i,7);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),7);
+                    printf("%c%c",ascii5,ascii5);}
                 for(int i=0;i<6;i++){
                     Sleep(40);
-                    gotoxy(7+i,9);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),9);
+                    printf("%c%c",ascii5,ascii5);}
 
                 gotoxy(14,7);
                 printf("(%.1lf%%)",per);
@@ -3108,12 +3098,12 @@ part12a1:
             {
                 for(int i=0;i<5;i++){
                     Sleep(40);
-                    gotoxy(7+i,7);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),7);
+                    printf("%c%c",ascii5,ascii5);}
                 for(int i=0;i<5;i++){
                     Sleep(40);
-                    gotoxy(7+i,9);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),9);
+                    printf("%c%c",ascii5,ascii5);}
 
                 gotoxy(15,7);
                 printf("(%.1lf%%)",per);
@@ -3125,12 +3115,12 @@ part12a1:
             {
                 for(int i=0;i<6;i++){
                     Sleep(40);
-                    gotoxy(7+i,7);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),7);
+                    printf("%c%c",ascii5,ascii5);}
                 for(int i=0;i<4;i++){
                     Sleep(40);
-                    gotoxy(7+i,9);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),9);
+                    printf("%c%c",ascii5,ascii5);}
 
                 gotoxy(16,7);
                 printf("(%.1lf%%)",per);
@@ -3142,12 +3132,12 @@ part12a1:
             {
                 for(int i=0;i<7;i++){
                     Sleep(40);
-                    gotoxy(7+i,7);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),7);
+                    printf("%c%c",ascii5,ascii5);}
                 for(int i=0;i<3;i++){
                     Sleep(40);
-                    gotoxy(7+i,9);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),9);
+                    printf("%c%c",ascii5,ascii5);}
 
                 gotoxy(17,7);
                 printf("(%.1lf%%)",per);
@@ -3159,12 +3149,12 @@ part12a1:
             {
                 for(int i=0;i<8;i++){
                     Sleep(40);
-                    gotoxy(7+i,7);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),7);
+                    printf("%c%c",ascii5,ascii5);}
                 for(int i=0;i<2;i++){
                     Sleep(40);
-                    gotoxy(7+i,9);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),9);
+                    printf("%c%c",ascii5,ascii5);}
 
                 gotoxy(18,7);
                 printf("(%.1lf%%)",per);
@@ -3176,11 +3166,11 @@ part12a1:
             {
                 for(int i=0;i<9;i++){
                     Sleep(40);
-                    gotoxy(7+i+1,7);
-                    printf("%c%c%c",ascii5,ascii5,ascii5);}
+                    gotoxy(7+(i*2),7);
+                    printf("%c%c",ascii5,ascii5);}
                 for(int i=0;i<1;i++){
                     Sleep(40);
-                    gotoxy(7+i,9);
+                    gotoxy(7+(i*2),9);
                     printf("|");}
 
                 gotoxy(19,7);
@@ -3203,6 +3193,19 @@ part12a1:
                 goto part12a;
             }
 
+
+            gotoxy(0,12);
+            printf("(1) . Back\n");
+            gotoxy(0,13);
+            printf("Enter the key : ");
+            scanf("%d",&key30);
+
+            if(key30==1)
+            {
+                system("cls");
+                goto part12a;
+            }
+
         }
         }
         }
@@ -3210,4 +3213,4 @@ part12a1:
 
         return 0;
 }
-
+///hoise...
