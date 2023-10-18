@@ -1,3 +1,4 @@
+
     #include<stdio.h>
     #include<string.h>
     #include<stdlib.h>
@@ -85,6 +86,7 @@
 
     struct customer
     {
+        int message;
         char name[100];
         char password[100];
         char phone[50];
@@ -98,6 +100,7 @@
 
     struct owner
     {
+        int message;
         int gorder;
         int border;
         char shop_name[100];
@@ -673,7 +676,7 @@ int x_axix=42;
         int sum;
         int key5=0;
         int food_price;
-        int key6,key24,key25,key27,key26,key28,key29,key30,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16,key17,key18,key19,key20,key21;
+        int key6,key24,key25,key27,key26,key28,key29,key30,key31,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16,key17,key18,key19,key20,key21;
         int key23;
         int id1;
         char phone8[100];
@@ -687,6 +690,7 @@ int x_axix=42;
         time(&t);
         int n3;
         char ch;
+        char ch5[1000000];
         char search1[1000];
         char ch2;
         char search[1000];
@@ -707,6 +711,7 @@ int x_axix=42;
         int length3;
         int length2;
         int amount;
+        int shop_index;
         int flag4;
         int index2;
         char phone7[100];
@@ -1586,6 +1591,7 @@ int x_axix=42;
         printf("7. Contact us\n");
         printf("8. Nearest restaurant\n");
         printf("9. Feedback\n");
+        printf("10.Message\n");
         printf("==================\n");
         printf("Enter the key: ");
         scanf("%d",&key3);keysound();
@@ -2163,9 +2169,73 @@ int x_axix=42;
         }
         if(key3==4)
         {
+        p= fopen("owner.txt","w");
+        for(int i=1;i<=ouser;i++)
+        {
+        fprintf(p,"%d\n",own[i].gorder);
+        fprintf(p,"%d\n",own[i].border);
+        fprintf(p,"%s\n",own[i].shop_name);
+        fprintf(p,"%s\n",own[i].nickname);
+        fprintf(p,"%s\n",own[i].phone);
+        fprintf(p,"%s\n",own[i].password);
+        fprintf(p,"%s\n",own[i].date_of_birth);
+        fprintf(p,"%s\n",own[i].best_friend);
+        }
+        fclose(p);
+
+
+        p = fopen("shop_list.txt","w");
+
+        for(int i=1;i<=index3;i++)
+        {
+                fprintf(p,"%s\n",online_shop[i].shop_name);
+                fprintf(p,"%d\n",online_shop[i].gorder);
+                fprintf(p,"%d\n",online_shop[i].border);
+        }
+        fclose(p);
+
+
+
+        p = fopen("customer_profile.txt","w");
+
+        for(int i=1;i<=user;i++)
+        {
+            if(del==1 && id3==i)
+            {
+                del=0;
+                id3=0;
+                continue;
+            }
+
+            fputs(cus[i].name,p);
+
+            fputs("\n",p);
+            fputs(cus[i].password,p);
+
+            fputs("\n",p);
+            fputs(cus[i].phone,p);
+
+            fputs("\n",p);
+            fputs(cus[i].date_of_birth,p);
+
+            fputs("\n",p);
+            fputs(cus[i].best_friend,p);
+
+            fputs("\n",p);
+            fputs(cus[i].address1,p);
+
+            fputs("\n",p);
+        }
+
+        fclose(p);
+
+
+
             remove_string(phone3);
             id2=id3=id1=0;
             remove_string(cus_history);
+
+
             goto part1;
         }
         if(key3==5)
@@ -2541,6 +2611,172 @@ int x_axix=42;
             system("cls");
 
             }
+        }
+        if(key3==9)
+        {
+            p = fopen("shop_list.txt","a+");
+                index3 = 0;
+                line=1;
+                struct_index = 1;
+
+                while(!feof(p))
+                {
+
+                if(line==1)
+                    fscanf(p,"%s",online_shop[struct_index].shop_name);
+                if(line==2)
+                    fscanf(p,"%d",&online_shop[struct_index].gorder);
+                if(line==3)
+                    fscanf(p,"%d",&online_shop[struct_index].border);
+
+                line++;
+                if(line==4)
+                {
+                    line=0;
+                    index3++;
+                    struct_index++;
+                }
+                }
+
+                fclose(p);
+
+
+            while(1)
+            {
+                system("cls");
+                printf("Choose the shop for your feedback\n=====================================\n");
+                if(index3>0)
+                {
+                for(int i=1;i<=index3;i++)
+                {
+                    printf("(%d) . Shop name : %s\n",i,online_shop[i].shop_name);
+                    printf("==============================================\n");
+                }
+                }
+                else
+                    printf("(There is no online shop)\n");
+
+                printf("(-1) . Back\n");
+                printf("Enter the key : ");
+                scanf("%d",&key31);
+
+                if(key31>=1 && key31<=index3 && index3>0)
+                {
+                    shop_index=key31;
+                    break;
+                }
+                if(key31==-1)
+                {
+                    system("cls");
+                    goto part9;
+                }
+
+            }
+            while(1)
+            {
+            system("cls");
+            printf("Answer the question : \n");
+            printf("Shop name : %s\n",online_shop[shop_index].shop_name);
+            printf("(1)  . Good service\n");
+            printf("(2)  . Bad service\n");
+            printf("(-1) . Back\n");
+
+            printf("Enter the key : ");
+
+            scanf("%d",&key31);
+
+            if(key31==1)
+            {
+                online_shop[key31].gorder++;
+                own[key31].gorder++;
+            }
+            if(key31==2)
+            {
+                online_shop[key31].border++;
+                own[key31].border++;
+            }
+            if(key31==-1)
+            {
+                system("cls");
+                goto part9;
+            }
+
+
+
+            }
+        }
+        if(key3==10)
+        {
+            printf("Message : \n=============\n");
+
+            if(index3>0)
+            {
+            for(int i=1;i<=index3;i++)
+            {
+            printf("(%d) . %s\n",i,online_shop[i].shop_name);
+            printf("================================\n")
+            }
+            }
+            else
+            {
+                printf("(There is no shop)\n");
+            }
+
+            printf("(-1) . Back\n");
+            printf("Enter the key : ");
+            scanf("%d",&key33);
+
+            if(key33>=1 && key33<=index3)
+            {
+                strcpy(phone10 , own[key33].phone);
+                strcat(phone10 , cus[id1].phone);
+
+                strcat(phone10,".txt");
+
+                p = fopen(phone10,"a+");
+
+                ch[100000];
+                int i = 0;
+                while(!feof(p))
+                {
+                    ch[i] = fgetc(p);
+                    printf("%c",ch[i]);
+                    i++;
+                }
+
+                fclose(p);
+
+                printf("Enter the message : \n=======================\n");
+                gets(mess);
+                if(mess[0]=="*")
+                {
+                    system("cls");
+                    goto part9;
+                }
+                else
+                {
+                     p = fopen(phone10,"w");
+
+                    int i = 0;
+                    while(ch[i]!='\0')
+                    {
+                        printf("%c",ch[i]);
+                    }
+                    fclose(p);
+
+
+                    p = fopen(phone10,"a");
+                    fprintf(p, "message from %s\n",cus[id1].name);
+                    fprintf(p, "Time : %s\n",ctime(&t));
+                    fpirntf(p, "==============================================\n");
+                    fputs(mess,p);
+                    fpirntf(p, "==============================================\n");
+
+
+
+                }
+            }
+
         }
         else
         {
