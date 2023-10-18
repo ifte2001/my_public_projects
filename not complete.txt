@@ -1726,7 +1726,7 @@ int x_axix=42;
                 {
                     printf("(%d) . %s\n",i,online_shop[i].shop_name);
                     if(online_shop[i].gorder >= online_shop[i].border)
-                        printf("(They provide good service\n)");
+                        printf("(They provide good service)\n");
                     else
                         printf("\n");
                     printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
@@ -2480,7 +2480,7 @@ int x_axix=42;
                     }
                     else if(x1 ==x2 && y1 <y2)
                     {
-                        gotoxy(75+1,14+sum);  ///middle 76,14
+                        gotoxy(75,14+sum);  ///middle 76,14
                         printf("(B)");
                     }
                     else if(x1 <x2 && y1> y2)
@@ -2490,12 +2490,12 @@ int x_axix=42;
                     }
                     else if(x1 <x2 && y1== y2)
                     {
-                        gotoxy(75-sum,14+1);  ///middle 76,14
+                        gotoxy(75-sum,14);  ///middle 76,14
                         printf("(B)");
                     }
                     else if(x1 ==x2 && y1 >y2)
                     {
-                        gotoxy(75+1,14-sum);  ///middle 76,14
+                        gotoxy(75,14-sum);  ///middle 76,14
                         printf("(B)");
                     }
                     else if(x1 >x2 && y1 > y2)
@@ -2505,7 +2505,7 @@ int x_axix=42;
                     }
                     else if(x1 >x2 && y1== y2)
                     {
-                        gotoxy(75+sum,14+1);  ///middle 76,14
+                        gotoxy(75+sum,14);  ///middle 76,14
                         printf("(B)");
                     }
                     else if(x1 >x2 && y1 <y2)
@@ -3213,4 +3213,4 @@ part12a1:
 
         return 0;
 }
-///hoise...
+
