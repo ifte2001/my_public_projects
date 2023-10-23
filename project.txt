@@ -1,3 +1,4 @@
+
     #include<stdio.h>
     #include<string.h>
     #include<stdlib.h>
@@ -5,8 +6,94 @@
     #include<conio.h>
     #include<time.h>
     #include<math.h>
+    #include<MMsystem.h>
+
+    void gotostring(int a,int b,int c)
+    {
+        ///a = x axix
+        ///b = y axix
+        ///c = color number
+
+            gotoxy(a,b);setcolor(c);
+    }
 
 
+    void horizontal(int a,int b,int c,int n)
+    {
+        ///a = x axix
+        ///b = y axix
+        ///c = color number
+        ///n = number of line
+        int asc = 254;
+        gotoxy(a,b);setcolor(c);
+        for(int i=0;i<n;i++)
+        {
+            printf("%c",asc);
+        }
+    }
+
+    void character(int n,int x)
+    {
+        char chr = x;
+        for(int i=1;i<=n;i++)
+        {
+            printf("%c",chr);
+        }
+    }
+
+    void vertical_right(int a,int b,int c,int n)
+    {
+        ///a = x axix
+        ///b = y axix
+        ///c = color number
+        ///n = number of line
+        int asc = 222;
+
+        for(int i=0;i<n;i++)
+        {
+            gotoxy(a,b+i);setcolor(c);
+            printf("%c",asc);
+        }
+    }
+
+    void vertical_left(int a,int b,int c,int n)
+    {
+        ///a = x axix
+        ///b = y axix
+        ///c = color number
+        ///n = number of line
+        int asc = 221;
+
+        for(int i=0;i<n;i++)
+        {
+            gotoxy(a,b+i);setcolor(c);
+            printf("%c",asc);
+        }
+    }
+
+
+    void setcolor(int ForgC)      ///for COLOR
+    {
+     WORD wColor;
+     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+     CONSOLE_SCREEN_BUFFER_INFO csbi;
+     if(GetConsoleScreenBufferInfo(hStdOut, &csbi))
+     {
+          wColor = (csbi.wAttributes & 0xF0) + (ForgC & 0x0F);
+          SetConsoleTextAttribute(hStdOut, wColor);
+     }
+     return;
+    }
+
+
+    void hidecursor()    ////HIDE CURSOR
+    {
+        HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+        CONSOLE_CURSOR_INFO info;
+        info.dwSize = 100;
+        info.bVisible = FALSE;
+        SetConsoleCursorInfo(consoleHandle, &info);
+    }
 
     void successsound()
     {
@@ -58,16 +145,31 @@
         else
         {
             dis=dis/5;
-            dis+=2;
+            dis+=4;
         }
 
         return dis;
     }
 
+    struct cchat
+    {
+        char nickname[100];
+        int point;
+    };
+    struct cchat cmessage[10000];
+
+
+    struct ochat
+    {
+        char nickname[100];
+        int point;
+    };
+    struct ochat omessage[10000];
+
 
     struct hotal
     {
-        char address[1000];
+        char address[100];
         double lat1;
         double lon1;
     };
@@ -85,20 +187,22 @@
 
     struct customer
     {
+        int message;
         char name[100];
         char password[100];
         char phone[50];
         char date_of_birth[20];
         char best_friend[50];
         char address1[1000];
-        int shop_id[1000];
     };
     struct customer cus[10000];
 
 
     struct owner
     {
-        int norder;
+        int message;
+        int gorder;
+        int border;
         char shop_name[100];
         char nickname[50];
         char password[50];
@@ -117,13 +221,6 @@
     };
     struct order_food cus_food[100];
 
-
-    struct shop
-    {
-        char shop_name[1000];
-        int norder;
-    };
-    struct shop online_shop[1000];
 
 
     void gotoxy(int x, int y)
@@ -156,13 +253,13 @@
     int main()
     {
 
-strcpy(u_address[1].address, "a.k._khan");
-u_address[1].lat2 = 22.371;
-u_address[1].lon2 = 91.792;
+strcpy(u_address[1].address,"a.k._khan");
+u_address[1].lat2 = 22.359872002016623;
+u_address[1].lon2 = 91.78178234717315;
 
 strcpy(u_address[2].address, "agrabad");
-u_address[2].lat2 = 22.32456;
-u_address[2].lon2 = 91.81126;
+u_address[2].lat2 = 22.324033450112637;
+u_address[2].lon2 = 91.81233500243141;
 
 strcpy(u_address[3].address, "anderkilla");
 u_address[3].lat2 = 22.34138674007712;
@@ -235,8 +332,8 @@ u_address[18].lon2 = 91.7210835575383;
 
 
 strcpy(h_address[2].address, "alif_restaurant");
-h_address[2].lat1 = 22.358519921943294;
-h_address[2].lon1 = 91.78192560001011;
+h_address[2].lat1 = 22.358610697824787;
+h_address[2].lon1 = 91.7819625690146;
 
 strcpy(h_address[1].address, "Four_Seasons_Restaurant");
 h_address[1].lat1 = 21.958835923304065;
@@ -314,7 +411,7 @@ strcpy(h_address[20].address, "PizzaBurg");
 h_address[20].lat1 = 22.34339468837947;
 h_address[20].lon1 = 91.83503448279569;
 
-strcpy(h_address[21].address, "gold_hill_hotel_&_restaurant");
+strcpy(h_address[21].address, "gold_hill_hotel");
 h_address[21].lat1 = 22.36549723612423;
 h_address[21].lon1 = 91.79657902430958;
 
@@ -342,7 +439,7 @@ strcpy(h_address[27].address, "Da_Signature");
 h_address[27].lat1 = 22.3466437838044;
 h_address[27].lon1 = 91.83440693243945;
 
-strcpy(h_address[28].address, "impala_chinese_and_south_indian_restaurant");
+strcpy(h_address[28].address, "impala_chinese_&_south_indian");
 h_address[28].lat1 = 22.3612642796515;
 h_address[28].lon1 = 91.82894533780131;
 
@@ -366,7 +463,7 @@ strcpy(h_address[33].address, "kutumbari");
 h_address[33].lat1 = 22.36257707881414;
 h_address[33].lon1 = 91.78253929266302;
 
-strcpy(h_address[34].address, "kutumbari_restaurant_and_biriyani_house");
+strcpy(h_address[34].address, "kutumbari_restaurant");
 h_address[34].lat1 = 22.358820231965385;
 h_address[34].lon1 = 91.78261073373247;
 
@@ -390,7 +487,7 @@ strcpy(h_address[39].address, "mannan_canteen");
 h_address[39].lat1 = 22.49397117841309;
 h_address[39].lon1 = 91.7210136167397;
 
-strcpy(h_address[40].address, "masala_twist_restaurant");
+strcpy(h_address[40].address, "masala_twist");
 h_address[40].lat1 = 22.356656634547342;
 h_address[40].lon1 =  91.83774004134354;
 
@@ -402,17 +499,17 @@ strcpy(h_address[42].address, "mezetto");
 h_address[42].lat1 = 22.34868262608573;
 h_address[42].lon1 = 91.82326303597;
 
-strcpy(h_address[43].address, "Sabrin_Restaurant_&_Biriani_House");
+strcpy(h_address[43].address, "Sabrin_Restaurant");
 h_address[43].lat1 = 22.49054306248109;
 h_address[43].lon1 = 91.71866722691622;
 
-strcpy(h_address[44].address, "Bangaliana_Restora_&_Yummy_Foods");
+strcpy(h_address[44].address, "Bangaliana_Restora");
 h_address[44].lat1 = 22.335622409280646;
 h_address[44].lon1 = 91.82796300482654;
 
 strcpy(h_address[45].address, "nabab_bari_restaurant");
-h_address[45].lat1 = 22.36535917964861;
-h_address[45].lon1 = 91.78117313780139;
+h_address[45].lat1 = 22.365374923150537;
+h_address[45].lon1 = 91.78123286229285;
 
 strcpy(h_address[46].address, "patil");
 h_address[46].lat1 = 22.347749081166004;
@@ -430,7 +527,7 @@ strcpy(h_address[49].address, "royal_hut");
 h_address[49].lat1 = 22.346679656559314;
 h_address[49].lon1 = 91.8237563243091;
 
-strcpy(h_address[50].address, "shawal_restaurant_and_biriyani_house");
+strcpy(h_address[50].address, "shawal_restaurant");
 h_address[50].lat1 = 22.495664776397103;
 h_address[50].lon1 = 91.7217867152888;
 
@@ -462,11 +559,11 @@ strcpy(h_address[57].address, "Foodmarket");
 h_address[57].lat1 = 22.367565504177936;
 h_address[57].lon1 = 91.82430948463697;
 
-strcpy(h_address[58].address, "the_copper_chimney_restaurant_gec");
+strcpy(h_address[58].address, "the_copper_chimney");
 h_address[58].lat1 = 22.362924035759363;
 h_address[58].lon1 = 91.82135605314558;
 
-strcpy(h_address[59].address, "the_green_shadow_restaurant");
+strcpy(h_address[59].address, "the_green_shadow");
 h_address[59].lat1 = 22.326700106104642;
 h_address[59].lon1 = 91.81512695314457;
 
@@ -482,7 +579,7 @@ strcpy(h_address[62].address, "la_ARISTOCRACY");
 h_address[62].lat1 = 22.325802022400772;
 h_address[62].lon1 = 91.81566230291327;
 
-strcpy(h_address[63].address, "ventura_bistro_&_restaurant");
+strcpy(h_address[63].address, "ventura_bistro");
 h_address[63].lat1 = 22.361381713486466;
 h_address[63].lon1 = 91.81245872430948;
 
@@ -504,11 +601,27 @@ h_address[66].lon1 = 91.81313111111525;
 ///opening fodx
 int x_axix=42;
         int y_axix=12;
-	int num_box = 219;
-	char ch_box = num_box;
+	char ch_box1=220;
+	char ch_box = 219;
+	char ch_box2 = 178;
+	char ch_box3 = 223;
+	char ch_box4 = 221;
+	char ch_box5 = 222;
+	char ch_box6=254;
+        setcolor(6);
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1);
+
+        printf("%c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  \n",ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2);
+        printf("  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c\n",ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2);
+        printf("%c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  \n",ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2);
+        printf("  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c\n",ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2);
+
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3);
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3);
+        setcolor(14);
         gotoxy(x_axix-5 , y_axix-3);
-        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
-        gotoxy(x_axix-5 , y_axix-2);
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1);gotoxy(x_axix-5 , y_axix-2);
         printf("%c",ch_box);
         gotoxy(x_axix+46 , y_axix-2);
         printf("%c",ch_box);
@@ -517,7 +630,7 @@ int x_axix=42;
         gotoxy(x_axix+46 , y_axix-1);
         printf("%c",ch_box);
         gotoxy(x_axix-5 , y_axix);
-        printf("%c     %c%c%c%c%c    %c%c%c%c%c%c%c    %c%c%c%c%c%c     %c%c      %c%c    %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
+        printf("%c     %c%c%c%c%c    %c%c%c%c%c%c%c    %c%c%c%c%c%c     %c%c      %c%c    %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
         gotoxy(x_axix-5 , y_axix+1);
         printf("%c     %c%c       %c%c   %c%c    %c%c   %c%c      %c%c  %c%c      %c\n",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
         gotoxy(x_axix-5 , y_axix+2);
@@ -531,110 +644,45 @@ int x_axix=42;
         gotoxy(x_axix+46 , y_axix+5);
         printf("%c",ch_box);
         gotoxy(x_axix-5 , y_axix+6);
-        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c               %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box,ch_box);
-        gotoxy(x_axix-5 , y_axix+13);
-        printf("LOADING...");
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c               %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",ch_box,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box);
 
-        Sleep(1);
+        setcolor(6);
+
+        gotoxy(0 , y_axix+12);
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1,ch_box1);
+        printf("%c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c\n",ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2);
+        printf("  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c\n",ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2);
+        printf("%c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c  %c%c\n",ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2,ch_box2);
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c\n",ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3);
+        printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c",ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3,ch_box3);
+
+
+
+
+        Sleep(600);
         gotoxy(x_axix +13 , y_axix+6);
         printf("%c   ORDER   %c",ch_box,ch_box);
-        for(int i=10;i<=100;i+=10)
-        {
+
+
+        Sleep(600);
+        gotoxy(x_axix, y_axix+8);
+        printf("             %c    PAY    %c",ch_box,ch_box);
+
+
+        Sleep(600);
+        gotoxy(x_axix , y_axix+10);
+        printf("             %c   ENJOY   %c",ch_box,ch_box);
 
 
 
+        Sleep(2000);
 
 
-            if(i==10)
-            {
-            gotoxy(x_axix-5 , y_axix+14);
-            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
-            gotoxy(x_axix+44 , y_axix+14);
-            printf("%d%% ",i);
-            Sleep(1);
-
-            gotoxy(x_axix, y_axix+8);
-            printf("             %c    PAY    %c",ch_box,ch_box);
-            }
-            if(i==20)
-            {
-            gotoxy(x_axix , y_axix+14);
-            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
-            gotoxy(x_axix+44 , y_axix+14);
-            printf("%d%% ",i);
-            Sleep(1);
-            gotoxy(x_axix , y_axix+10);
-            printf("             %c   ENJOY   %c",ch_box,ch_box);
-            }
-            if(i==30)
-            {
-            gotoxy(x_axix+5 , y_axix+14);
-            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
-            gotoxy(x_axix+44 , y_axix+14);
-            printf("%d%% ",i);
-            Sleep(1);
-            }
-            if(i==40)
-            {
-            gotoxy(x_axix+10 , y_axix+14);
-            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
-            gotoxy(x_axix+44 , y_axix+14);
-            printf("%d%% ",i);
-            Sleep(1);
-            }
-            if(i==50)
-            {
-            gotoxy(x_axix+15 , y_axix+14);
-            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
-            gotoxy(x_axix+44 , y_axix+14);
-            printf("%d%% ",i);
-            Sleep(1);
-            }
-            if(i==60)
-            {
-            gotoxy(x_axix+20 , y_axix+14);
-            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
-            gotoxy(x_axix+44 , y_axix+14);
-            printf("%d%% ",i);
-            Sleep(1);
-            }
-            if(i==70)
-            {
-            gotoxy(x_axix+25 , y_axix+14);
-            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
-            gotoxy(x_axix+44 , y_axix+14);
-            printf("%d%% ",i);
-            Sleep(1);
-            }
-            if(i==80)
-            {
-            gotoxy(x_axix+30 , y_axix+14);
-            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
-            gotoxy(x_axix+44 , y_axix+14);
-            printf("%d%% ",i);
-            Sleep(1);
-            }
-            if(i==90)
-            {
-            gotoxy(x_axix+35 , y_axix+14);
-            printf("%c%c%c",ch_box,ch_box,ch_box);
-            gotoxy(x_axix+44 , y_axix+14);
-            printf("%d%% ",i);
-            Sleep(1);
-            }
-            if(i==100)
-            {
-            gotoxy(x_axix+38 , y_axix+14);
-            printf("%c%c%c%c%c",ch_box,ch_box,ch_box,ch_box,ch_box);
-            gotoxy(x_axix+44 , y_axix+14);
-            printf("%d%% ",i);
-            }
-        }
 
 
         //Sleep(1);
         ///clear screen
-        clear(15);
+        system("cls");
 
 
 
@@ -655,9 +703,11 @@ int x_axix=42;
         part1:
 
         user = 0;
+        int time1=600;
+        int time2=2000;
+        char phone10[50];
         double distance;
         double l1,l2,g1,g2;
-        int time1 = 0;
         int item = 0;
         int yes;
         int filter1,filter2;
@@ -668,47 +718,71 @@ int x_axix=42;
         int key3=-1;
         int number;
         int key4=0;
+        int key34;
         int sum;
         int key5=0;
+        int message_number;
         int food_price;
-        int key6,key24,key25,key27,key26,key28,key29,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16,key17,key18,key19,key20,key21;
+        int key6,key24,key25,key27,key26,key28,key29,key30,key31,key33,key7,key8,key9,key10,key11,key12,key13,key14,key15,key16,key17,key18,key19,key20,key21;
         int key23;
         int id1;
+        char phone17[50];
+        char phone18[50];
+        char phone11[50];
+        char phone23[50];
+        char phone19[50];
+        char phone15[50];
+        char phone16[50];
+        char phone20[50];
+        char mess[10000];
         char phone8[100];
         int add_food;
+        int key36;
         int del=0;
         int id2;
         int id3;
+        int box;
+        int checker;
         double dlong,dlat;
         time_t t;
         time(&t);
         int n3;
+        char phone22[50];
         char ch;
+        char ch5[100000];
         char search1[1000];
         char ch2;
+        char phone12[50];
         char search[1000];
-        char shop_name[1000];
+        char shop_name[100];
         char dob[100];
         char dob1[100];
+        char phone14[50];
+        int index6;
         char phone2[100];
         int flag=0;
+        char phone13[50];
         int flag1=0;
+        int index4=0;
         int sort_order[10000];
         double temp;
         int flag5;
         int index1=0;
-        int index3;
+        char phone21[50];
         int oid;
         int length;
         int length1;
         int length3;
         int length2;
+        int index5;
         int amount;
+        char phone[1000];
+        int shop_index;
         int flag4;
-        int index2;
+        int index2=0;
         char phone7[100];
         double sort_distance[1000];
-        int sort_address[10000];
+        int sort_address[1000];
         char address[1000];
         char password1[100];
         char password2[100];
@@ -735,7 +809,8 @@ int x_axix=42;
         char best_friend2[50];
         char date_of_birth[50];
         char date_of_birth2[50];
-        int ouser;
+        int ouser=0;
+        int line;
 
 
 
@@ -750,23 +825,23 @@ int x_axix=42;
         int struct_index = 1;
 
         p = fopen("customer_profile.txt","a+");
-
-        int line = 0;
+        user = 0;
+        line = 0;
 
         while(!feof(p))
         {
             if(line==0)
-                fscanf(p, "%s" ,&cus[struct_index].name);
+                fscanf(p, "%s" ,cus[struct_index].name);
             if(line==1)
-                fscanf(p, "%s" ,&cus[struct_index].password);
+                fscanf(p, "%s" ,cus[struct_index].password);
             if(line==2)
-                fscanf(p, "%s" ,&cus[struct_index].phone);
+                fscanf(p, "%s" ,cus[struct_index].phone);
             if(line==3)
-                fscanf(p, "%s" ,&cus[struct_index].date_of_birth);
+                fscanf(p, "%s" ,cus[struct_index].date_of_birth);
             if(line==4)
-                fscanf(p, "%s" ,&cus[struct_index].best_friend);
+                fscanf(p, "%s" ,cus[struct_index].best_friend);
             if(line==5)
-                fscanf(p, "%s" ,&cus[struct_index].address1);
+                fscanf(p, "%s" ,cus[struct_index].address1);
 
             line++;
 
@@ -777,6 +852,7 @@ int x_axix=42;
                 user++;
             }
         }
+
 
         fclose(p);
 
@@ -822,11 +898,8 @@ int x_axix=42;
 
         fclose(p);
 
-        ///--------------------------------------------------------------------------------
-        ///--------------------------------------------------------------------------------
-        ///--------------------------------------------------------------------------------
-        ///--------------------------------------------------------------------------------
-        ///--------------------------------------------------------------------------------
+///--------------------------------------------------------------------------------
+
 
 
 
@@ -853,26 +926,29 @@ int x_axix=42;
         if(wrong1==1)
         {
             wrong1=0;
-            printf("***  You have choosen the wrong key  ***\n    ***  please try again  ***\n\n");
         }
+        vertical_left(50,4,14,7);
+        vertical_right(72,4,14,7);
 
+        horizontal(50,4,13,23);
+
+
+
+        gotostring(55,5,11);
         printf("Who are you?\n");
-        printf("1. I am customer...\n");
-        printf("2. I am the owner...\n");
-        printf("Enter the key : ");
+        horizontal(50,6,13,23);
+        gotostring(53,7,15);
+        printf("(1). I am customer\n");
+        gotostring(53,8,15);
+        printf("(2). I am owner\n");
+        horizontal(50,9,14,23);
+        horizontal(50,11,14,23);
+        gotostring(53,10,11);
+        printf("Enter the key : ");setcolor(10);
         scanf("%d",&key);
         keysound();
 
-        ///loading part...
-        printf("Loading");
-        for(int i=0;i<4;i++)
-        {
-            Sleep(time1);
-            printf(" .");
-        }
-
-        ///clear screen
-        clear(7);
+        system("cls");
 
         ///choose customer
         if(key==1)
@@ -881,15 +957,28 @@ int x_axix=42;
             while(1)
             {
             part4:
-            printf("Account:\n========\n");
-            printf("1. Log in\n");
-            printf("2. Sign up\n\n");
-            printf("3. Back\n");
-            printf("Enter the key : ");
+
+            vertical_left(50,4,14,8);
+            vertical_right(72,4,14,8);
+
+            horizontal(50,4,13,23);
+
+            gotostring(52,5,11);
+            printf(" Customer Account:\n");
+            horizontal(50,6,13,23);
+            gotostring(53,7,15);
+            printf("(1).   Log in\n");
+            gotostring(53,8,15);
+            printf("(2).   Sign up\n");
+            gotostring(53,9,15);
+            printf("(3).   Back\n\n");
+            horizontal(50,10,14,23);
+            horizontal(50,12,14,23);
+            gotostring(53,11,11);
+            printf("Enter the key : ");setcolor(10);
             scanf("%d",&key1);
             keysound();
-            ///clear screen
-            clear(7);
+            system("cls");
 
             if(key1==3)
             {
@@ -905,17 +994,34 @@ int x_axix=42;
 
                 if(wrong4 == 1)
                 {
-                    printf("Wrong information\n\n1. forget password\n2. try again\n3. back\n");
+                    vertical_left(50,4,14,9);
+                    vertical_right(72,4,14,9);
+
+                    horizontal(50,4,13,23);
+
+                    gotostring(52,5,11);
+                    printf("(Wrong Information)\n");
+                    horizontal(50,6,13,23);
+                    gotostring(51,7,15);
+                    printf("(1). Forget password\n");
+                    gotostring(51,8,15);
+                    printf("(2). Try again\n");
+                    gotostring(51,9,15);
+                    printf("(3). Back\n");
+                    horizontal(50,10,14,23);
+                    horizontal(50,12,14,23);
                     errorsound();
-                    printf("Enter the key : ");
+                    gotostring(53,11,11);
+                    printf("Enter the key : ");setcolor(10);
                     scanf("%d",&key2);keysound();
                 }
 
                 ///clear screen
-                clear(7);
+                system("cls");
 
                 if(wrong4==0)
                     goto part6;
+
 
                 if(key2==1)
                 {
@@ -928,15 +1034,31 @@ int x_axix=42;
                     goto part6;
                 else
                 {
-                    printf("enter right key\n");
                     wrong4=1;
                     goto part5;
                 }
 
 ///part6  log in
+///==================================================================================================
                 part6:
-                printf("Log in\n========\n");
-                printf("enter phone number : ");
+
+                vertical_left(39,4,14,9);
+                vertical_right(78,4,14,9);
+
+                horizontal(39,9,14,40);
+                horizontal(39,12,14,40);
+                horizontal(39,4,13,40);
+                gotostring(55,5,11);
+                printf("Log in\n");
+                horizontal(39,6,13,40);
+                gotostring(40,8,15);
+                printf("   Enter password     : ");
+                gotostring(40,10,15);
+                printf("  Answer the question : \n");
+                gotostring(40,11,15);
+                printf("   x + y = ");
+                gotostring(40,7,15);
+                printf("   Enter phone number : ");setcolor(10);
                 scanf("%s",&phone1);keysound();
 
                 flag5=0;
@@ -952,52 +1074,69 @@ int x_axix=42;
                 {
                     while(1)
                     {
-///part6a
+
+
+///part6a  customer log in part...
+///=============================================================================================
                     part6a:
 
-                    ///clear screen
-                    clear(7);
-                    printf("There is no account for this number \n");
-                    printf("1. Try again\n");
-                    printf("2. Back\n");
+                    system("cls");
+                    vertical_left(39,4,14,10);
+                    vertical_right(78,4,14,10);
+
+                    horizontal(39,4,13,40);
+                    horizontal(39,6,13,40);
+                    gotostring(55,5,11);
+                    printf("Log in :\n");
+                    gotostring(40,7,12);
+                    printf(" (There is no account for this number)\n");
+                    gotostring(40,9,15);
+                    printf("  (1). Try again\n");
+                    gotostring(40,10,15);
+                    printf("  (2). Back\n");
+                    horizontal(39,11,14,40);
+                    horizontal(39,13,14,40);
                     errorsound();
-                    printf("\nEnter the key : ");
+                    gotostring(40,12,11);
+                    printf("  Enter the key : ");setcolor(10);
 
                     scanf("%d",&key10);keysound();
                     if(key10==1)
                     {
-                        ///clear screen
-                        clear(8);
+                        system("cls");
                         goto part6;
                     }
                     if(key10==2)
                     {
-                        ///clear screen
-                        clear(8);
+                        system("cls");
                         goto part4;
                     }
-                    ///clear screen
-                    clear(8);
+                    system("cls");
                     }
                   }
 
 ///part6b
                 part6b:
-                printf("Enter password : ");
+                gotostring(40,8,15);
+                printf("   Enter password     : ");setcolor(10);
                 scanf("%s",&password1);
                 keysound();
-                printf("Answer the question : \n");
+                horizontal(39,9,14,40);
+                horizontal(39,12,14,40);
+                gotostring(40,10,15);
+                printf("  Answer the question : \n");
 
                 srand(time(0));
 
                 n1 = rand()%5;
                 n2 = rand()%5;
-                printf("%d + %d = ",n1,n2);
+                gotostring(40,11,15);
+                printf("   %d + %d = ",n1,n2);setcolor(10);
                 scanf("%d",&result);
                 keysound();
 
                 ///clear screen
-                clear(7);
+                system("cls");
 
 
                 flag=0;
@@ -1014,7 +1153,73 @@ int x_axix=42;
                 {
                     id2=id1;
                     wrong4= 0;
-                    goto part9;
+
+
+        p=fopen("owner.txt","a+");
+        ouser = 0;
+        struct_index = 1;
+        line=0;
+        while(!feof(p))
+        {
+            if(line==0)
+                fscanf(p,"%d",&own[struct_index].gorder);
+            if(line==1)
+                fscanf(p,"%d",&own[struct_index].border);
+            if(line==2)
+                fscanf(p,"%s",own[struct_index].shop_name);
+            if(line==3)
+                fscanf(p,"%s",own[struct_index].nickname);
+            if(line==4)
+                fscanf(p,"%s",own[struct_index].phone);
+            if(line==5)
+                fscanf(p,"%s",own[struct_index].password);
+            if(line==6)
+                fscanf(p,"%s",own[struct_index].date_of_birth);
+            if(line==7)
+                fscanf(p,"%s",own[struct_index].best_friend);
+
+                line++;
+
+                if(line==8)
+                {
+                struct_index++;
+                line=0;
+                ouser++;
+                }
+        }
+///customer cmessage[i].point will update here...from file...
+        fclose(p);
+
+                strcpy(phone11,cus[id1].phone);
+                strcat(phone11,"cmessage.txt");
+                p = fopen(phone11,"a+");
+
+                struct_index = 1;
+                line = 0;
+                index4=0;
+
+                while(!feof(p))
+                {
+                    if(line==0)
+                        fscanf(p,"%s",cmessage[struct_index].nickname);
+                    if(line==1)
+                        fscanf(p,"%d",&cmessage[struct_index].point);
+
+                    line++;
+                    if(line==2)
+                    {
+                        struct_index++;
+                        line = 0;
+                        index4++;
+                    }
+                }
+                fclose(p);
+
+
+
+
+        goto part9;
+
                 }
                 else
                 {
@@ -1027,16 +1232,39 @@ int x_axix=42;
 ///part7   change password
                 part7:
                 ///clear screen
-                clear(8);
+                system("cls");;
                 if(wrong3==1)
                 {
                     wrong3=0;
-                    printf("Answer the question\n");
-                    printf("Enter your phone number : ");
+
+                    vertical_left(35,4,14,11);
+                    vertical_right(82,4,14,11);
+
+                    horizontal(35,4,13,48);
+                    horizontal(35,6,13,48);
+                    horizontal(35,14,14,48);
+                    gotostring(53,5,11);
+                    printf("Reset password: ");
+                    gotostring(37,7,11);
+                    printf("             Answer the question :\n");
+                    gotostring(37,10,15);
+                    printf(">>  your Best friend nickname : ");
+                    gotostring(37,9,15);
+                    printf(">>  Your birth date(DD/MM/YYYY):");
+                    gotostring(37,12,15);
+                    printf(">>  Answer the question:\n");
+                    gotostring(37,13,15);
+                    printf("x + y = ");
+
+
+                    gotostring(37,8,15);
+                    printf(">>  Your phone number : ");setcolor(10);
                     scanf("%s",&phone2);keysound();
-                    printf("What is your date of birth (DD/MM/YYYY): ");
+                    gotostring(37,9,15);
+                    printf(">>  Your birth date(DD/MM/YYYY):");setcolor(10);
                     scanf("%s",&dob);keysound();
-                    printf("What is your Best friend nickname : ");
+                    gotostring(37,10,15);
+                    printf(">>  your Best friend nickname : ");setcolor(10);
                     scanf("%s",&best_friend1);keysound();
 
                     length = strlen(dob);
@@ -1047,21 +1275,15 @@ int x_axix=42;
 
                     n1 = rand()%5;
                     n2 = rand()%5;
-                    printf("Answer the question:\n");
-                    printf("%d + %d = ",n1,n2);
+                    gotostring(37,12,15);
+                    printf(">>  Answer the question:\n");
+                    gotostring(37,13,15);
+                    printf("%d + %d = ",n1,n2);setcolor(10);
                     scanf("%d",&result);keysound();
 
 
-
-                    ///loading part...
-                    printf("Loading");
-                    for(int i=0;i<4;i++)
-                    {
-                        Sleep(time1);
-                        printf(" .");
-                    }
                     ///clear screen
-                    clear(7);
+                    system("cls");
 
                     flag4=0;
                     for(int i=1;i<=user;i++)
@@ -1076,35 +1298,98 @@ int x_axix=42;
 
                     if(flag4==0)
                     {
-                        ///clear screen
-                        clear(7);
+                        system("cls");
                         goto part5;
                     }
 
-                    printf("Charge password : ");
+                    vertical_left(39,4,14,6);
+                    vertical_right(78,4,14,6);
+
+                    horizontal(39,4,13,40);
+                    horizontal(39,6,13,40);
+                    horizontal(39,9,14,40);
+                    gotostring(53,5,11);
+                    printf("Reset password: ");
+                    gotostring(41,7,15);
+                    printf("Previous password : %s",cus[id1].password);
+                    gotostring(41,8,15);
+                    printf("New password : ");setcolor(10);
                     scanf("%s",cus[id1].password);keysound();
                     part=7;
                     wrong4=0;
-                    ///clear screen
-                    clear(7);
+                    system("cls");
                     goto part2;
 
                     }
                     else
                     {
-                    ///clear screen
-                    clear(7);
+                    system("cls");
                     goto part5;
                     }
             }
             if(key1==2)
             {
-///part:8   sign up
+                 p=fopen("owner.txt","a+");
+                ouser = 0;
+                struct_index = 1;
+                line=0;
+
+
+            while(!feof(p))
+            {
+            if(line==0)
+                fscanf(p,"%d",&own[struct_index].gorder);
+            if(line==1)
+                fscanf(p,"%d",&own[struct_index].border);
+            if(line==2)
+                fscanf(p,"%s",own[struct_index].shop_name);
+            if(line==3)
+                fscanf(p,"%s",own[struct_index].nickname);
+            if(line==4)
+                fscanf(p,"%s",own[struct_index].phone);
+            if(line==5)
+                fscanf(p,"%s",own[struct_index].password);
+            if(line==6)
+                fscanf(p,"%s",own[struct_index].date_of_birth);
+            if(line==7)
+                fscanf(p,"%s",own[struct_index].best_friend);
+
+                line++;
+
+                if(line==8)
+                {
+                struct_index++;
+                line=0;
+                ouser++;
+                }
+                }
+
+                fclose(p);
+///===========================================================================================
+///===========================================================================================
+///===========================================================================================
+///part:8   sign up  for customer...
 
                 part8:
 
-                printf("sign in :\n==========\n");
-                printf("enter your phone number :");
+                vertical_left(36,4,14,9);
+                vertical_right(81,4,14,9);
+
+                horizontal(36,4,13,46);
+                horizontal(36,6,13,46);
+                horizontal(36,12,14,46);
+                gotostring(55,5,11);
+                printf("Sign in :\n");
+                gotostring(38,8,15);
+                printf("Enter birth date (DD/MM/YYYY) : ");
+                gotostring(38,9,15);
+                printf("Enter your nickname : ");
+                gotostring(38,10,15);
+                printf("Enter password : ");
+                gotostring(38,11,15);
+                printf("Enter your best friend name : ");
+                gotostring(38,7,15);
+                printf("Enter phone number : ");setcolor(10);
                 scanf("%s",&check_phone);keysound();
                 length2 = strlen(check_phone);
                 for(int i=1;i<=user;i++)
@@ -1114,75 +1399,158 @@ int x_axix=42;
 ///part8a
                         part8a:
                         ///clear screen
-                        clear(7);
+                        system("cls");
+                        vertical_left(40,4,14,10);
+                        vertical_right(74,4,14,10);
 
-                        printf("You can't use this number\n");
-                        printf("1. Try again\n");
-                        printf("2. Back\n");
-                        printf("=================\n");
+                        horizontal(40,4,13,35);
+                        horizontal(40,6,13,35);
+                        horizontal(40,13,14,35);
+                        horizontal(40,11,14,35);
+                        gotostring(54,5,11);
+                        printf("Sign up");
+                        gotostring(43,7,12);
+                        printf("(You can't use this number)\n");
+                        gotostring(43,9,15);
+                        printf("(1) . Try again\n");
+                        gotostring(43,10,15);
+                        printf("(2) . Back\n");
                         errorsound();
-                        printf("Enter the key : ");
+
+                        gotostring(42,12,11);
+                        printf("Enter the key : ");setcolor(10);
                         scanf("%d",&key9);keysound();
                         if(key9==1)
                         {
-                            ///clear screen
-                            clear(7);
+                            system("cls");
                             goto part8;
                         }
                         if(key9==2)
                         {
-                            ///clear screen
-                            clear(7);
+                            system("cls");
                             goto part3;
                         }
                         else
                         {
-                            ///clear screen
-                            clear(7);
+                            system("cls");
                             goto part8a;
                         }
                     }
                 }
 
-                printf("Enter your date of birth (DD/MM/YYYY) :");
+                gotostring(38,8,15);
+                printf("Enter birth date (DD/MM/YYYY) : ");setcolor(10);
                 scanf("%s",&check_date_of_birth);keysound();
                 length3 = strlen(check_date_of_birth);
 
 
                 if(length3!=10)
                 {
-                    ///clear screen
-                    clear(7);
-                    printf("Please enter correct information\n\n");
-                    errorsound();
-                    goto part8;
+                        while(1)
+                        {
+                        system("cls");
+                        vertical_left(43,4,14,10);
+                        vertical_right(71,4,14,10);
+
+                        horizontal(43,4,13,29);
+                        horizontal(43,6,13,29);
+                        horizontal(43,13,14,29);
+                        horizontal(43,11,14,29);
+                        gotostring(54,5,11);
+                        printf("Sign up");
+                        gotostring(46,7,12);
+                        printf("   (Wrong Information)\n");
+                        gotostring(46,9,15);
+                        printf("(1) . Try again\n");
+                        gotostring(46,10,15);
+                        printf("(2) . Back\n");
+                        errorsound();
+                        int key35;
+                        gotostring(46,12,11);
+                        printf("Enter the key : ");setcolor(10);
+                        scanf("%d",&key35);keysound();
+
+                        if(key35==1)
+                        {
+                            system("cls");
+                            goto part8;
+                        }
+                        if(key35==2)
+                        {
+                            system("cls");
+                            goto part3;
+                        }
+
+
+
+                  }
                 }
                 user++;
 
-                strcpy(cus[user].phone , check_phone);
-                strcpy(cus[user].date_of_birth , check_date_of_birth);
-                printf("enter your nickname :");
-                scanf("%s",&cus[user].name);keysound();
-                Beep(700, 200);
+            strcpy(cus[user].phone , check_phone);
+            strcpy(cus[user].date_of_birth , check_date_of_birth);
 
-                printf("enter password :");
+            remove_string(phone17);
+            strcpy(phone17,cus[user].phone);
+            strcat(phone17,"cmessage.txt");
+            p = fopen(phone17,"w");
+
+            for(int i=1;i<=ouser;i++)
+            {
+                fprintf(p,"%s\n",own[i].shop_name);
+                fprintf(p,"0\n");
+            }
+            fclose(p);
+
+            gotostring(38,9,15);
+            printf("Enter your nickname : ");setcolor(10);
+            scanf("%s",&cus[user].name);keysound();
+
+            for(int i=1;i<=ouser;i++)
+            {
+                remove_string(phone18);
+                strcpy(phone18,own[i].phone);
+                strcat(phone18,"omessage.txt");
+                p = fopen(phone18,"a");
+
+                fprintf(p,"%s\n",cus[user].name);
+                fprintf(p,"0\n");
+
+                fclose(p);
+            }
+
+
+                gotostring(38,10,15);
+                printf("Enter password : ");setcolor(10);
                 scanf("%s",&cus[user].password);keysound();
 
-                printf("Enter your best friend name : ");
+                gotostring(38,11,15);
+                printf("Enter your best friend name : ");setcolor(10);
                 scanf("%s",&cus[user].best_friend);keysound();
 
-                system("cls");
 
-                printf("Select your address : \n");
-                printf("=-=-=-=-=-=-=-=-=-=-=\n");
 
                 while(1)
                 {
+                    system("cls");
+                    vertical_left(45,4,14,23);
+                    vertical_right(73,4,14,23);
+
+                    horizontal(45,4,13,29);
+                    horizontal(45,6,13,29);
+                    horizontal(45,25,14,29);
+                    horizontal(45,27,14,29);
+                    gotostring(50,5,11);
+                    printf("Select your address");
+
+
                     for(int i=1;i<=18;i++)
                     {
+                        gotostring(47,6+i,7);
                         printf("%d . %s\n",i,u_address[i].address);
                     }
-                    printf("Enter the key : ");
+                    gotostring(50,26,11);
+                    printf("Enter the key : ");setcolor(10);
                     scanf("%d",&key21);keysound();
 
                     if(key21>=1 && key21<=18)
@@ -1195,24 +1563,8 @@ int x_axix=42;
                 }
 
 
-                ///clear screen
-                clear(20);
+                system("cls");
 
-
-                    ///loading part...
-                    for(int i=10;i<110;i+=10)
-                    {
-                    printf("Creating account : (%d %%)",i);
-                    Sleep(time1);
-
-                    ///clear screen
-                    clear(7);
-                    }
-
-                    ///clear screen
-                    clear(7);
-
-                    printf("Log in your account:\n\n");
 
                     part=8;
                     goto part2;
@@ -1220,7 +1572,7 @@ int x_axix=42;
                 if(key1==3)
                 {
                    ///clear screen
-                    clear(7);
+                    system("cls");
                     wrong1=0;
                     goto part3;
                 }
@@ -1237,85 +1589,87 @@ int x_axix=42;
 ///struct will update  from file:
         part8b1:
 
-        ouser = 0;
-        p=fopen("owner.txt","a+");
 
+        p=fopen("owner.txt","a+");
+        ouser = 0;
+        struct_index = 1;
+        line=0;
         while(!feof(p))
         {
-            ouser++;
-            fscanf(p,"%d ",&own[ouser].norder);
-            fscanf(p,"%s ",own[ouser].shop_name);
-            fscanf(p,"%s ",own[ouser].nickname);
-            fscanf(p,"%s ",own[ouser].phone);
-            fscanf(p,"%s ",own[ouser].password);
-            fscanf(p,"%s ",own[ouser].date_of_birth);
-            fscanf(p,"%s ",own[ouser].best_friend);
+
+            if(line==0)
+                fscanf(p,"%d",&own[struct_index].gorder);
+            if(line==1)
+                fscanf(p,"%d",&own[struct_index].border);
+            if(line==2)
+                fscanf(p,"%s",own[struct_index].shop_name);
+            if(line==3)
+                fscanf(p,"%s",own[struct_index].nickname);
+            if(line==4)
+                fscanf(p,"%s",own[struct_index].phone);
+            if(line==5)
+                fscanf(p,"%s",own[struct_index].password);
+            if(line==6)
+                fscanf(p,"%s",own[struct_index].date_of_birth);
+            if(line==7)
+                fscanf(p,"%s",own[struct_index].best_friend);
+
+                line++;
+
+                if(line==8)
+                {
+                struct_index++;
+                line=0;
+                ouser++;
+                }
         }
 
-        fclose(p);
+            fclose(p);
 
 ///part8b1_1...  shop list struct update
         part8b1_1:
-        p = fopen("shop_list.txt","a+");
-        index3 = 0;
-        while(!feof(p))
-        {
-            index3++;
-            fscanf(p,"%s",online_shop[index3].shop_name);
-            fscanf(p,"%d",&online_shop[index3].norder);
-        }
-        fclose(p);
 
-///part8b1_2...
-/// owner.txt file update...
-        part8b1_2:
-        p=fopen("owner.txt","w");
 
-        for(int i=1;i<=ouser;i++)
-        {
-            fprintf(p,"%d\n",own[ouser].norder);
-            fprintf(p,"%s\n",own[ouser].shop_name);
-            fprintf(p,"%s\n",own[ouser].nickname);
-            fprintf(p,"%s\n",own[ouser].phone);
-            fprintf(p,"%s\n",own[ouser].password);
-            fprintf(p,"%s\n",own[ouser].date_of_birth);
-            fprintf(p,"%s\n",own[ouser].best_friend);
-        }
 
-        fclose(p);
-
-/// shop_list.txt file update
-        p = fopen("shop_list.txt","w");
-
-        for(int i=1;i<=index3;i++)
-        {
-
-            fprintf(p,"%s",online_shop[index3].shop_name);
-            fprintf(p," %d\n",online_shop[index3].norder);
-
-        }
-        fclose(p);
-
-///part8b2
         part8b2:
         while(1)
         {
-            printf("1. Sign up\n");
-            printf("2. Log in\n");
-            printf("Enter the key : ");
+            vertical_left(50,4,14,8);
+            vertical_right(72,4,14,8);
+
+            horizontal(50,4,13,23);
+
+            gotostring(52,5,11);
+            printf("   Owner Account:\n");
+            horizontal(50,6,13,23);
+            gotostring(53,7,15);
+            printf("(1).   Log in\n");
+            gotostring(53,8,15);
+            printf("(2).   Sign up\n");
+            gotostring(53,9,15);
+            printf("(3).   Back\n\n");
+            horizontal(50,10,14,23);
+            horizontal(50,12,14,23);
+            gotostring(53,11,11);
+            printf("Enter the key : ");setcolor(10);
             scanf("%d",&key23);
             keysound();
 
 
-            if(key23==1)
+            if(key23==2)
             {
                 system("cls");
                 goto part8b;
             }
-            if(key23==2)
+            if(key23==1)
             {
                 system("cls");
                 goto part8c;
+            }
+            if(key23==3)
+            {
+                system("cls");
+                goto part3;
             }
             system("cls");
         }
@@ -1328,77 +1682,207 @@ int x_axix=42;
         part8b:
 
 
-            printf("Sign up : \n===============\n");
-            printf("Enter your phone number : ");
+            vertical_left(36,4,14,10);
+            vertical_right(81,4,14,10);
+
+            horizontal(36,4,13,46);
+            horizontal(36,6,13,46);
+            horizontal(36,14,14,46);
+            gotostring(55,5,11);
+            printf("sign in :");
+            gotostring(38,8,15);
+            printf("Enter birth date(DD/MM/YYYY): ");
+            gotostring(38,9,15);
+            printf("Enter your shop name: ");
+            gotostring(38,10,15);
+            printf("Your nickname : ");
+            gotostring(38,11,15);
+            printf("Your best friend nickname: ");
+            gotostring(38,12,15);
+            printf("Enter password : ");
+            gotostring(38,7,15);
+            printf("Enter your phone number : ");setcolor(10);
             scanf("%s",phone4);
             keysound();
-            if(strlen(phone4)==11)
-            {
+
                 for(int i=1;i<=ouser;i++)
                 {
-                    if(strcmp(own[i].phone,phone4)==0)
+                    if(strcmp(own[i].phone,phone4)==0 || strlen(phone4)!=11)
+                    {
+                    while(1)
+                    {
+                    system("cls");
+                    vertical_left(48,4,14,8);
+                    vertical_right(76,4,14,8);
+
+                    horizontal(48,4,13,29);
+
+                    gotostring(49,5,11);
+                    printf("(You can't use this number)\n");
+                    horizontal(48,6,13,29);
+                    gotostring(51,7,15);
+                    printf("(1). Try again\n");
+                    gotostring(51,8,15);
+                    printf("(2). Back\n");
+                    horizontal(48,9,14,29);
+                    horizontal(48,11,14,29);
+                    errorsound();
+                    gotostring(50,10,11);
+                    printf("Enter the key : ");setcolor(10);
+                    scanf("%d",&key36);
+                    if(key36==1)
                     {
                         system("cls");
-                        printf("You can't use this number\n\n");
-                        errorsound();
                         goto part8b;
                     }
+                    if(key36==2)
+                    {
+                        system("cls");
+                        goto part8b2;
+                    }
+                    }
+                    }
                 }
-            }
-            else
-            {
-                system("cls");
-                printf("Enter correct information\n\n");
-                errorsound();
-                goto part8b;
-            }
 
-            printf("Enter your Date of birth (DD/MM/YYYY) : ");
+            gotostring(38,8,15);
+            printf("Enter birth date(DD/MM/YYYY): ");setcolor(10);
             scanf("%s",&dob2);
             keysound();
             if(strlen(dob2)!=10)
             {
-                ///clear screen
-                clear(7);
-                printf("Enter correct information\n\n");
-                errorsound();
-                goto part8b;
+                    while(1)
+                    {
+                    system("cls");
+                    vertical_left(48,4,14,8);
+                    vertical_right(74,4,14,8);
+
+                    horizontal(48,4,13,27);
+
+                    gotostring(49,5,11);
+                    printf("  (Wrong date of birth)\n");
+                    horizontal(48,6,13,27);
+                    gotostring(51,7,15);
+                    printf("(1). Try again\n");
+                    gotostring(51,8,15);
+                    printf("(2). Back\n");
+                    horizontal(48,9,14,27);
+                    horizontal(48,11,14,27);
+                    errorsound();
+                    gotostring(53,10,11);
+                    printf("Enter the key : ");setcolor(10);
+                    scanf("%d",&key36);
+                    if(key36==1)
+                    {
+                        system("cls");
+                        goto part8b;
+                    }
+                    if(key36==2)
+                    {
+                        system("cls");
+                        goto part8b2;
+                    }
+                    }
             }
 
-            printf("Enter your shop name: ");
-            scanf("%s",&shop_name);
+            gotostring(38,9,15);
+            printf("Enter your shop name: ");setcolor(10);
+            scanf("%s",shop_name);
+            keysound();
 
             for(int i=1;i<=ouser;i++)
             {
                     if(strcmp(own[i].shop_name,shop_name)==0)
                     {
+                    while(1)
+                    {
+                    system("cls");
+                    vertical_left(48,4,14,8);
+                    vertical_right(74,4,14,8);
+
+                    horizontal(48,4,13,27);
+
+                    gotostring(49,5,11);
+                    printf("(You can't use this name)\n");
+                    horizontal(48,6,13,27);
+                    gotostring(51,7,15);
+                    printf("(1). Try again\n");
+                    gotostring(51,8,15);
+                    printf("(2). Back\n");
+                    horizontal(48,9,14,27);
+                    horizontal(48,11,14,27);
+                    errorsound();
+                    gotostring(53,10,11);
+                    printf("Enter the key : ");setcolor(10);
+                    scanf("%d",&key36);
+                    if(key36==1)
+                    {
                         system("cls");
-                        printf("You can't use this name for your shop\n\n");
-                        errorsound();
                         goto part8b;
+                    }
+                    if(key36==2)
+                    {
+                        system("cls");
+                        goto part8b2;
+                    }
+                    }
+
+
                     }
             }
             ouser++;
+
+
+
             strcpy(own[ouser].phone , phone4);
             strcpy(own[ouser].date_of_birth , dob2);
             strcpy(own[ouser].shop_name , shop_name);
 
+            strcpy(phone15,own[ouser].phone);
+            strcat(phone15,"omessage.txt");
+            p = fopen(phone15,"w");
 
-            printf("Your nickname : ");
-            scanf("%s",&own[ouser].nickname);keysound();
+            for(int i=1;i<=user;i++)
+            {
+                fprintf(p,"%s\n",cus[i].name);
+                fprintf(p,"0\n");
+            }
+            fclose(p);
 
-            printf("Your best friend nickname : ");
-            scanf("%s",&own[ouser].best_friend);keysound();
+            for(int i=1;i<=user;i++)
+            {
+                strcpy(phone16,cus[i].phone);
+                strcat(phone16,"cmessage.txt");
+                p = fopen(phone16,"a");
 
-            printf("Enter password : ");
-            scanf("%s",&own[ouser].password);keysound();
+                fprintf(p,"%s\n",own[ouser].shop_name);
+                fprintf(p,"0\n");
 
-            own[ouser].norder = 0;
+                fclose(p);
+            }
+
+
+            gotostring(38,10,15);
+            printf("Your nickname : ");setcolor(10);
+            scanf("%s",own[ouser].nickname);keysound();
+
+            gotostring(38,11,15);
+            printf("Your best friend nickname: ");setcolor(10);
+            scanf("%s",own[ouser].best_friend);keysound();
+
+            gotostring(38,12,15);
+            printf("Enter password : ");setcolor(10);
+            scanf("%s",own[ouser].password);keysound();
+
+            own[ouser].gorder = 1;
+            own[ouser].border = 1;
+
+
+
 
 
 
             ///clear screen
-            clear(7);
+            system("cls");
             goto part8c;
 
 ///owner file update from struct
@@ -1409,7 +1893,8 @@ int x_axix=42;
         p= fopen("owner.txt","w");
         for(int i=1;i<=ouser;i++)
         {
-        fprintf(p,"%d\n",own[i].norder);
+        fprintf(p,"%d\n",own[i].gorder);
+        fprintf(p,"%d\n",own[i].border);
         fprintf(p,"%s\n",own[i].shop_name);
         fprintf(p,"%s\n",own[i].nickname);
         fprintf(p,"%s\n",own[i].phone);
@@ -1422,17 +1907,107 @@ int x_axix=42;
 ///owner log in part:
 ///part8d:
         part8d:
-        printf("Log in :\n===========\n");
-        printf("Enter your phone number : ");
+        vertical_left(39,4,14,9);
+        vertical_right(78,4,14,9);
+
+        horizontal(39,9,14,40);
+        horizontal(39,12,14,40);
+        horizontal(39,4,13,40);
+        gotostring(55,5,11);
+        printf("Log in\n");
+        horizontal(39,6,13,40);
+        gotostring(40,8,15);
+        printf("   Enter password     : ");
+        gotostring(40,10,15);
+        printf("  Answer the question : \n");
+        gotostring(40,11,15);
+        printf("   x + y = ");
+        gotostring(40,7,15);
+        printf("   Enter phone number : ");setcolor(10);
         scanf("%s",&phone5);keysound();
-        printf("Enter password : ");
+        gotostring(40,8,15);
+        printf("   Enter password     : ");setcolor(10);
         scanf("%s",&password5);keysound();
+        srand(time(0));
+
+        n1 = rand()%5;
+        n2 = rand()%5;
+        gotostring(40,10,15);
+        printf("  Answer the question : \n");
+        gotostring(40,11,15);
+        printf("   %d + %d = ",n1,n2);setcolor(10);
+        scanf("%d",&result);keysound();
 
         for(int i=1;i<=ouser;i++)
         {
-            if(strcmp(phone5 , own[i].phone)==0 && strcmp(password5,own[i].password)==0)
+            if(strcmp(phone5 , own[i].phone)==0 && strcmp(password5,own[i].password)==0 && (n1+n2)==result)
             {
                 oid = i;
+
+                p = fopen("customer_profile.txt","a+");
+
+        struct_index=1;
+        user = 0;
+        line = 0;
+
+        while(!feof(p))
+        {
+            if(line==0)
+                fscanf(p, "%s" ,cus[struct_index].name);
+            if(line==1)
+                fscanf(p, "%s" ,cus[struct_index].password);
+            if(line==2)
+                fscanf(p, "%s" ,cus[struct_index].phone);
+            if(line==3)
+                fscanf(p, "%s" ,cus[struct_index].date_of_birth);
+            if(line==4)
+                fscanf(p, "%s" ,cus[struct_index].best_friend);
+            if(line==5)
+                fscanf(p, "%s" ,cus[struct_index].address1);
+
+            line++;
+
+            if(line==6)
+            {
+                line=0;
+                struct_index++;
+                user++;
+            }
+        }
+
+
+        fclose(p);
+
+
+
+
+                strcpy(phone19,own[oid].phone);
+                strcat(phone19,"omessage.txt");
+                p = fopen(phone19,"a+");
+
+                struct_index=1;
+                line = 0;
+                index6=0;
+
+                while(!feof(p))
+                {
+                    if(line==0)
+                        fscanf(p,"%s",omessage[struct_index].nickname);
+                    if(line==1)
+                        fscanf(p,"%d",&omessage[struct_index].point);
+
+                    line++;
+                    if(line==2)
+                    {
+                        struct_index++;
+                        line = 0;
+                        index6++;
+                    }
+                }
+                fclose(p);
+
+
+
                 goto part12;
             }
 
@@ -1441,96 +2016,165 @@ int x_axix=42;
 
         while(1)
         {
+                    system("cls");
 
-            ///clear screen
-            clear(7);
-            printf("Wrong information...\n");
-            printf("1. Try again\n");
-            printf("2. Forget password\n");
-            printf("3. Back\n=======================\n");
-            errorsound();
-            printf("Enter the key : ");
-            scanf("%d",&key12);keysound();
+                    vertical_left(50,4,14,9);
+                    vertical_right(72,4,14,9);
 
-            if(key12==1)
-            {
-                ///clear screen
-                clear(7);
-                goto part8d;
-            }
-            else if(key12==2)
-            {
-                ///clear screen
-                clear(7);
-                goto part8e;
-            }
-            else if(key12==3)
-            {
-                ///clear screen
-                clear(7);
-                goto part3;
-            }
+                    horizontal(50,4,13,23);
+
+                    gotostring(52,5,11);
+                    printf("(Wrong Information)\n");
+                    horizontal(50,6,13,23);
+                    gotostring(51,7,15);
+                    printf("(1). Forget password\n");
+                    gotostring(51,8,15);
+                    printf("(2). Try again\n");
+                    gotostring(51,9,15);
+                    printf("(3). Back\n");
+                    horizontal(50,10,14,23);
+                    horizontal(50,12,14,23);
+                    errorsound();
+                    gotostring(53,11,11);
+                    printf("Enter the key : ");setcolor(10);
+                    scanf("%d",&key12);keysound();
+
+                    if(key12==2)
+                    {
+
+                    system("cls");
+                    goto part8d;
+                    }
+                    else if(key12==1)
+                    {
+
+                    system("cls");
+                    goto part8e;
+                    }
+                    else if(key12==3)
+                    {
+
+                    system("cls");
+                    goto part3;
+                    }
         }
 
 ///change password for owner
 ///part8e
         part8e:
-        printf("Enter your best friend name : ");
-        scanf("%s",best_friend2);keysound();
-        printf("Enter your date of birth (DD/MM/YYYY): ");
-        scanf("%s",date_of_birth2);keysound();
+                    system("cls");
+                    vertical_left(35,4,14,11);
+                    vertical_right(82,4,14,11);
 
-        printf("Answer the question : \n");
+                    horizontal(35,4,13,48);
+                    horizontal(35,6,13,48);
+                    horizontal(35,14,14,48);
+                    gotostring(53,5,11);
+                    printf("Reset password: ");
+                    gotostring(37,7,11);
+                    printf("             Answer the question :\n");
+                    gotostring(37,10,15);
+                    printf(">>  your Best friend nickname : ");
+                    gotostring(37,9,15);
+                    printf(">>  Your birth date(DD/MM/YYYY):");
+                    gotostring(37,12,15);
+                    printf(">>  Answer the question:\n");
+                    gotostring(37,13,15);
+                    printf("x + y = ");
 
-        srand(time(0));
 
-        n1 = rand()%5;
-        n2 = rand()%5;
-        printf("%d + %d = ",n1,n2);
-        scanf("%d",&result);
-        keysound();
+                    gotostring(37,8,15);
+                    printf(">>  Your phone number : ");setcolor(10);
+                    scanf("%s",phone23);keysound();
+
+                    gotostring(37,9,15);
+                    printf(">>  Your birth date(DD/MM/YYYY):");setcolor(10);
+                    scanf("%s",date_of_birth2);keysound();
+
+
+                    gotostring(37,10,15);
+                    printf(">>  your Best friend nickname : ");setcolor(10);
+                    scanf("%s",best_friend2);keysound();
+
+
+
+                    srand(time(0));
+
+                    n1 = rand()%5;
+                    n2 = rand()%5;
+                    gotostring(37,12,15);
+                    printf(">>  Answer the question:\n");
+                    gotostring(37,13,15);
+                    printf("%d + %d = ",n1,n2);setcolor(10);
+                    scanf("%d",&result);keysound();
 
         for(int i=1;i<=ouser;i++)
         {
-             if(strcmp(date_of_birth2 , own[i].date_of_birth)==0  && result ==(n1+n2) && strcmp(best_friend2 , own[i].best_friend)==0)
+             if(strcmp(phone23,own[i].phone)==0 && strcmp(date_of_birth2 , own[i].date_of_birth)==0  && result ==(n1+n2) && strcmp(best_friend2 , own[i].best_friend)==0)
              {
-                  printf("Enter new password : ");
-                  scanf("%s",&own[i].password);keysound();
+                    system("cls");
+                    vertical_left(39,4,14,6);
+                    vertical_right(78,4,14,6);
+
+                    horizontal(39,4,13,40);
+                    horizontal(39,6,13,40);
+                    horizontal(39,9,14,40);
+                    gotostring(53,5,11);
+                    printf("Reset password: ");
+                    gotostring(41,7,15);
+                    printf("Previous password : %s",own[i].password);
+                    gotostring(41,8,15);
+                    printf("New password : ");setcolor(10);
+                    scanf("%s",&own[i].password);keysound();
 
                  ///clear screen
-                 clear(7);
+                 system("cls");
 
                   goto part8c;
             }
         }
         while(1)
-           {
-            ///clear screen
-            clear(7);
-            errorsound();
-            printf("Wrong information\n");
-            printf("1. Try again\n");
-            printf("2. Back\n");
-            scanf("%d",&key13);keysound();
+        {
+                        system("cls");
+                        vertical_left(43,4,14,10);
+                        vertical_right(71,4,14,10);
 
-            if(key13==1)
-            {
-                ///clear screen
-                clear(7);
-                goto part8e;
-            }
-            if(key13==2)
-            {
-                ///clear screen
-                clear(7);
-                goto part3;
-            }
+                        horizontal(43,4,13,29);
+                        horizontal(43,6,13,29);
+                        horizontal(43,13,14,29);
+                        horizontal(43,11,14,29);
+                        gotostring(54,5,11);
+                        printf(" Log in");
+                        gotostring(46,7,12);
+                        printf("   (Wrong Information)\n");
+                        gotostring(46,9,15);
+                        printf("(1) . Try again\n");
+                        gotostring(46,10,15);
+                        printf("(2) . Back\n");
+                        errorsound();
+                        int key35;
+                        gotostring(46,12,11);
+                        printf("Enter the key : ");setcolor(10);
+                        scanf("%d",&key13);keysound();
+
+                        if(key13==1)
+                        {
+                        ///clear screen
+                        system("cls");
+                        goto part8e;
+                        }
+                        if(key13==2)
+                        {
+                        ///clear screen
+                        system("cls");
+                        goto part3;
+                        }
            }
         }
         else
         {
             ///clear screen
-            clear(7);
+            system("cls");
             wrong1 = 1;
             goto part3;
         }
@@ -1540,40 +2184,50 @@ int x_axix=42;
 
         part9:
         ///clean screen
-        clear(40);
+
+
+        system("cls");
         printf("As-salamu alaykum %s\n",cus[id1].name);
 
         printf("Menu:\n=========\n");
-        printf("1. My profile\n");
-        printf("2. Order food\n");
-        printf("3. My order history\n");
-        printf("4. Log out\n");
-        printf("5. Delete account\n");
-        printf("6. Account setting\n");
-        printf("7. Contact us\n");
-        printf("8. Nearest restaurant\n");
-        printf("9. Feedback\n");
+        printf("1 . My profile\n");
+        printf("2 . Order food\n");
+        printf("3 . My order history\n");
+        printf("4 . Log out\n");
+        printf("5 . Delete account\n");
+        printf("6 . Account setting\n");
+        printf("7 . Contact us\n");
+        printf("8 . Nearest restaurant\n");
+        printf("9 . Feedback\n");
+        printf("10. Message  ");
+
+        message_number=0;
+        for(int i=1;i<=ouser;i++)
+        {
+            if(cmessage[i].point==1)
+            {
+                message_number++;
+            }
+        }
+
+        if(message_number>0)
+        {
+            printf(" (%d new message)\n",message_number);
+        }
+        else
+            printf("\n");
+
         printf("==================\n");
         printf("Enter the key: ");
         scanf("%d",&key3);keysound();
 
-
-        ///loading part...
-        printf("Loading");
-        for(int i=0;i<4;i++)
-        {
-            Sleep(time1);
-            printf(" .");
-        }
-
-        ///clean screen
-        clear(8);
         if(key3==1)
         {
+///=====================================================================================
+///customer profile
 ///part10:
             part10:
-            ///clear screen
-            clear(10);
+            system("cls");
             printf("Profile:\n==========\n");
             printf("Nickname         : %s\n",cus[id2].name);
             printf("Phone number     : %s\n",cus[id2].phone);
@@ -1586,8 +2240,7 @@ int x_axix=42;
             printf("Enter key : ");
             scanf("%d",&key4);keysound();
 
-            ///clean screen
-            clear(8);
+            system("cls");
 
 
             if(key4==1)
@@ -1607,66 +2260,87 @@ int x_axix=42;
 ///=====================================================================================
 ///part10a  order part
            part10a:
-           while(1)
-            {
 
-              ///online_shop struct update
-              p = fopen("shop_list.txt","a+");
-              index3 = 0;
-              while(!feof(p))
-              {
-                    index3++;
-                    fscanf(p,"%s ",online_shop[index3].shop_name);
-                    fscanf(p,"%d",&online_shop[index3].norder);
-              }
-              fclose(p);
+
+
+
+        p=fopen("owner.txt","a+");
+        ouser = 0;
+        struct_index = 1;
+        line=0;
+                while(!feof(p))
+        {
+            if(line==0)
+                fscanf(p,"%d",&own[struct_index].gorder);
+            if(line==1)
+                fscanf(p,"%d",&own[struct_index].border);
+            if(line==2)
+                fscanf(p,"%s",own[struct_index].shop_name);
+            if(line==3)
+                fscanf(p,"%s",own[struct_index].nickname);
+            if(line==4)
+                fscanf(p,"%s",own[struct_index].phone);
+            if(line==5)
+                fscanf(p,"%s",own[struct_index].password);
+            if(line==6)
+                fscanf(p,"%s",own[struct_index].date_of_birth);
+            if(line==7)
+                fscanf(p,"%s",own[struct_index].best_friend);
+
+                line++;
+
+                if(line==8)
+                {
+                struct_index++;
+                line=0;
+                ouser++;
+                }
+        }
+
+            fclose(p);
+
+
 
                 while(1)
                 {
                 system("cls");
-                printf("=====================================\n");
-                printf("||||||||||||||  FODX  |||||||||||||||\n");
-                printf("=====================================\n");
-                if(index3==0)
+                setcolor(11);
+                printf("======================================\n");
+                setcolor(14);
+                printf("||||||||||||||  FODX  ||||||||||||||||\n");
+                setcolor(11);
+                printf("======================================\n");
+                if(ouser==0)
                 {
-                    printf("(There is no online shop...\n)");
+                setcolor(12);
+                printf("     (There is no online shop...)\n");
                 }
                 else
                 {
-                for(int i=1;i<=index3;i++)
+                for(int i=1;i<=ouser;i++)
                 {
-                    printf("(%d) . %s\n",i,online_shop[i].shop_name);
 
-                    if(own[i].norder<=5){
-                    printf("         --- --- --- --- ---\n");
-                    printf("Status : |*| |*| |*| |*| |*| (5 STAR)\n");
-                    printf("         --- --- --- --- ---\n");}
-                    else if(own[i].norder>=6 && own[i].norder<=10){
-                    printf("         --- --- --- ---\n");
-                    printf("Status : |*| |*| |*| |*| (4 STAR)\n");
-                    printf("         --- --- --- ---\n");}
-                    else if(own[i].norder>=11 && own[i].norder<=15){
-                    printf("         --- --- ---\n");
-                    printf("Status : |*| |*| |*| (3 STAR)\n");
-                    printf("         --- --- ---\n");}
-                    else if(own[i].norder>=16 && own[i].norder<=20){
-                    printf("         --- ---\n");
-                    printf("Status : |*| |*| (2 STAR)\n");
-                    printf("         --- ---\n");}
-                    else if(own[i].norder>=21){
-                    printf("         ---\n");
-                    printf("Status : |*| (1 STAR)\n");
-                    printf("         ---\n");}
-                    printf("=====================================\n");
+                    setcolor(7);
+                    printf("(%d) . Shop name : %s\n",i,own[i].shop_name);
+                    if(own[i].gorder >= own[i].border){
+                        setcolor(10);
+                        printf("(They provide good service)");
+                    }
+                    printf("\n");
+                    setcolor(14);
+                    character(38,254);
+                    printf("\n");
+
                 }
                 }
-                printf("\n");
+                setcolor(11);
+                printf("\n(-1) . Back\n");
 
-                printf("(-1) . Back\n");
                 printf("Enter the key : ");
                 scanf("%d",&key29);
+                keysound();
 
-                if(key29>=1 && key29<=index3)
+                if(key29>=1 && key29<=ouser)
                 {
                     oid = key29;
                     system("cls");
@@ -1691,94 +2365,129 @@ int x_axix=42;
 
                item = 0;
               amount = 0;
-              int f[110000]={0};
-              remove_array(food_index,900);
+              int f[11000]={0};
+              int food[11000]={0};
+              remove_string(phone7);
+              remove_array(food_index,1000);
                strcpy(phone7  ,  own[oid].phone);
                strcat(phone7, "f.txt");
-               index2 = 0;
-               p = fopen(phone7,"a+");
 
+        p = fopen(phone7,"a+");
 
-              while(!feof(p))
-              {
-              index2++;
-              fscanf(p,"%s\n",cus_food[index2].food_name);
-              fscanf(p,"%d\n",&cus_food[index2].food_price);
-              fscanf(p,"%d\n",&cus_food[index2].food_remain);
-              }
-              fclose(p);
+        index2 = 0;
+        struct_index = 1;
+        line = 0;
+        while(!feof(p))
+        {
+            if(line==0)
+                fscanf(p,"%s",cus_food[struct_index].food_name);
+            if(line==1)
+                fscanf(p,"%d",&cus_food[struct_index].food_price);
+            if(line==2)
+                fscanf(p,"%d",&cus_food[struct_index].food_remain);
 
-///owner profile file update...
-/// owner.txt file update...
+            line++;
 
-            p=fopen("owner.txt","w");
-
-            for(int i=1;i<=ouser;i++)
+            if(line==3)
             {
-            fprintf(p,"%d\n",own[ouser].norder);
-            fprintf(p,"%s\n",own[ouser].shop_name);
-            fprintf(p,"%s\n",own[ouser].nickname);
-            fprintf(p,"%s\n",own[ouser].phone);
-            fprintf(p,"%s\n",own[ouser].password);
-            fprintf(p,"%s\n",own[ouser].date_of_birth);
-            fprintf(p,"%s\n",own[ouser].best_friend);
+                line = 0;
+                index2++;
+                struct_index++;
             }
+        }
 
-            fclose(p);
+        fclose(p);
 
+        for(int i=1;i<=index2;i++)
+        {
+            food[i] = cus_food[i].food_remain;
+        }
 
-                printf("=====================================\n");
-                printf("||||||||||||||  FODX  |||||||||||||||\n");
-                printf("=====================================\n");
-                printf("Order : \n");
-                printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+            while(1)
+            {
+///part10b1...
+                part10b1:
+                system("cls");
+                setcolor(11);
+                printf("======================================\n");
+                setcolor(14);
+                printf("||||||||||||||  FODX  ||||||||||||||||\n");
+                setcolor(11);
+                printf("======================================\n");
 
 
                 for(int i=1;i<=index2;i++)
                 {
+                    setcolor(7);
                     printf(" (%d) %s\n",i,cus_food[i].food_name);
+
+                    setcolor(11);
                     printf(" PRICE : %d TAKA\n",cus_food[i].food_price);
-                    if(cus_food[i].food_remain>0)
-                        printf("(This food is available now)\n");
-                    else
-                        printf("(This food is not available now)\n");
-                    printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    if(food[i]>0){
+                        setcolor(10);
+                        printf("(Available)\n");
+                    }
+                    else{
+                        setcolor(12);
+                        printf("(Not avilable)\n");
+                    }
+                    setcolor(14);
+                    character(38,254);
+                    printf("\n");
+
+
                 }
 
-                printf("=================================\n");
+                setcolor(7);
                 printf("Total ordered item  :  %d\n",item);
-                printf("Total amount        :  %d TAKA\n",amount);
-                printf("=================================\n");
+                printf("Delivery fee+Items total: 60 + %d TK\n",amount);
+                setcolor(14);
+                character(38,254);
+                printf("\n");
+                setcolor(11);
+                printf("(-1). Back (your order will cancel)\n");
+                printf("(-2). Search food\n");
+                printf("(-3). Filter price\n");
+                printf("(-4). Confirm order\n");
 
-                printf("51. Back (your order will cancel)\n");
-                printf("52. Search food\n");
-                printf("53. Filter price\n");
-                printf("54. Confirm order\n");
-
-                printf("\n\nEnter the key : ");
+                printf("\n");
+                setcolor(11);
+                printf("Enter the key : ");setcolor(10);
                 scanf("%d",&key16);keysound();
 
 ///part10c...
                 part10c:
-                if(key16>=1 && key16<=index2 && (cus_food[key16].food_remain>0))
+                if(key16>=1 && key16<=index2 && (food[key16]>0))
                 {
                     food_index[item] = key16;
                     amount = amount + cus_food[key16].food_price;
+                    food[key16]-=1;
                     f[key16]++; ///for delete remain food...
                     item++;
                 }
-                if(key16==52)
+                if(key16==-2)
                 {
                     system("cls");
-                    printf("Search food : \n");
-                    printf("Use \" _ \" at the place of space\n");
-                    printf("Enter food name : ");
+                    setcolor(11);
+                    printf("======================================\n");
+                    setcolor(10);
+                    printf("            Search food :");
+                    setcolor(11);
+                    printf("\n======================================\n");
+
+                    setcolor(7);
+                    printf("Enter food name : ");setcolor(10);
                     scanf("%s",&search);keysound();
 
                     strlwr(search);
+                    setcolor(14);
+                    character(38,254);
+                    printf("\n");setcolor(10);
+                    printf("               Result:\n");
 
-
-                    printf("Result: \n");
+                    setcolor(14);
+                    character(38,254);
+                    printf("\n");
                     n1=0;
                     for(int j=1;j<=index2;j++)
                     {
@@ -1787,33 +2496,47 @@ int x_axix=42;
 
                         if(strstr(search1 , search))
                         {
-                            printf(" (%d) %s\n",j,cus_food[j].food_name);
-                            printf(" PRICE : %d TAKA\n",cus_food[j].food_price);
-                            if(cus_food[index2].food_remain>0)
-                                printf("(This food is available now)\n");
-                            else
-                                printf("(This food is not available now)\n");
-                            printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
                             n1++;
+                            setcolor(7);
+                            printf(" (%d) %s\n",j,cus_food[j].food_name);
+
+                            setcolor(11);
+                            printf(" PRICE : %d TAKA\n",cus_food[j].food_price);
+                            if(food[j]>0){
+                                setcolor(10);
+                                printf("(Available)\n");
+                            }
+                            else{
+                                setcolor(12);
+                                printf("(Not avilable)\n");
+                            }
+                            setcolor(14);
+                            character(38,254);
+                            printf("\n");
+
                         }
                         remove_string(search1);
                     }
                     remove_string(search);
-                    if(n1==0)
-                        printf("(Not found)\n\n");
+                    if(n1==0){
+                        setcolor(12);
+                        printf("             (Not found)");
+                    }
+                    setcolor(11);
+                    printf("\n\n\n(-1). Back\n");
+                    printf("(-2). Search food\n");
+                    printf("(-3). Filter price\n");
+                    printf("(-4). Confirm order\n");
 
-                    printf("51. Back\n");
-                    printf("52. Search food\n");
-                    printf("53. Filter price\n");
-                    printf("54. Confirm order\n");
-
-                    printf("\n\nEnter the key : ");
+                    printf("\n");
+                    setcolor(11);
+                    printf("Enter the key : ");setcolor(10);
                     scanf("%d",&key16);keysound();
 
-                    if(key16==51)
+                    if(key16==-1)
                     {
                         system("cls");
-                        goto part10b;
+                        goto part10b1;
                     }
                     else
                     {
@@ -1822,46 +2545,81 @@ int x_axix=42;
                     }
 
                 }
-                if(key16==53)
+                if(key16==-3)
                 {
                     system("cls");
-                    printf("Filter : \n===============\n");
-                    printf("Price greater than : ");
+                    vertical_left(44,5,14,4);
+                    vertical_right(78,5,14,4);
+                    horizontal(44,4,13,35);
+                    horizontal(44,9,14,35);
+
+                    gotostring(58,5,11);
+                    printf("Filter:");
+                    horizontal(44,6,13,35);
+                    gotostring(45,8,7);
+                    printf("Price less than   : ");
+                    gotostring(45,7,7);
+                    printf("Price greater than: ");setcolor(10);
                     scanf("%d",&filter1);keysound();
-                    printf("Price less than : ");
+                    gotostring(45,8,7);
+                    printf("Price less than   : ");setcolor(10);
                     scanf("%d",&filter2);keysound();
 
                     system("cls");
 
 
-                    printf("result : \n");
-                    printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    setcolor(14);
+                    character(38,254);
+                    printf("\n");setcolor(10);
+                    printf("               Result:\n");
+
+                    setcolor(14);
+                    character(38,254);
+                    printf("\n");
                     n1=0;
                     for(int j=1;j<=index2;j++)
                     {
                         if(cus_food[j].food_price>=filter1 && cus_food[j].food_price<=filter2)
                         {
+                            setcolor(7);
                             printf(" (%d) %s\n",j,cus_food[j].food_name);
+
+                            setcolor(11);
                             printf(" PRICE : %d TAKA\n",cus_food[j].food_price);
-                            printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                            if(food[j]>0){
+                                setcolor(10);
+                                printf("(Available)\n");
+                            }
+                            else{
+                                setcolor(12);
+                                printf("(Not avilable)\n");
+                            }
+                            setcolor(14);
+                            character(38,254);
+                            printf("\n");
+
                             n1++;
                         }
                     }
-                    if(n1==0)
-                        printf("Not found\n");
+                    if(n1==0){
+                        setcolor(12);
+                        printf("             (Not found)");
+                    }
+                    setcolor(11);
+                    printf("\n\n\n(-1). Back\n");
+                    printf("(-2). Search food\n");
+                    printf("(-3). Filter price\n");
+                    printf("(-4). Confirm order\n");
 
-                    printf("51. Back\n");
-                    printf("52. Search food\n");
-                    printf("53. Filter price\n");
-                    printf("54. Confirm order\n");
-
-                    printf("\n\nEnter the key : ");
+                    printf("\n");
+                    setcolor(11);
+                    printf("Enter the key : ");setcolor(10);
                     scanf("%d",&key16);keysound();
 
-                    if(key16==51)
+                    if(key16==-1)
                     {
                         system("cls");
-                        goto part10b;
+                        goto part10b1;
                     }
                     else
                     {
@@ -1870,16 +2628,21 @@ int x_axix=42;
                     }
 
                 }
-                if(key16==51)
+                if(key16==-1)
                 {
                     remove_array(food_index,item);
                     amount = 0;
                     item = 0;
                     goto part9;
                 }
-                if(key16==54)
+                if(key16==-4)
                 {
 
+                    if(item<=0)
+                    {
+                        system("cls");
+                        goto part10b1;
+                    }
 ///part10c1
                     for(int i=0;i<=1000;i++)
                     {
@@ -1890,46 +2653,91 @@ int x_axix=42;
                     }
 
 
-                    p = fopen("shop_list.txt","w");
+                    remove_string(phone22);
+                    strcpy(phone22 ,  own[oid].phone);
+                    strcat(phone22, "f.txt");
+                    p = fopen(phone22,"w");
 
-                    for(int i=1;i<=index3;i++)
-                    {
-                    fprintf(p,"%s",online_shop[index3].shop_name);
-                    fprintf(p,"%d",online_shop[index3].norder);
+                    for(int i=1;i<=index2;i++){
+                    fprintf(p,"%s\n",cus_food[i].food_name);
+                    fprintf(p,"%d\n",cus_food[i].food_price);
+                    fprintf(p,"%d\n",cus_food[i].food_remain);
                     }
                     fclose(p);
 
 
 
+
                     part10c1:
-                    ///clear screen
-                    clear(30);
-                    printf("Address : \n===========\n");
-                    printf("Address (use \" _ \" at the place of space) : ");
-                    scanf("%s",&address);keysound();
-                    ///clear screen
-                    clear(30);
+                    system("cls");
 
-                    printf("Payment process : \n==================\n");
-                    printf("1. Cash on delivery\n");
-                    printf("2. Bkash\n");
+                    vertical_left(50,4,14,7);
+                    vertical_right(72,4,14,7);
+                    horizontal(50,4,13,23);
 
-                    printf("Enter the key : ");
+                    gotostring(54,5,11);
+                    printf("Payment process");
+                    horizontal(50,6,13,23);
+                    gotostring(52,7,15);
+                    printf("1. Cash on delivery");
+                    gotostring(52,8,15);
+                    printf("2. Bkash");
+                    horizontal(50,9,14,23);
+                    horizontal(50,11,14,23);
+                    gotostring(53,10,11);
+                    printf("Enter the key : ");setcolor(10);
                     scanf("%d",&key17);keysound();
+                    getchar();
+
+                    system("cls");
+                    vertical_left(37,4,14,5);
+                    vertical_right(85,4,14,5);
+                    horizontal(37,4,13,49);
+                    horizontal(37,6,13,49);
+                    horizontal(37,8,14,49);
+
+                    gotostring(52,5,11);
+                    printf("     Address :");
+                    gotostring(38,7,7);
+                    printf("Enter your address : ");setcolor(10);
+                    gets(address);keysound();
+                    system("cls");
 
                     if(key17==1)
                     {
                         while(1)
                         {
-                        ///clear screen
-                        clear(30);
-                        printf("Order : \n=============\n");
-                        printf("Order confirmed...\n\n");
+                        system("cls");
+                        vertical_left(50,4,14,10);
+                        vertical_right(72,4,14,10);
+                        horizontal(50,4,13,23);
 
-                        printf("(1) . Back to menu\n");
+                        gotostring(54,5,11);
+                        printf("     Order");
+                        horizontal(50,6,13,23);
+                        gotostring(51,7,10);
+                        printf("*********************");
+                        gotostring(53,8,11);
+                        printf(" Order confirmed");
+                        gotostring(51,8,10);
+                        printf("** ");
+                        gotostring(69,8,10);
+                        printf(" **");
+                        gotostring(51,9,10);
+                        printf("*********************");
+
+                        horizontal(50,10,14,23);
+                        gotostring(53,11,11);
+                        printf("(1) . Back");
+                        horizontal(50,12,14,23);
+                        horizontal(50,14,14,23);
+                        gotostring(53,13,11);
+                        printf("Enter the key : ");setcolor(10);
+
+
                         successsound();
 
-                        printf("Enter the key : ");
+
                         scanf("%d",&key18);keysound();
                         if(key18==1)
                             goto part10d;
@@ -1939,23 +2747,53 @@ int x_axix=42;
                     {
                         ///clear screen
                         clear(30);
-                        printf("Payment by Bkash:\n===================\n");
-                        printf("Transfer the certain amount of money at this number : %s\n",own[key29].phone);
+                        vertical_left(36,4,14,8);
+                        vertical_right(86,4,14,8);
+                        horizontal(36,4,13,50);
+                        horizontal(36,6,13,50);
+                        horizontal(36,9,14,50);
+                        horizontal(36,12,14,50);
 
+                        gotostring(53,5,11);
+                        printf("Payment by Bkash");
+                        gotostring(37,7,7);
+                        printf("Transfer the certain amount of money at this number");
+                        gotostring(37,8,10);
+                        printf("Bkash number : %s\n",own[key29].phone);
+                        gotostring(37,10,7);
                         printf("After transfer money enter the transection id : ");
+                        gotostring(37,11,10);
+                        printf("Transection id : ");setcolor(10);
                         scanf("%s",&transection);keysound();
 
                         while(1)
                         {
-                            ///clear screen
-                            clear(30);
-                            printf("Order : \n=============\n");
-                            printf("Order confirmed...\n\n");
+                            system("cls");
+                            vertical_left(50,4,14,10);
+                            vertical_right(72,4,14,10);
+                            horizontal(50,4,13,23);
 
-                            printf("(1) . Back to menu\n");
-                            successsound();
+                            gotostring(54,5,11);
+                            printf("     Order");
+                            horizontal(50,6,13,23);
+                            gotostring(51,7,10);
+                            printf("*********************");
+                            gotostring(53,8,11);
+                            printf(" Order confirmed");
+                            gotostring(51,8,10);
+                            printf("** ");
+                            gotostring(69,8,10);
+                            printf(" **");
+                            gotostring(51,9,10);
+                            printf("*********************");
 
-                            printf("Enter the key : ");
+                            horizontal(50,10,14,23);
+                            gotostring(53,11,11);
+                            printf("(1) . Back");
+                            horizontal(50,12,14,23);
+                            horizontal(50,14,14,23);
+                            gotostring(53,13,11);
+                            printf("Enter the key : ");setcolor(10);
                             scanf("%d",&key18);keysound();
                             if(key18==1)
                                 goto part10d;
@@ -1969,7 +2807,7 @@ int x_axix=42;
                     part10d:
 ///for customer history
                     strcpy(phone3 , cus[id1].phone);
-                    strcat(phone3 , ".txt");
+                    strcat(phone3 , "_c_h.txt");
                     strcpy(cus_history , phone3);
 
                     p = fopen(cus_history , "a");
@@ -1978,13 +2816,13 @@ int x_axix=42;
                     fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
                     for(int j=0;j<item;j++)
                     {
-                        int index4 = food_index[j];
+                        int index21 = food_index[j];
 
-                        fprintf(p,"(%d) . %s (%d TAKA)\n",j+1,cus_food[index4].food_name,cus_food[index4].food_price);
+                        fprintf(p,"(%d) . %s (%d TAKA)\n",j+1,cus_food[index21].food_name,cus_food[index21].food_price);
                     }
                     fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
                     fprintf(p,"Total item : %d\n",item);
-                    fprintf(p,"Total amount : %d\n",amount);
+                    fprintf(p,"Total amount : %d\n",amount+60);
 
                     if(key17==1)
                         fprintf(p,"Payment process : Cash on delivery\n");
@@ -1999,11 +2837,11 @@ int x_axix=42;
 ///for owner about customer history
 
 
-                     char phone9[10000];
+                     char phone9[50];
                      strcpy(phone9  ,  own[key29].phone);
                      strcat(phone9, "_o_h.txt");
 
-                     p = fopen(phone9,"a");
+                     p = fopen(phone9,"a+");
 
                     fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
                     fprintf(p,"Order date and time : \n%s",ctime(&t));
@@ -2011,13 +2849,14 @@ int x_axix=42;
                     fprintf(p,"Customer phone number :\n%s\n-=-=-=-=-=-=-=-=-=-=-=-=-=-\n",cus[id2].phone);
                     for(int j=0;j<item;j++)
                     {
-                        int index2 = food_index[j];
+                        int index20 = food_index[j];
 
-                        fprintf(p,"(%d) . %s (%d TAKA)\n",j+1,cus_food[index2].food_name,cus_food[index2].food_price);
+                        fprintf(p,"(%d) . %s (%d TAKA)\n",j+1,cus_food[index20].food_name,cus_food[index20].food_price);
                     }
                     fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
                     fprintf(p,"Total item : %d\n",item);
-                    fprintf(p,"Total amount : %d\n",amount);
+                    fprintf(p,"Total amount : %d\n",amount+60);
+
 
                     if(key17==1)
                         fprintf(p,"Payment process : Cash on delivery\n");
@@ -2027,8 +2866,9 @@ int x_axix=42;
                         fprintf(p,"Transection id : %s\n",transection);
                     }
 
-                    fprintf(p,"Address : %s\n",address);
-                    fprintf(p,"-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n\n");
+                    fprintf(p,"Address : ");
+                    fputs(address,p);
+                    fprintf(p,"\n-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n\n");
 
                     fclose(p);
                     system("cls");
@@ -2038,28 +2878,45 @@ int x_axix=42;
         }
         if(key3==3)
         {
+///=====================================================================================
+///customer order history
 ///part11
             part11:
             system("cls");
             strcpy(phone3 , cus[id1].phone);
-            strcat(phone3 , ".txt");
+            strcat(phone3 , "_c_h.txt");
             strcpy(cus_history , phone3);
+
+            setcolor(10);
+            printf("My order history :\n");
+            printf("==================\n");
 
             p = fopen(cus_history , "a+");
 
-            printf("My order history :\n");
-            printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+
+
+            setcolor(14);
+            if(fscanf(p,"%c",&checker)==1)
+            {
             while(!feof(p))
             {
                 ch1=fgetc(p);
                 printf("%c",ch1);
             }
+            }
+            else
+            {
+
+                setcolor(12);
+                printf("     (Empty)       ");
+            }
 
             fclose(p);
-
+            setcolor(11);
             printf("\n\n1. Clear history\n");
-            printf("2. Back\n");
-            printf("Enter key : ");
+            printf("2. Back\n\n");
+            setcolor(10);
+            printf("Enter the key : ");setcolor(10);
             scanf("%d",&key5);keysound();
 
             if(key5==1)
@@ -2078,13 +2935,78 @@ int x_axix=42;
         }
         if(key3==4)
         {
+///=====================================================================================
+///customer log out
+        system("cls");
+        p= fopen("owner.txt","w");
+        for(int i=1;i<=ouser;i++)
+        {
+        fprintf(p,"%d\n",own[i].gorder);
+        fprintf(p,"%d\n",own[i].border);
+        fprintf(p,"%s\n",own[i].shop_name);
+        fprintf(p,"%s\n",own[i].nickname);
+        fprintf(p,"%s\n",own[i].phone);
+        fprintf(p,"%s\n",own[i].password);
+        fprintf(p,"%s\n",own[i].date_of_birth);
+        fprintf(p,"%s\n",own[i].best_friend);
+        }
+        fclose(p);
+
+
+        p = fopen("customer_profile.txt","w");
+
+        for(int i=1;i<=user;i++)
+        {
+            if(del==1 && id3==i)
+            {
+                del=0;
+                id3=0;
+                continue;
+            }
+
+            fputs(cus[i].name,p);
+
+            fputs("\n",p);
+            fputs(cus[i].password,p);
+
+            fputs("\n",p);
+            fputs(cus[i].phone,p);
+
+            fputs("\n",p);
+            fputs(cus[i].date_of_birth,p);
+
+            fputs("\n",p);
+            fputs(cus[i].best_friend,p);
+
+            fputs("\n",p);
+            fputs(cus[i].address1,p);
+
+            fputs("\n",p);
+        }
+
+        fclose(p);
+
+        p = fopen(phone11,"w");
+
+        for(int i=1;i<=ouser;i++)
+        {
+            fprintf(p,"%s\n",cmessage[i].nickname);
+            fprintf(p,"%d\n",cmessage[i].point);
+        }
+        fclose(p);
+
+
             remove_string(phone3);
             id2=id3=id1=0;
             remove_string(cus_history);
+
+
             goto part1;
         }
         if(key3==5)
         {
+///=====================================================================================
+///customer account delete
             remove_string(phone3);
             remove(cus_history);
             part = 9;
@@ -2094,46 +3016,86 @@ int x_axix=42;
         }
         if(key3==6)
         {
+///=====================================================================================
+///customer account setting
 ///part11a   reset account part
-            part11a:
-            ///clear screen
-            clear(8);
-            printf("For security:\n===============\n");
-            printf("Enter the password : ");
-            scanf("%s",&password2);keysound();
 
-            if(strcmp(cus[id1].password , password2)==0)
-            {
 ///part11b
                 part11b:
                 while(1)
                 {
                 ///clear screen
-                clear(8);
-                printf("Account setting :\n===================\n");
+                system("cls");
+                vertical_left(46,4,14,9);
+                vertical_right(79,4,14,9);
+                horizontal(46,4,13,34);
+                horizontal(46,11,14,34);
+                horizontal(46,13,14,34);
+
+                gotostring(54,5,11);
+                printf("  Account setting");
+                horizontal(46,6,13,34);
+
+                gotostring(48,7,7);
                 printf("1. Change nickname\n");
+                gotostring(48,8,7);
                 printf("2. Change Date of birth\n");
+                gotostring(48,9,7);
                 printf("3. Change password\n");
-                printf("4. Back\n==================\n");
-                printf("Enter the key : ");
+                gotostring(48,10,10);
+                printf("4. Back");
+                gotostring(48,12,11);
+                printf("Enter the key : ");setcolor(10);
                 scanf("%d",&key8);keysound();
+
+                system("cls");
 
                 if(key8==1)
                 {
-                    printf("Previous nickname : %s\n",cus[id1].name);
-                    printf("New nickname : ");
+                    vertical_left(46,4,14,6);
+                    vertical_right(79,4,14,6);
+                    horizontal(46,4,13,34);
+                    horizontal(46,6,13,34);
+                    horizontal(46,9,14,34);
+
+                    gotostring(54,5,11);
+                    printf("  Change nickname");
+                    gotostring(48,7,10);
+                    printf("previous nickname : %s",cus[id1].name);
+                    gotostring(48,8,7);
+                    printf("New nickname : ");setcolor(10);
                     scanf("%s",&cus[id1].name);keysound();
                 }
                 if(key8==2)
                 {
-                    printf("Previous Date of birth : %s\n",cus[id1].date_of_birth);
-                    printf("New Date of birth : ");
+                    vertical_left(45,4,14,6);
+                    vertical_right(80,4,14,6);
+                    horizontal(45,4,13,36);
+                    horizontal(45,6,13,36);
+                    horizontal(45,9,14,36);
+
+                    gotostring(54,5,11);
+                    printf(" Change birth date");
+                    gotostring(47,7,10);
+                    printf("previous birth date : %s",cus[id1].date_of_birth);
+                    gotostring(47,8,7);
+                    printf("New birth date : ");setcolor(10);
                     scanf("%s",&cus[id1].date_of_birth);keysound();
                 }
                 if(key8==3)
                 {
-                    printf("Previous password : %s\n",cus[id1].password);
-                    printf("New password : ");
+                    vertical_left(46,4,14,6);
+                    vertical_right(79,4,14,6);
+                    horizontal(46,4,13,34);
+                    horizontal(46,6,13,34);
+                    horizontal(46,9,14,34);
+
+                    gotostring(54,5,11);
+                    printf("  Change password");
+                    gotostring(48,7,10);
+                    printf("previous password : %s",cus[id1].password);
+                    gotostring(48,8,7);
+                    printf("New password : ");setcolor(10);
                     scanf("%s",&cus[id1].password);keysound();
                 }
                 if(key8==4)
@@ -2145,43 +3107,39 @@ int x_axix=42;
                     goto part11b;
                 }
                 }
-            }
-            else
-            {
-                ///clear screen
-                clear(8);
-///part11c
-                part11c:
-                ///clear screen
-                clear(8);
-                printf("1. (wrong password) Try again\n");
-                printf("2. Back to the Menu\n=======================\n");
-                printf("Enter the key : ");
-                scanf("%d",&key7);keysound();
 
-                if(key7==1)
-                {
-                    goto part11a;
-                }
-                if(key7==2)
-                {
-                    goto part9;
-                }
-                else
-                {
-                    goto part11c;
-                }
-            }
         }
         if(key3==7)
         {
+///=====================================================================================
+///contract us
             while(1)
             {
             ///clear screen
-            clear(8);
+            system("cls");;
             printf("Contact us: \n===============\n");
+            printf("Owner of fodx\n");
+            printf("Name          : Md. Iftekhar Alam\n");
             printf("Mobile number : 01818477521\n");
             printf("Email address : iftekharalam5623@gmail.com\n\n");
+
+            printf("Name          : Arapat Mahmood Maruf\n");
+            printf("Mobile number : 01690011616\n");
+            printf("Email address : maruf117155@gmail.com\n\n");
+
+            printf("Name          : Farhadul Islam Rakib\n");
+            printf("Mobile number : 01322258065\n");
+            printf("Email address : farhadulislam84054@gmail.com\n\n");
+
+            printf("ONLINE SHOP OWNER CONTACT : \n");
+            printf("============================\n");
+
+            for(int i=1;i<=ouser;i++)
+            {
+                printf("(%d)\n",i);
+                printf("online-shop Name : %s\n",own[i].shop_name);
+                printf("contract number  : %s\n\n",own[i].phone);
+            }
 
             printf("1. Back\n");
             printf("Enter the key : ");
@@ -2190,32 +3148,46 @@ int x_axix=42;
             if(key20==1)
             {
                 ///clear screen
-                clear(8);
+                system("cls");;
                 goto part9;
             }
             }
         }
         if(key3==8)
         {
+///=====================================================================================
+///nearest hotel
 ///part11d...
             part11d:
             system("cls");
 
             while(1)
             {
+            system("cls");
+            vertical_left(41,5,14,4);
+            vertical_right(76,5,14,4);
+            horizontal(41,5,13,36);
+            horizontal(41,7,13,36);
+            horizontal(41,9,14,36);
+            gotostring(50,6,11);
+            printf("Nearest restaurant");
+            gotostring(42,8,7);
             printf("Enter the range (kilometer): ");
             scanf("%lf",&range);
             range+=.00001;
             keysound();
-
+            system("cls");
 ///part11e
             part11e:
 
             key21=1;
             number = 1;
-            gotoxy(0,0);
-            printf("Nearest restaurant in %.2lf km range\n",range);
-            printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+            vertical_left(0,1,14,1);
+            vertical_right(42,1,14,1);
+            horizontal(0,0,13,43);
+            horizontal(0,2,13,43);
+            gotostring(1,1,11);
+            printf("Nearest restaurant in %.2lf km range",range);
             for(int i=1;i<=66;i++)
             {
                 for(int j=1;j<=18;j++)
@@ -2276,92 +3248,101 @@ int x_axix=42;
                   }
                 }
             }
-
+            setcolor(14);
             if(number == 1)
                 printf("(Not found)\n\n");
             else
             {
-                gotoxy(46,0);
+                gotoxy(46,0);setcolor(9);
                 for(int i=0;i<60;i++)
                     printf("-");
 
 
                 for(int i=0;i<27;i++)
                 {
-                    gotoxy(45,i+1);
+                    gotoxy(45,i+1);setcolor(9);
                     printf("|");
                 }
 
 
-                gotoxy(46,28);
+                gotoxy(46,28);setcolor(9);
                 for(int i=0;i<60;i++)
                     printf("-");
 
 
                 for(int i=0;i<27;i++)
                 {
-                    gotoxy(106,i+1);
+                    gotoxy(106,i+1);setcolor(9);
                     printf("|");
                 }
 
-                gotoxy(46,14);
+                gotoxy(46,14);setcolor(9);
                 for(int i=0;i<60;i++)
                     printf("-");
 
                 for(int i=0;i<27;i++)
                 {
-                    gotoxy(76,i+1);
+                    gotoxy(76,i+1);setcolor(9);
                     printf("|");
                 }
 
-                gotoxy(76,1);
+                gotoxy(76,1);setcolor(10);
                 printf("^");
 
-                gotoxy(75,0);
+                gotoxy(75,0);setcolor(10);
                 printf("(N)");
 
-                gotoxy(76,27);
+                gotoxy(76,27);setcolor(10);
                 printf("v");
 
-                gotoxy(75,28);
+                gotoxy(75,28);setcolor(10);
                 printf("(S)");
 
 
-                gotoxy(44,14);
+                gotoxy(44,14);setcolor(10);
                 printf("(W)");
 
-                gotoxy(105,016);
+                gotoxy(105,016);setcolor(10);
                 printf("(E)");
 
-                gotoxy(104,14);
+                gotoxy(104,14);setcolor(10);
                 printf(">");
 
-                gotoxy(47,14);
+                gotoxy(47,14);setcolor(10);
                 printf("<");
 
-                gotoxy(75,14);  ///middle 76,12
+                gotoxy(75,14);setcolor(13);  ///middle 76,12
                 printf("(A)");
 
 
                 gotoxy(0,2);
                 for(int i=1;i<number;i++)
                 {
+
+                        if(i==10)
+                            break;
+
                         index1 = sort_address[i];
-                        printf("(%d) . %s\nDistance : %.2lf km\n",i , h_address[index1].address , sort_distance[i]);
-                        printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                        gotostring(1,(1+(3*i))-1,7);
+                        printf("(%d) . %s",i , h_address[index1].address);
+                        gotostring(1,(1+(3*i)),10);
+                        printf("Distance : %.2lf km\n", sort_distance[i]);
+                        vertical_left(0,(1+(3*i))-1,14,2);
+                        vertical_right(42,(1+(3*i))-1,14,2);
+                        horizontal(0,(1+(3*i))+1,14,43);
                 }
 
             }
-
+            setcolor(11);
             printf("\n\n(-1). Back\n");
             printf("(-2). Try again\n");
-            printf("Enter the key : ");
+            printf("Enter the key : ");setcolor(10);
             scanf("%d",&key21);keysound();
 
             system("cls");
 
             index1 = sort_address[key21];
-            gotoxy(45,29);
+            gotoxy(45,29);setcolor(11);
             printf("(A) = %s , (B) = %s",cus[id1].address1,h_address[index1].address);
 
             if(key21>=1 && key21<number)
@@ -2387,6 +3368,7 @@ int x_axix=42;
                     int y1 = g1*10000;
                     int y2 = g2*10000;
 
+                    setcolor(10);
                     sum = cordinate(distance);
                     if(x1<x2 && y1<y2)
                     {
@@ -2395,7 +3377,7 @@ int x_axix=42;
                     }
                     else if(x1 ==x2 && y1 <y2)
                     {
-                        gotoxy(75+1,14+sum);  ///middle 76,14
+                        gotoxy(75,14+sum);  ///middle 76,14
                         printf("(B)");
                     }
                     else if(x1 <x2 && y1> y2)
@@ -2405,12 +3387,12 @@ int x_axix=42;
                     }
                     else if(x1 <x2 && y1== y2)
                     {
-                        gotoxy(75-sum,14+1);  ///middle 76,14
+                        gotoxy(75-sum,14);  ///middle 76,14
                         printf("(B)");
                     }
                     else if(x1 ==x2 && y1 >y2)
                     {
-                        gotoxy(75+1,14-sum);  ///middle 76,14
+                        gotoxy(75,14-sum);  ///middle 76,14
                         printf("(B)");
                     }
                     else if(x1 >x2 && y1 > y2)
@@ -2420,7 +3402,7 @@ int x_axix=42;
                     }
                     else if(x1 >x2 && y1== y2)
                     {
-                        gotoxy(75+sum,14+1);  ///middle 76,14
+                        gotoxy(75+sum,14);  ///middle 76,14
                         printf("(B)");
                     }
                     else if(x1 >x2 && y1 <y2)
@@ -2457,11 +3439,298 @@ int x_axix=42;
 
             }
         }
+        if(key3==9)
+        {
+///=====================================================================================
+///feedback from customer
+
+
+            while(1)
+            {
+                system("cls");
+
+                setcolor(13);
+                character(38,254);
+                printf("\n");
+                setcolor(11);
+                printf("Choose the shop for your feedback\n");
+                setcolor(13);
+                character(38,254);
+                printf("\n");
+
+                if(ouser>0)
+                {
+                for(int i=1;i<=ouser;i++)
+                {
+                    setcolor(15);
+                    printf("(%d) . Shop name : %s\n",i,own[i].shop_name);
+                    setcolor(14);
+                    character(38,254);
+                    printf("\n");
+                }
+                }
+                else
+                {
+                    setcolor(12);
+                    printf("(There is no online shop)\n");
+                }
+
+                setcolor(11);
+                printf("\n\n(-1) . Back\n");
+                printf("Enter the key : ");setcolor(10);
+                scanf("%d",&key31);
+                keysound();
+
+                if(key31>=1 && key31<=ouser && ouser>0)
+                {
+                    shop_index=key31;
+                    break;
+                }
+                else if(key31 == -1)
+                {
+                    system("cls");
+                    goto part9;
+                }
+
+            }
+            while(1)
+            {
+            system("cls");
+
+            vertical_left(46,4,14,13);
+            vertical_right(79,4,14,13);
+            horizontal(46,4,13,34);
+            horizontal(46,6,13,34);
+            horizontal(46,12,14,34);
+            horizontal(46,16,14,34);
+
+            gotostring(59,5,11);
+            printf("Feedback :");
+            gotostring(53,7,9);
+            printf("(Answer the question)\n");
+
+            gotostring(48,9,7);
+            printf("The service of %s is...",own[shop_index].shop_name);
+            gotostring(48,10,10);
+            printf("(1)  . Good\n");
+            gotostring(48,11,12);
+            printf("(2)  . Bad\n");
+            gotostring(48,13,11);
+            printf("(-1) . Back\n");
+
+            gotostring(48,15,11);
+            printf("Enter the key : ");
+
+            scanf("%d",&key31);
+            keysound();
+
+            if(key31==1)
+            {
+                own[key31].gorder++;
+                system("cls");
+                goto part_thanks;
+            }
+            if(key31==2)
+            {
+                own[key31].border++;
+                system("cls");
+                goto part_thanks;
+            }
+            if(key31==-1)
+            {
+                system("cls");
+                goto part9;
+            }
+
+part_thanks:
+                while(1)
+                {
+                        system("cls");
+                        vertical_left(48,4,14,10);
+                        vertical_right(79,4,14,10);
+                        horizontal(48,4,13,32);
+
+                        gotostring(54,5,11);
+                        printf("      Feedback");
+                        horizontal(48,6,13,32);
+                        gotostring(49,7,10);
+                        printf("******************************");
+                        gotostring(51,8,7);
+                        printf(" Thanks for your feedback");
+                        gotostring(49,8,10);
+                        printf("**");
+                        gotostring(77,8,10);
+                        printf("**");
+                        gotostring(49,9,10);
+                        printf("******************************");
+
+                        horizontal(48,10,14,32);
+                        gotostring(50,11,11);
+                        printf("(1) . Back");
+                        horizontal(48,12,14,32);
+                        horizontal(48,14,14,32);
+                        gotostring(50,13,11);
+                        successsound();
+                        printf("Enter the key : ");setcolor(10);
+                        scanf("%d",&key34);
+                        keysound();
+
+                if(key34==1)
+                {
+                    system("cls");
+                    goto part9;
+                }
+                }
+            }
+        }
+        if(key3==10)
+        {
+///=====================================================================================
+///customer message
+            system("cls");
+            setcolor(13);
+            character(38,254);
+            printf("\n");
+            setcolor(11);
+            printf("Message : \n");
+            setcolor(13);
+            character(38,254);
+            printf("\n");
+
+            if(ouser>0)
+            {
+            for(int i=1;i<=ouser;i++)
+            {
+            setcolor(7);
+            printf("(%d) . %s",i,own[i].shop_name);
+            if(cmessage[i].point==1)
+            {
+                setcolor(10);
+                printf("    (New message)");
+            }
+            printf("\n");
+            setcolor(14);
+            character(38,254);
+            printf("\n");
+            }
+            }
+            else
+            {
+                setcolor(12);
+                printf("  (There is no online shop)\n");
+            }
+
+            setcolor(11);
+            printf("\n\n(-1) . Back\n");
+            printf("Enter the key : ");setcolor(10);
+            scanf("%d",&key33);keysound();
+            getchar();
+
+            if(key33>=1 && key33<=user)
+            {
+                cmessage[key33].point = 0;
+
+                remove_string(phone12);
+                strcpy(phone12,own[key33].phone);
+                strcat(phone12,"omessage.txt");
+                p = fopen(phone12,"a+");
+
+                struct_index=1;
+                line = 0;
+                index6=0;
+
+                while(!feof(p))
+                {
+                    if(line==0)
+                        fscanf(p,"%s",omessage[struct_index].nickname);
+                    if(line==1)
+                        fscanf(p,"%d",&omessage[struct_index].point);
+
+                    line++;
+                    if(line==2)
+                    {
+                        struct_index++;
+                        line = 0;
+                        index6++;
+                    }
+                }
+                fclose(p);
+
+
+
+            while(1)
+            {
+                system("cls");
+                remove_string(phone10);setcolor(11);
+                printf("Message : \n=========\n");
+                strcpy(phone10,own[key33].phone);
+                strcat(phone10,cus[id1].phone);
+                strcat(phone10,".txt");
+                p = fopen(phone10,"a+");
+
+                char ch3;
+                int i = 0;
+                while(fscanf(p,"%c",&ch3)==1)
+                {
+                    setcolor(14);
+                    printf("%c",ch3);
+                    i++;
+                }
+
+                fclose(p);setcolor(2);
+                printf("(*) Back\n");setcolor(11);
+                printf("Enter the message : \n");
+                printf(">>> ");
+                setcolor(7);
+                gets(mess);keysound();
+
+                if(mess[0]=='*')
+                {
+                    system("cls");
+                    goto part9;
+                }
+                else if(mess[0]!='*')
+                {
+                    system("cls");
+
+                    p = fopen(phone10,"a");
+                    fprintf(p, "Time : %s",ctime(&t));
+                    fprintf(p, "Message sended by : %s\n",cus[id1].name);
+                    fprintf(p, "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"|=>  ");
+                    fputs(mess,p);
+                    fprintf(p, "\n\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+
+                    fclose(p);
+
+                    omessage[id1].point = 1;
+
+
+                    p = fopen(phone12,"w");
+
+
+                        for(int i=1;i<=user;i++)
+                        {
+                            fprintf(p,"%s\n",omessage[i].nickname);
+                            fprintf(p,"%d\n",omessage[i].point);
+                        }
+
+                    fclose(p);
+
+                }
+            }
+          }
+          if(key33==-1)
+          {
+            system("cls");
+            goto part9;
+          }
+        }
         else
         {
             goto part9;
         }
-///=========================================================================================printtf=========
+///==================================================================================================
 ///owner menu:
 ///part12
        part12:
@@ -2470,58 +3739,34 @@ int x_axix=42;
 
 part12a1:
         /// struct take data from file for owner food list...
+        remove_string(phone7);
         strcpy(phone7  ,  own[oid].phone);
         strcat(phone7, "f.txt");
-        index2 = 0;
+
         p = fopen(phone7,"a+");
 
+        index2 = 0;
+        struct_index = 1;
+        line = 0;
         while(!feof(p))
         {
-            index2++;
-            fscanf(p,"%s",cus_food[index2].food_name);
-            fscanf(p,"%d",&cus_food[index2].food_price);
-            fscanf(p,"%d",&cus_food[index2].food_remain);
+            if(line==0)
+                fscanf(p,"%s",cus_food[struct_index].food_name);
+            if(line==1)
+                fscanf(p,"%d",&cus_food[struct_index].food_price);
+            if(line==2)
+                fscanf(p,"%d",&cus_food[struct_index].food_remain);
+
+            line++;
+
+            if(line==3)
+            {
+                line = 0;
+                index2++;
+                struct_index++;
+            }
         }
-        fclose(p);
 
-part12a3:
-        /// struct update file for owner food
-        strcpy(phone7  ,  own[oid].phone);
-        strcat(phone7, "f.txt");
-        p = fopen(phone7,"w");
-
-        for(int i=1;i<=index2;i++){
-            fprintf(p,"%s\n",cus_food[index2].food_name);
-            fprintf(p,"%d\n",cus_food[index2].food_price);
-            fprintf(p,"%d\n",cus_food[index2].food_remain);
-        }
-        fclose(p);
-
-part12a4:
-        p = fopen("owner.txt","w");
-
-        for(int i=1;i<=ouser;i++)
-        {
-            fprintf(p,"%d\n",own[i].norder);
-            fprintf(p,"%s\n",own[i].shop_name);
-            fprintf(p,"%s\n",own[i].nickname);
-            fprintf(p,"%s\n",own[i].phone);
-            fprintf(p,"%s\n",own[i].password);
-            fprintf(p,"%s\n",own[i].date_of_birth);
-            fprintf(p,"%s\n",own[i].best_friend);
-        }
-        fclose(p);
-
-
-///online_shop struct update
-        p = fopen("shop_list.txt","a+");
-        index3 = 0;
-        while(!feof(p))
-        {
-            index3++;
-            fscanf(p,"%s",online_shop[index3].shop_name);
-            fscanf(p,"%d",&online_shop[index3].norder);
-        }
         fclose(p);
 
 
@@ -2544,7 +3789,27 @@ part12a4:
         printf("4. Add new food item\n");
         printf("5. Add food\n");
         printf("6. Change food price\n");
-        printf("7. Account setting\n\n");
+        printf("7. Account setting\n");
+        printf("8. Account status\n");
+        printf("9. Message   ");
+
+        message_number=0;
+        for(int i=1;i<=user;i++)
+        {
+            if(omessage[i].point==1)
+            {
+                message_number++;
+            }
+        }
+
+        if(message_number>0)
+        {
+            printf(" (%d new message)\n",message_number);
+        }
+        else
+            printf("\n");
+
+
         printf("Total user of FODX: %d\n",user);
         printf("=======================\n");
         printf("Enter the key : ");
@@ -2553,10 +3818,11 @@ part12a4:
 
         if(key14==1)
         {
+///=====================================================================================
+///owner profile
             while(1)
             {
-            ///clear screen
-            clear(100);
+            system("cls");
             printf("Profile : \n==============\n");
             printf("Nickname         : %s\n",own[oid].nickname);
             printf("Phone number     : %s\n",own[oid].phone);
@@ -2565,41 +3831,21 @@ part12a4:
             printf("Best friend name : %s\n",own[oid].best_friend);
             printf("Shop name        : %s\n",own[oid].shop_name);
 
-        if(own[oid].norder<=5){
-            printf("         --- --- --- --- ---\n");
-            printf("Status : |*| |*| |*| |*| |*| (5 STAR)\n");
-            printf("         --- --- --- --- ---\n");}
-        else if(own[oid].norder>=6 && own[oid].norder<=10){
-            printf("         --- --- --- ---\n");
-            printf("Status : |*| |*| |*| |*| (4 STAR)\n");
-            printf("         --- --- --- ---\n");}
-        else if(own[oid].norder>=11 && own[oid].norder<=15){
-            printf("         --- --- ---\n");
-            printf("Status : |*| |*| |*| (3 STAR)\n");
-            printf("         --- --- ---\n");}
-        else if(own[oid].norder>=16 && own[oid].norder<=20){
-            printf("         --- ---\n");
-            printf("Status : |*| |*| (2 STAR)\n");
-            printf("         --- ---\n");}
-        else if(own[oid].norder>=21){
-            printf("         ---\n");
-            printf("Status : |*| (1 STAR)\n");
-            printf("         ---\n");}
-            printf("\n");
-
             printf("1. Back\n");
             printf("Enter the key : ");
             scanf("%d",&key15);keysound();
             if(key15==1)
             {
                 ///clear screen
-                clear(8);
-                goto part12;
+                system("cls");;
+                goto part12a;
             }
             }
         }
         if(key14==2)
         {
+///=====================================================================================
+///customer order
             while(1)
             {
             system("cls");
@@ -2608,27 +3854,38 @@ part12a4:
 
             p = fopen(phone8,"a+");
 
+            setcolor(10);
             printf("Order list : \n");
-            printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+            printf("============\n\n");
+
+            setcolor(14);
+            if(fscanf(p,"%c",&checker)==1)
+            {
             while(!feof(p))
             {
-                ch2=fgetc(p);
-                printf("%c",ch2);
+                ch1=fgetc(p);
+                printf("%c",ch1);
             }
+            }
+            else
+            {
+                setcolor(12);
+                printf("     (Empty)       ");
+            }
+
             fclose(p);
-
-            printf("\n\n1. Back\n");
-            printf("2. Clear order list\n");
-
-
-            printf("Enter the key : ");
+            setcolor(11);
+            printf("\n\n1. Clear history\n");
+            printf("2. Back\n\n");
+            setcolor(10);
+            printf("Enter the key : ");setcolor(10);
             scanf("%d",&key19);keysound();
 
-            if(key19==1)
-                goto part12;
-            else if(key19==2)
+            if(key19==2)
+                goto part12a;
+            else if(key19==1)
             {
-                p = fopen("owner_history.txt","w");
+                p = fopen(phone8,"w");
 
                 fclose(p);
             }
@@ -2636,88 +3893,264 @@ part12a4:
         }
         if(key14==3)
         {
+///=====================================================================================
+///owner log out
 ///part13...
-            part13:
-            ///clear screen
-            clear(8);
-            part = 13;
-            goto part12;
+         part13:
+         system("cls");
+
+
+        /// struct update file for owner food
+        remove_string(phone7);
+        strcpy(phone7  ,  own[oid].phone);
+        strcat(phone7, "f.txt");
+        p = fopen(phone7,"w");
+
+        for(int i=1;i<=index2;i++){
+            fprintf(p,"%s\n",cus_food[i].food_name);
+            fprintf(p,"%d\n",cus_food[i].food_price);
+            fprintf(p,"%d\n",cus_food[i].food_remain);
+        }
+        fclose(p);
+
+
+        ///update owner file...
+        p = fopen("owner.txt","w");
+
+        for(int i=1;i<=ouser;i++)
+        {
+        fprintf(p,"%d\n",own[i].gorder);
+        fprintf(p,"%d\n",own[i].border);
+        fprintf(p,"%s\n",own[i].shop_name);
+        fprintf(p,"%s\n",own[i].nickname);
+        fprintf(p,"%s\n",own[i].phone);
+        fprintf(p,"%s\n",own[i].password);
+        fprintf(p,"%s\n",own[i].date_of_birth);
+        fprintf(p,"%s\n",own[i].best_friend);
+        }
+        fclose(p);
+
+
+        p = fopen(phone19,"w");
+
+        for(int i=1;i<=user;i++)
+        {
+            fprintf(p,"%s\n",omessage[i].nickname);
+            fprintf(p,"%d\n",omessage[i].point);
+        }
+        fclose(p);
+
+
+        goto part3;
+
         }
         if(key14==4)
         {
-            printf("Add food: \n===============\n");
-            printf("How many food item do you wanna add : ");
+///=====================================================================================
+///add new food item
+            system("cls");
+            setcolor(13);
+            character(38,254);
+            printf("\n");setcolor(11);
+            printf("            Add food: \n");
+            setcolor(13);
+            character(36,254);
+            printf("\n");
+            for(int i=1;i<=index2;i++)
+            {
+                setcolor(7);
+                printf("(%d) Food name : %s\n",i,cus_food[i].food_name);
+                setcolor(11);
+                printf(" Food price : %d\n",cus_food[i].food_price);setcolor(10);
+                printf(" Remaining food : %d\n",cus_food[i].food_remain);
+                setcolor(14);
+                character(36,254);
+                printf("\n");
+            }
+            setcolor(11);
+            printf("How many food item do you wanna add : ");setcolor(10);
             scanf("%d",&n3);
+            keysound();
+
             for(int i=1;i<=n3;i++)
             {
                 index2++;
                 system("cls");
-                printf("Item : %d\n\n",i);
-                printf("Add food: \n===============\n");
-                printf("Food name : ");
-                scanf("%s",cus_food[index2].food_name);
-                printf("Food price : ");
-                scanf("%d",&cus_food[index2].food_price);
+                vertical_left(41,5,14,6);
+                vertical_right(76,5,14,6);
+                horizontal(41,5,13,36);
+                horizontal(41,7,13,36);
+                horizontal(41,11,14,36);
+                gotostring(50,6,11);
+                printf("Add food: (Item : %d)",i);
+                gotostring(43,10,11);
                 printf("Amount of food : ");
-                scanf("%d",&cus_food[index2].food_remain);
+                gotostring(43,9,11);
+                printf("Food price : ");
+                gotostring(43,8,11);
+                printf("Food name : ");
+                scanf("%s",cus_food[index2].food_name);keysound();
+                gotostring(43,9,11);
+                printf("Food price : ");
+                scanf("%d",&cus_food[index2].food_price);keysound();
+                gotostring(43,10,11);
+                printf("Amount of food : ");
+                scanf("%d",&cus_food[index2].food_remain);keysound();
             }
 
             while(1)
             {
             system("cls");
-            printf("Add food: \n===============\n");
-            printf("New food items added successfully...\n");
-            printf("\n1. Back\n");
-            printf("Enter the key : ");
-            scanf("%d",&key24);
+                        vertical_left(50,4,14,10);
+                        vertical_right(78,4,14,10);
+                        horizontal(50,4,13,29);
+
+                        gotostring(54,5,11);
+                        printf("      Add food");
+                        horizontal(50,6,13,29);
+                        gotostring(51,7,10);
+                        printf("***************************");
+                        gotostring(53,8,7);
+                        printf("Food added successfully");
+                        gotostring(51,8,10);
+                        printf("* ");
+                        gotostring(76,8,10);
+                        printf(" *");
+                        gotostring(51,9,10);
+                        printf("***************************");
+
+                        horizontal(50,10,14,29);
+                        gotostring(51,11,11);
+                        printf("  (1) . Back");
+                        horizontal(50,12,14,29);
+                        horizontal(50,14,14,29);
+                        gotostring(51,13,11);
+                        successsound();
+                        printf("  Enter the key : ");setcolor(10);
+                        scanf("%d",&key24);keysound();
 
             system("cls");
             if(key24==1)
             {
+
+        /// struct update file for owner food
+        remove_string(phone7);
+        strcpy(phone7  ,  own[oid].phone);
+        strcat(phone7, "f.txt");
+        p = fopen(phone7,"w");
+
+        for(int i=1;i<=index2;i++){
+            fprintf(p,"%s\n",cus_food[i].food_name);
+            fprintf(p,"%d\n",cus_food[i].food_price);
+            fprintf(p,"%d\n",cus_food[i].food_remain);
+        }
+        fclose(p);
+
+
+        ///update owner file...
+        p = fopen("owner.txt","w");
+
+        for(int i=1;i<=ouser;i++)
+        {
+        fprintf(p,"%d\n",own[i].gorder);
+        fprintf(p,"%d\n",own[i].border);
+        fprintf(p,"%s\n",own[i].shop_name);
+        fprintf(p,"%s\n",own[i].nickname);
+        fprintf(p,"%s\n",own[i].phone);
+        fprintf(p,"%s\n",own[i].password);
+        fprintf(p,"%s\n",own[i].date_of_birth);
+        fprintf(p,"%s\n",own[i].best_friend);
+        }
+                fclose(p);
                 goto part12a;
             }
-            }
+          }
         }
         if(key14==5)
         {
+///=====================================================================================
+///add food
             while(1)
             {
-            printf("Add food: \n=================\n");
-            if(index2>1)
+            system("cls");
+            setcolor(14);
+            character(36,254);
+            printf("\n");setcolor(10);
+            printf("            Add food: \n");
+            setcolor(14);
+            character(36,254);printf("\n");
+            if(index2>0)
             {
             for(int i = 1 ; i<=index2 ; i++)
             {
-                printf("(%d) . %s\n",i,cus_food[i].food_name);
-                printf("Remain : %d\n",cus_food[i].food_remain);
-                printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                setcolor(7);
+                printf("(%d) . Food name : %s\n",i,cus_food[i].food_name);setcolor(11);
+                printf(" Remaining food : %d\n",cus_food[i].food_remain);
+                setcolor(14);
+                character(36,254);printf("\n");
             }
             }
             else
             {
-                printf("(There is no food)\n");
+                setcolor(12);
+                printf("       (There is no food)\n");
             }
 
+            setcolor(11);
             printf("\n(-1) . Back\n");
-            printf("Enter the key : ");
-            scanf("%d",&key25);
+            printf("Enter the key : ");setcolor(10);
+            scanf("%d",&key25);keysound();
 
-            if(key25>=1 && key25<index2)
+            if(key25>=1 && key25<=index2)
             {
+
                 system("cls");
-                printf("Add food: \n=================\n");
-                printf("Food name: %s\n",cus_food[key25].food_name);
-                printf("Food previous amount : %d",cus_food[key25].food_remain);
-                printf("Add food : ");
-                scanf("%d",&cus_food[key25].food_remain);
+                vertical_left(41,5,14,6);
+                vertical_right(76,5,14,6);
+                horizontal(41,5,13,36);
+                horizontal(41,7,13,36);
+                horizontal(41,11,14,36);
+                gotostring(50,6,11);
+                printf("    Add food:");
+                gotostring(43,8,10);
+                printf("Food name      : %s",cus_food[key25].food_name);
+                gotostring(43,9,11);
+                printf("Remaining food : %d",cus_food[key25].food_remain);
+                gotostring(43,10,7);
+                printf("Add food       : ");setcolor(10);
+                scanf("%d",&cus_food[key25].food_remain);keysound();
+
 
                 while(1)
                 {
-                system("cls");
-                printf("Add food: \n=================\n");
-                printf("Food added successfully...");
-                printf("\n\n(1) . Back\n");
-                printf("Enter the key : ");
-                scanf("%d",&key26);
+                        system("cls");
+                        vertical_left(50,4,14,10);
+                        vertical_right(78,4,14,10);
+                        horizontal(50,4,13,29);
+
+                        gotostring(54,5,11);
+                        printf("      Add food");
+                        horizontal(50,6,13,29);
+                        gotostring(51,7,10);
+                        printf("***************************");
+                        gotostring(53,8,7);
+                        printf("Food added successfully");
+                        gotostring(51,8,10);
+                        printf("* ");
+                        gotostring(76,8,10);
+                        printf(" *");
+                        gotostring(51,9,10);
+                        printf("***************************");
+
+                        horizontal(50,10,14,29);
+                        gotostring(51,11,11);
+                        printf("  (1) . Back");
+                        horizontal(50,12,14,29);
+                        horizontal(50,14,14,29);
+                        gotostring(51,13,11);
+                        successsound();
+                        printf("  Enter the key : ");setcolor(10);
+                        scanf("%d",&key26);keysound();
 
                 if(key26==1)
                 {
@@ -2735,45 +4168,90 @@ part12a4:
         }
         if(key14==6)
         {
+///=====================================================================================
+///change food price
             while(1)
             {
-            printf("Change food price: \n=================\n");
+            system("cls");
+            setcolor(14);
+            character(36,254);
+            printf("\n");setcolor(10);
+            printf("       Change food price: \n");
+
+            setcolor(14);
+            character(36,254);printf("\n");
             if(index2>0)
             {
             for(int i = 1 ; i<=index2 ; i++)
             {
-                printf("(%d) . %s\n",i,cus_food[i].food_name);
-                printf("Remain : %d\n",cus_food[i].food_price);
-                printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                setcolor(7);
+                printf("(%d) . Food name   : %s\n",i,cus_food[i].food_name);setcolor(11);
+                printf("previous Food price  : %d\n",cus_food[i].food_price);
+                setcolor(14);
+                character(36,254);printf("\n");
             }
             }
             else
             {
-                printf("(There is no food)\n");
+                setcolor(12);
+                printf("       (There is no food)\n");
             }
 
-            printf("\n-1. Back\n");
-            printf("Enter the key : ");
-            scanf("%d",&key25);
+            setcolor(11);
+            printf("\n(-1). Back\n");
+            printf("Enter the key : ");setcolor(10);
+            scanf("%d",&key25);keysound();
 
-            if(key25>=1 && key25<index2)
+            if(key25>=1 && key25<=index2)
             {
                 system("cls");
-                printf("Change food price : \n===================\n");
-                printf("Food name: %s\n",cus_food[key25].food_name);
-                printf("Previous food price : %d",cus_food[key25].food_remain);
-                printf("New food price : ");
-                scanf("%d",&food_price);
+                vertical_left(41,5,14,6);
+                vertical_right(76,5,14,6);
+                horizontal(41,5,13,36);
+                horizontal(41,7,13,36);
+                horizontal(41,11,14,36);
+                gotostring(49,6,11);
+                printf("Change food price:");
+                gotostring(43,8,10);
+                printf("Food name      : %s\n",cus_food[key25].food_name);
+                gotostring(43,9,11);
+                printf("Previous price : %d\n",cus_food[key25].food_price);
+                gotostring(43,10,7);
+                printf("New price      : ");setcolor(10);
+                scanf("%d",&food_price);keysound();
 
                 cus_food[key25].food_price = food_price;
 
                 while(1)
                 {
                 system("cls");
-                printf("Changed price successfully...");
-                printf("\n\n1. Back\n");
-                printf("Enter the key : ");
-                scanf("%d",&key26);
+                vertical_left(48,4,14,10);
+                        vertical_right(79,4,14,10);
+                        horizontal(48,4,13,32);
+
+                        gotostring(54,5,11);
+                        printf("      Add food");
+                        horizontal(48,6,13,32);
+                        gotostring(49,7,10);
+                        printf("******************************");
+                        gotostring(51,8,7);
+                        printf("changed price successfully");
+                        gotostring(49,8,10);
+                        printf("*");
+                        gotostring(77,8,10);
+                        printf(" *");
+                        gotostring(49,9,10);
+                        printf("******************************");
+
+                        horizontal(48,10,14,32);
+                        gotostring(50,11,11);
+                        printf("(1) . Back");
+                        horizontal(48,12,14,32);
+                        horizontal(48,14,14,32);
+                        gotostring(50,13,11);
+                        successsound();
+                        printf("Enter the key : ");setcolor(10);
+                scanf("%d",&key26);keysound();
 
                 if(key26==1)
                 {
@@ -2791,31 +4269,63 @@ part12a4:
         }
         if(key14==7)
         {
+///=====================================================================================
+///owner account setting
             while(1)
             {
             system("cls");
-            printf("Account setting : \n==================\n");
-            printf("1. Change password\n");
-            printf("2. Change nickname\n");
+            vertical_left(46,4,14,8);
+            vertical_right(79,4,14,8);
+            horizontal(46,4,13,34);
+            horizontal(46,10,14,34);
+            horizontal(46,12,14,34);
 
+            gotostring(54,5,11);
+            printf("  Account setting");
+            horizontal(46,6,13,34);
+
+            gotostring(48,7,7);
+            printf("1. Change password\n");
+            gotostring(48,8,7);
+            printf("2. Change nickname\n");
+            gotostring(48,9,10);
             printf("3. Back\n");
-            printf("Enter the key : ");
-            scanf("%d",&key28);
+            gotostring(48,11,11);
+            printf("Enter the key : ");setcolor(10);
+            scanf("%d",&key28);keysound();
             if(key28==1)
             {
                 system("cls");
-                printf("Change password :\n===================\n");
-                printf("previous password : %s\n",own[oid].password);
-                printf("New password : ");
-                scanf("%s",own[oid].password);
+                vertical_left(46,4,14,6);
+                vertical_right(79,4,14,6);
+                horizontal(46,4,13,34);
+                horizontal(46,6,13,34);
+                horizontal(46,9,14,34);
+
+                gotostring(54,5,11);
+                printf("  Change password");
+                gotostring(48,7,10);
+                printf("previous password : %s",own[oid].password);
+                gotostring(48,8,7);
+                printf("New password : ");setcolor(10);
+                scanf("%s",own[oid].password);keysound();
             }
             if(key28==2)
             {
                 system("cls");
-                printf("Change nickname :\n===================\n");
-                printf("previous nickname : %s\n",own[oid].nickname);
-                printf("New nickname : ");
-                scanf("%s",own[oid].nickname);
+                vertical_left(46,4,14,6);
+                vertical_right(79,4,14,6);
+                horizontal(46,4,13,34);
+                horizontal(46,6,13,34);
+                horizontal(46,9,14,34);
+
+                gotostring(54,5,11);
+                printf("  Change nickname");
+                gotostring(48,7,10);
+                printf("previous nickname : %s",own[oid].nickname);
+                gotostring(48,8,7);
+                printf("New nickname : ");setcolor(10);
+                scanf("%s",own[oid].nickname);keysound();
             }
             if(key28 == 3)
             {
@@ -2827,8 +4337,273 @@ part12a4:
 
 
         }
+        if(key14==8)
+        {
+///=====================================================================================
+///owner account status
+            while(1)
+            {
+            system("cls");
+
+                    vertical_left(41,4,14,19);
+                    vertical_right(84,4,14,19);
+                    horizontal(41,4,13,44);
+                    horizontal(41,6,13,44);
+                    horizontal(41,9,14,44);
+                    horizontal(41,19,14,44);
+                    horizontal(41,21,14,44);
+                    horizontal(41,23,14,44);
+                    gotostring(43,20,10);
+                    printf("(1). Back");
+
+                    gotostring(54,5,11);
+                    printf("   Account status");
+
+            double per = (own[oid].gorder * 100.0)/(own[oid].gorder + own[oid].border);
+
+            if(per>=50){
+                gotostring(50,7,10);
+                printf("Your account status is GOOD");
+                gotostring(50,8,3);
+                printf("         (Good job)");
+            }
+            else
+            {
+                gotostring(48,7,12);
+                printf("Your account status is not GOOD\n");
+                gotostring(45,8,3);
+                printf("(You should work on your online shop)\n");
+            }
+
+            gotostring(53,10,7);
+            printf("Good service -> (G)\n");
+            gotostring(53,11,7);
+            printf("Bad service  -> (B)");
+            char ascii5;
+            for(int i=0;i<5;i++)
+            {
+                ascii5 = 221;
+                gotoxy(48,13+i);setcolor(11);
+                printf("%c",ascii5);
+            }
+
+            for(int i=0;i<=20;i++)
+            {
+                setcolor(11);
+                gotoxy(49+i,17);
+                printf("_");
+            }
+            setcolor(7);
+            gotoxy(44,14);
+            printf("(G)");
+            gotoxy(44,16);
+            printf("(B)");
+
+            int position;
+            int j = 0;
+
+            ascii5 = 219;
+
+            int flag_level = 0;
+            int level = round(per/10.0);
+
+            for(int i=0;i<=level;i++)
+            {
+                    flag_level = 1;
+                    box = 49+(i*2);
+                    Sleep(40);
+                    gotoxy(49+(i*2),14);setcolor(10);
+                    printf("%c%c",ascii5,ascii5);
+            }
+
+
+            flag_level = 0;
+            gotoxy(box+2,14);
+            printf("(%.1lf%%)",per);
+
+            for(int i=0;i<=(10-level);i++)
+            {
+                    box = 49+(i*2);
+                    Sleep(40);
+                    gotoxy(49+(i*2),16);setcolor(12);
+                    printf("%c%c",ascii5,ascii5);
+                    flag_level = 1;
+            }
+
+            gotoxy(box+2,16);
+            printf("(%.1lf%%)",100-per);
+
+
+
+            gotostring(43,22,11);
+            printf("Enter the key : ");
+            scanf("%d",&key30);keysound();
+
+            if(key30==1)
+            {
+                system("cls");
+                goto part12a;
+            }
+
+
+            gotoxy(0,12);
+            printf("(1) . Back\n");
+            gotoxy(0,13);
+            printf("Enter the key : ");
+            scanf("%d",&key30);keysound();
+
+            if(key30==1)
+            {
+                system("cls");
+                goto part12a;
+            }
+
+        }
+        }
+        if(key14==9)
+        {
+///=====================================================================================
+///owner message:
+            system("cls");
+            setcolor(13);
+            character(38,254);
+            printf("\n");
+            setcolor(10);
+            printf("               Message : \n");
+            setcolor(13);
+            character(38,254);
+            printf("\n");
+
+            if(user>0)
+            {
+            for(int i=1;i<=user;i++)
+            {
+            setcolor(11);
+            printf("(%d) . %s",i,cus[i].name);
+            if(omessage[i].point==1)
+            {
+                setcolor(10);
+                printf(" (New message)");
+            }
+            printf("\n");
+            setcolor(14);
+            character(38,254);
+            printf("\n");
+            }
+            }
+            else
+            {
+                setcolor(12);
+                printf("   (There is no customer)\n");
+            }
+
+            setcolor(11);
+            printf("\n\n(-1) . Back\n");
+            printf("Enter the key : ");setcolor(10);
+            scanf("%d",&key33);keysound();
+            getchar();
+            remove_string(phone21);
+            if(key33>=1 && key33<=user)
+            {
+                omessage[key33].point = 0;
+
+                strcpy(phone21,cus[key33].phone);
+                strcat(phone21,"cmessage.txt");
+                p = fopen(phone21,"a+");
+                index5=0;
+                struct_index=1;
+                line = 0;
+
+                while(!feof(p))
+                {
+                    if(line==0)
+                        fscanf(p,"%s",cmessage[struct_index].nickname);
+                    if(line==1)
+                        fscanf(p,"%d",&cmessage[struct_index].point);
+
+                    line++;
+                    if(line==2)
+                    {
+                        struct_index++;
+                        line = 0;
+                        index5++;
+                    }
+                }
+                fclose(p);
+
+            remove_string(phone20);
+             strcpy(phone20,own[oid].phone);
+             strcat(phone20,cus[key33].phone);
+             strcat(phone20,".txt");
+            while(1)
+            {
+                system("cls");setcolor(11);
+                printf("Message : \n==========\n");
+
+                p = fopen(phone20,"a+");
+
+                char ch3;
+                int i = 0;
+                while(fscanf(p,"%c",&ch3)==1)
+                {
+                    setcolor(14);
+                    printf("%c",ch3);
+                    i++;
+                }
+
+                fclose(p);
+                setcolor(2);
+                printf("(*) Back\n");setcolor(11);
+                printf("Enter the message : \n");
+                printf(">>> ");
+                setcolor(7);
+                gets(mess);
+
+                if(mess[0]=='*')
+                {
+                    system("cls");
+                    goto part12a;
+                }
+                else if(mess[0]!='*')
+                {
+                    system("cls");
+
+                    p = fopen(phone20,"a");
+                    fprintf(p, "Time : %s",ctime(&t));
+                    fprintf(p, "Message sended by : %s\n",own[oid].shop_name);
+                    fprintf(p, "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+                    fprintf(p,"|=>  ");
+                    fputs(mess,p);
+                    fprintf(p, "\n\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+
+                    fclose(p);
+
+                    cmessage[oid].point = 1;
+
+
+                    p = fopen(phone21,"w");
+
+
+                        for(int j=1;j<=ouser;j++)
+                        {
+                            fprintf(p,"%s\n",cmessage[j].nickname);
+                            fprintf(p,"%d\n",cmessage[j].point);
+                        }
+
+                    fclose(p);
+
+                }
+            }
+          }
+          if(key33==-1)
+          {
+            system("cls");
+            goto part12a;
+          }
+        }
         }
 
 
         return 0;
 }
+
