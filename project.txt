@@ -2747,22 +2747,22 @@ int x_axix=42;
                     {
                         ///clear screen
                         clear(30);
-                        vertical_left(36,4,14,8);
-                        vertical_right(86,4,14,8);
-                        horizontal(36,4,13,50);
-                        horizontal(36,6,13,50);
-                        horizontal(36,9,14,50);
-                        horizontal(36,12,14,50);
+                        vertical_left(35,4,14,8);
+                        vertical_right(87,4,14,8);
+                        horizontal(35,4,13,53);
+                        horizontal(35,6,13,53);
+                        horizontal(35,9,14,53);
+                        horizontal(35,12,14,53);
 
-                        gotostring(53,5,11);
+                        gotostring(52,5,11);
                         printf("Payment by Bkash");
-                        gotostring(37,7,7);
+                        gotostring(36,7,7);
                         printf("Transfer the certain amount of money at this number");
-                        gotostring(37,8,10);
+                        gotostring(36,8,10);
                         printf("Bkash number : %s\n",own[key29].phone);
-                        gotostring(37,10,7);
+                        gotostring(36,10,7);
                         printf("After transfer money enter the transection id : ");
-                        gotostring(37,11,10);
+                        gotostring(36,11,10);
                         printf("Transection id : ");setcolor(10);
                         scanf("%s",&transection);keysound();
 
@@ -2792,7 +2792,7 @@ int x_axix=42;
                             printf("(1) . Back");
                             horizontal(50,12,14,23);
                             horizontal(50,14,14,23);
-                            gotostring(53,13,11);
+                            gotostring(53,13,11);successsound();
                             printf("Enter the key : ");setcolor(10);
                             scanf("%d",&key18);keysound();
                             if(key18==1)
@@ -3585,6 +3585,8 @@ part_thanks:
         }
         if(key3==10)
         {
+            while(1)
+            {
 ///=====================================================================================
 ///customer message
             system("cls");
@@ -3726,10 +3728,8 @@ part_thanks:
             goto part9;
           }
         }
-        else
-        {
-            goto part9;
-        }
+       }
+
 ///==================================================================================================
 ///owner menu:
 ///part12
@@ -3988,13 +3988,13 @@ part12a1:
                 gotostring(43,9,11);
                 printf("Food price : ");
                 gotostring(43,8,11);
-                printf("Food name : ");
+                printf("Food name : ");setcolor(10);
                 scanf("%s",cus_food[index2].food_name);keysound();
                 gotostring(43,9,11);
-                printf("Food price : ");
+                printf("Food price : ");setcolor(10);
                 scanf("%d",&cus_food[index2].food_price);keysound();
                 gotostring(43,10,11);
-                printf("Amount of food : ");
+                printf("Amount of food : ");setcolor(10);
                 scanf("%d",&cus_food[index2].food_remain);keysound();
             }
 
@@ -4462,6 +4462,9 @@ part12a1:
         }
         if(key14==9)
         {
+        while(1)
+        {
+
 ///=====================================================================================
 ///owner message:
             system("cls");
@@ -4502,17 +4505,19 @@ part12a1:
             printf("Enter the key : ");setcolor(10);
             scanf("%d",&key33);keysound();
             getchar();
-            remove_string(phone21);
+
             if(key33>=1 && key33<=user)
             {
-                omessage[key33].point = 0;
 
+                omessage[key33].point = 0;
+                remove_string(phone21);
                 strcpy(phone21,cus[key33].phone);
                 strcat(phone21,"cmessage.txt");
                 p = fopen(phone21,"a+");
                 index5=0;
                 struct_index=1;
                 line = 0;
+
 
                 while(!feof(p))
                 {
@@ -4600,6 +4605,7 @@ part12a1:
             system("cls");
             goto part12a;
           }
+        }
         }
         }
 
