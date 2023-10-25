@@ -3007,6 +3007,7 @@ int x_axix=42;
         {
 ///=====================================================================================
 ///customer account delete
+            system("cls");
             remove_string(phone3);
             remove(cus_history);
             part = 9;
