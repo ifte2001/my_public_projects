@@ -4543,8 +4543,16 @@ part12a1:
              strcat(phone20,".txt");
             while(1)
             {
-                system("cls");setcolor(11);
-                printf("Message : \n==========\n");
+                system("cls");
+                printf("\n");
+                setcolor(13);
+            character(120,254);
+            printf("\n");
+            setcolor(10);
+            printf("                                                              Message : \n");
+            setcolor(13);
+            character(120,254);
+            printf("\n");
 
                 p = fopen(phone20,"a+");
 
