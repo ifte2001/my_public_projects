@@ -34,8 +34,6 @@
 
     void character(int n,int x)
     {
-        ///x = ascii code for character
-        ///n = character number
         char chr = x;
         for(int i=1;i<=n;i++)
         {
@@ -99,22 +97,17 @@
 
     void successsound()
     {
-            Sleep(40);
-            Beep(700,400);
-            Sleep(40);
-            Beep(700,400);
+            PlaySound(TEXT("right.WAV"),NULL,SND_SYNC);
     }
 
     void errorsound()
     {
-            Beep(720, 300);
-            Sleep(80);
-            Beep(800, 250);
+            PlaySound(TEXT("wrong.WAV"),NULL,SND_SYNC);
     }
 
     void keysound()
     {
-        Beep(700, 200);
+        PlaySound(TEXT("button.WAV"),NULL,SND_SYNC);
     }
 
     void remove_string(char n[10000])
@@ -676,8 +669,8 @@ int x_axix=42;
         printf("             %c   ENJOY   %c",ch_box,ch_box);
 
 
-
-        Sleep(2000);
+        PlaySound(TEXT("fodx.WAV"),NULL,SND_SYNC);
+        Sleep(1000);
 
 
 
@@ -1158,6 +1151,7 @@ int x_axix=42;
                     clog = 1;
                     id2=id1;
                     wrong4= 0;
+
 
 
         p=fopen("owner.txt","a+");
@@ -2190,15 +2184,15 @@ int x_axix=42;
 
         part9:
         ///clean screen
-        
+
 
         system("cls");
 
-        horizontal(41,2,6,40);
-        gotostring(50,3,11);
+        horizontal(41,3,6,40);
+        gotostring(50,4,11);
         printf("As-salamu alaykum %s\n",cus[id1].name);
-        horizontal(43,4,6,36);
-        
+        horizontal(43,5,6,36);
+
 
 
         printf("Menu:\n=========\n");
@@ -2231,11 +2225,11 @@ int x_axix=42;
 
         if(clog==1)
         {
-            Sleep(1400);
+            successsound();
             clog = 0;
             goto part9;
         }
-        
+
         printf("==================\n");
         printf("Enter the key: ");
         scanf("%d",&key3);keysound();
